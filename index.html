@@ -12,9 +12,9 @@
             padding: 0;
         }
         body {
-            background-color: #f8fafc;
-            color: #334155;
-            padding-bottom: 40px;
+            background-color: #fcfbf7;
+            color: #2b2b2b;
+            padding-bottom: 50px;
         }
 
         /* Top Navbar */
@@ -23,176 +23,238 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 5%;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 12px 6%;
+            border-bottom: 1px solid #eaeaea;
             position: sticky;
             top: 0;
             z-index: 100;
         }
         .logo {
-            font-size: 22px;
-            font-weight: bold;
-            color: #0f172a;
+            font-size: 20px;
+            font-weight: 800;
+            color: #111;
         }
         .nav-links {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             list-style: none;
         }
         .nav-links a {
             text-decoration: none;
-            color: #475569;
+            color: #555;
+            font-size: 14px;
             font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 8px;
+            padding: 6px 14px;
+            border-radius: 20px;
             transition: 0.3s;
         }
-        .nav-links a.active, .nav-links a:hover {
-            background: #e2e8f0;
-            color: #0f172a;
+        .nav-links a.active {
+            background: #e2f1e8;
+            color: #1b4d3e;
         }
 
-        /* Banner Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #e0f2fe 0%, #fef3c7 100%);
-            padding: 30px 5%;
-            text-align: center;
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
-            margin-bottom: 25px;
+        /* Hero Banner Section with Graphic Illustration */
+        .hero-banner {
+            background: linear-gradient(180deg, #f3f8f4 0%, #fffbf0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 5%;
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+            border-radius: 0 0 25px 25px;
         }
-        .hero h1 {
-            font-size: 26px;
-            color: #1e293b;
-            margin-bottom: 8px;
+        .hero-img {
+            width: 220px;
+            max-width: 35%;
+            height: auto;
         }
-        .hero p {
-            font-size: 15px;
-            color: #64748b;
+        .hero-title-img {
+            max-width: 450px;
+            width: 60%;
+            height: auto;
         }
 
-        /* Level Cards Grid */
-        .grid-container {
+        /* Responsive Hero for Mobile */
+        @media (max-width: 650px) {
+            .hero-banner {
+                flex-direction: column;
+                text-align: center;
+                padding: 15px;
+            }
+            .hero-img {
+                width: 140px;
+                max-width: 80%;
+            }
+            .hero-title-img {
+                width: 90%;
+            }
+        }
+
+        /* 4 Main Action Cards */
+        .cards-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
-            padding: 0 5%;
             max-width: 1000px;
-            margin: 0 auto 30px auto;
+            margin: 25px auto;
+            padding: 0 4%;
         }
-        .card-level {
-            border-radius: 20px;
-            padding: 20px 15px;
+        @media (max-width: 768px) {
+            .cards-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .card {
+            border-radius: 18px;
+            padding: 18px 10px;
             text-align: center;
-            color: white;
             cursor: pointer;
             transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            border: 2px solid transparent;
         }
-        .card-level:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+        .card:hover {
+            transform: translateY(-3px);
         }
-        .card-level.active-card {
-            outline: 4px solid #0f172a;
+        .card.active-card {
+            border-color: #222;
         }
+
         .card-icon {
             font-size: 32px;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .card-title {
-            font-size: 16px;
-            font-weight: bold;
+            font-weight: 800;
+            font-size: 15px;
+            letter-spacing: 0.5px;
         }
         .card-sub {
-            font-size: 12px;
-            opacity: 0.9;
-            margin-top: 4px;
-        }
-
-        /* Specific Colors from Image */
-        .bg-greetings { background: #86efac; color: #14532d; }
-        .bg-a1 { background: #fbbf24; color: #78350f; }
-        .bg-a2 { background: #f87171; color: #7f1d1d; }
-        .bg-b1 { background: #60a5fa; color: #1e3a8a; }
-
-        /* Practice Workspace Section */
-        .workspace {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 5%;
-        }
-        .search-box {
-            width: 100%;
-            padding: 12px 20px;
-            border-radius: 25px;
-            border: 2px solid #cbd5e1;
-            font-size: 15px;
-            margin-bottom: 20px;
-            outline: none;
-        }
-        .search-box:focus {
-            border-color: #3b82f6;
-        }
-
-        .word-card {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            text-align: center;
-        }
-        .german-word {
-            font-size: 36px;
-            font-weight: bold;
-            color: #0f172a;
-        }
-        .plural-tag {
-            color: #d97706;
-            font-size: 14px;
+            font-size: 11px;
+            margin-top: 3px;
             font-weight: 600;
-            margin-top: 5px;
+            opacity: 0.85;
         }
-        .action-btns {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-        }
-        .btn {
-            padding: 10px 20px;
-            border-radius: 20px;
-            border: none;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .btn-audio { background: #2563eb; }
-        .btn-mic { background: #16a34a; }
-        .btn-mic.recording { background: #dc2626; animation: pulse 1s infinite; }
-        .btn-next { background: #9333ea; }
 
-        .details-panel {
-            background: #f1f5f9;
-            padding: 15px;
-            border-radius: 12px;
-            text-align: left;
-            margin-top: 15px;
-            line-height: 1.6;
-            font-size: 14px;
+        /* Exact Backgrounds from Design */
+        .bg-greetings { background: #d2f8d8; color: #164e24; }
+        .bg-a1 { background: #ffca62; color: #5c3b00; }
+        .bg-a2 { background: #ff6b6b; color: #ffffff; }
+        .bg-b1 { background: #4a90e2; color: #ffffff; }
+
+        /* Bottom Section: 2 Column Layout like the Picture */
+        .content-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 4%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
         }
-        #result {
-            font-weight: bold;
-            margin: 10px 0;
-            min-height: 24px;
+        @media (max-width: 768px) {
+            .content-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .box-panel {
+            background: #fff8e7;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid #f0e6d2;
+        }
+
+        .section-heading {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        /* Word List Styling */
+        .word-list {
+            list-style: none;
+        }
+        .word-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: #ffffff;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .word-german {
+            font-weight: 700;
+            font-size: 16px;
+            width: 40%;
+        }
+        .audio-icon-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .word-meaning {
+            font-weight: 600;
+            font-size: 15px;
+            color: #444;
+            width: 45%;
+            text-align: right;
+        }
+
+        /* Search & Practice Input Area */
+        .search-container {
+            position: relative;
+            margin-top: 10px;
+        }
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 18px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            outline: none;
+            background: #fff;
+        }
+        .mic-icon-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ff4747;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .mic-icon-btn.recording {
+            animation: pulse 1s infinite;
+            background: #22c55e;
+        }
+
+        .speech-result {
+            margin-top: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            text-align: center;
+            min-height: 20px;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.15); }
+            100% { transform: translateY(-50%) scale(1); }
         }
     </style>
 </head>
@@ -203,125 +265,145 @@
         <div class="logo">DeutschAussprache</div>
         <ul class="nav-links">
             <li><a href="#" class="active">Home</a></li>
-            <li><a href="#workspace">Practice</a></li>
-            <li><a href="#" onclick="alert('জার্মান ভাষা সহজে শেখার একটি প্ল্যাটফর্ম।')">About</a></li>
+            <li><a href="#">Search</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
         </ul>
     </nav>
 
-    <!-- Banner Hero -->
-    <section class="hero">
-        <h1>🎧 জার্মান উচ্চারণ এবং শব্দার্থের জগতে স্বাগতম!</h1>
-        <p>আপনার পছন্দের লেভেল সিলেক্ট করুন এবং প্র্যাকটিস শুরু করুন</p>
-    </section>
+    <!-- Banner Graphic Header -->
+    <header class="hero-banner">
+        <img src="https://illustrations.popey.dev/german-avatar.png" alt="German Learning Character" class="hero-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4140/4140048.png'">
+        <div style="text-align: center;">
+            <h1 style="font-size: 24px; color: #111; margin-bottom: 5px;">জার্মান উচ্চারণ এবং শব্দার্থের জগতে স্বাগতম!</h1>
+            <p style="font-size: 13px; color: #666;">সহজে জার্মান বলুন এবং সঠিক উচ্চারণ শিখুন</p>
+        </div>
+    </header>
 
     <!-- 4 Level Cards -->
-    <div class="grid-container">
-        <div class="card-level bg-greetings active-card" onclick="changeLevel('greetings', this)">
-            <div class="card-icon">💬</div>
+    <section class="cards-container">
+        <div class="card bg-greetings active-card" onclick="selectLevel('greetings', this)">
+            <div class="card-icon">👥</div>
             <div class="card-title">GREETINGS</div>
             <div class="card-sub">অভিভাদন</div>
         </div>
-        <div class="card-level bg-a1" onclick="changeLevel('a1', this)">
+        <div class="card bg-a1" onclick="selectLevel('a1', this)">
             <div class="card-icon">🌱</div>
             <div class="card-title">LEVEL A1</div>
-            <div class="card-sub">প্রাথমিক স্তর</div>
+            <div class="card-sub">প্রাথমিক স্তর (A1)</div>
         </div>
-        <div class="card-level bg-a2" onclick="changeLevel('a2', this)">
+        <div class="card bg-a2" onclick="selectLevel('a2', this)">
             <div class="card-icon">🚀</div>
             <div class="card-title">LEVEL A2</div>
-            <div class="card-sub">মাধ্যমিক স্তর</div>
+            <div class="card-sub">মাধ্যমিক স্তর (A2)</div>
         </div>
-        <div class="card-level bg-b1" onclick="changeLevel('b1', this)">
+        <div class="card bg-b1" onclick="selectLevel('b1', this)">
             <div class="card-icon">🎓</div>
             <div class="card-title">LEVEL B1</div>
-            <div class="card-sub">উচ্চ-মাধ্যমিক স্তর</div>
-        </div>
-    </div>
-
-    <!-- Practice Workspace -->
-    <section class="workspace" id="workspace">
-        <input type="text" class="search-box" id="searchBox" placeholder="🔍 কোনো শব্দ দিয়ে খুঁজুন..." oninput="filterWord()">
-
-        <div class="word-card">
-            <div class="german-word" id="wordText">Hallo</div>
-            <div class="plural-tag" id="pluralText"></div>
-
-            <div class="action-btns">
-                <button class="btn btn-audio" onclick="playAudio()">🔊 শুনুন</button>
-                <button class="btn btn-mic" id="micBtn" onclick="recordSpeech()">🎙️ বলুন</button>
-                <button class="btn btn-next" onclick="nextWord()">Next ➡️</button>
-            </div>
-
-            <div id="result"></div>
-
-            <div class="details-panel" id="detailsPanel">
-                <!-- Info inserted via JS -->
-            </div>
+            <div class="card-sub">উচ্চ-মাধ্যমিক স্তর (B1)</div>
         </div>
     </section>
 
+    <!-- Content Split Area (2 Columns) -->
+    <section class="content-section">
+        
+        <!-- Left Column: Word List -->
+        <div class="box-panel">
+            <ul class="word-list" id="wordListContainer">
+                <!-- Javascript will load items here -->
+            </ul>
+        </div>
+
+        <!-- Right Column: Interactive Search & Practice -->
+        <div class="box-panel">
+            <div class="section-heading" id="currentLevelTitle">কোর্স উপাদানের উদাহরণ (A1)</div>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search..." oninput="filterWords()">
+                <button class="mic-icon-btn" id="micBtn" onclick="startVoiceRecognition()">🎙️</button>
+            </div>
+
+            <div class="speech-result" id="speechResult"></div>
+        </div>
+
+    </section>
+
 <script>
-const db = {
+const database = {
     greetings: [
-        { word: "Hallo", plural: "-", mean: "হ্যালো", tip: "সাধারণ সম্ভাষণে ব্যবহৃত হয়।", example: "Hallo! Wie geht's?" },
-        { word: "Guten Tag", plural: "-", mean: "শুভ দিন", tip: "দিনের বেলা প্রফেশনাল ক্ষেত্রে বলা হয়।", example: "Guten Tag, Herr Müller!" },
-        { word: "Danke", plural: "-", mean: "ধন্যবাদ", tip: "কৃতজ্ঞতা প্রকাশ করতে ব্যবহৃত হয়।", example: "Danke schön!" }
+        { word: "Hallo", mean: "হ্যালো" },
+        { word: "Guten Tag", mean: "শুভ দিন" },
+        { word: "Tschüss", mean: "বিদায়" },
+        { word: "Danke", mean: "ধন্যবাদ" }
     ],
     a1: [
-        { word: "das Brot", plural: "die Brote", mean: "রুটি", tip: "নপুংসকলিঙ্গ (das)। প্লুরালে শেষে 'e' যুক্ত হয়।", example: "Ich esse gern Brot." },
-        { word: "der Apfel", plural: "die Äpfel", mean: "আপেল", tip: "পুরুষলিঙ্গ (der)। প্লুরালে 'A' হবে 'Ä'।", example: "Der Apfel ist rot." },
-        { word: "die Mutter", plural: "die Mütter", mean: "মা", tip: "স্ত্রীলিঙ্গ (die)। প্লুরালে Mütter হয়।", example: "Meine Mutter kocht gut." }
+        { word: "Hallo", mean: "হ্যালো" },
+        { word: "Danke", mean: "ধন্যবাদ" },
+        { word: "Apfel", mean: "আপেল" },
+        { word: "Brot", mean: "রুটি" },
+        { word: "Wasser", mean: "পানি" }
     ],
     a2: [
-        { word: "der Termin", plural: "die Termine", mean: "অ্যাপয়েন্টমেন্ট", tip: "নির্দিষ্ট সময় বুক করতে ব্যবহৃত হয়।", example: "Ich habe einen Termin." }
+        { word: "Termin", mean: "অ্যাপয়েন্টমেন্ট" },
+        { word: "Arbeit", mean: "কাজ" },
+        { word: "Schule", mean: "স্কুল" }
     ],
     b1: [
-        { word: "die Zukunft", plural: "-", mean: "ভবিষ্যৎ", tip: "ক্যারিয়ার বা ভবিষ্যৎ বোঝাতে ব্যবহৃত হয়।", example: "Ich plane meine Zukunft." }
+        { word: "Zukunft", mean: "ভবিষ্যৎ" },
+        { word: "Erfahrung", mean: "অভিজ্ঞতা" }
     ]
 };
 
-let currentLevel = 'greetings';
-let currentIndex = 0;
+let activeLevel = 'a1';
 
-function updateDisplay() {
-    const list = db[currentLevel];
-    const item = list[currentIndex];
-
-    document.getElementById('wordText').innerText = item.word;
-    document.getElementById('pluralText').innerText = item.plural !== "-" ? `Plural: ${item.plural}` : "";
-    document.getElementById('result').innerText = "";
+function renderWords(items) {
+    const container = document.getElementById('wordListContainer');
+    container.innerHTML = '';
     
-    document.getElementById('detailsPanel').innerHTML = `
-        <b>বাংলা অর্থ:</b> ${item.mean}<br>
-        <b>নিয়ম/ব্যাখ্যা:</b> ${item.tip}<br>
-        <b>💬 উদাহরণ:</b> <i>${item.example}</i>
-    `;
+    items.forEach(item => {
+        const li = document.createElement('li');
+        li.className = 'word-item';
+        li.innerHTML = `
+            <span class="word-german">${item.word}</span>
+            <button class="audio-icon-btn" onclick="speakWord('${item.word}')">🔊</button>
+            <span class="word-meaning">${item.mean}</span>
+        `;
+        container.appendChild(li);
+    });
 }
 
-function changeLevel(level, element) {
-    currentLevel = level;
-    currentIndex = 0;
+function selectLevel(levelKey, cardElem) {
+    activeLevel = levelKey;
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('active-card'));
+    cardElem.classList.add('active-card');
     
-    document.querySelectorAll('.card-level').forEach(el => el.classList.remove('active-card'));
-    element.classList.add('active-card');
+    const levelNames = { greetings: 'GREETINGS', a1: 'A1', a2: 'A2', b1: 'B1' };
+    document.getElementById('currentLevelTitle').innerText = `কোর্স উপাদানের উদাহরণ (${levelNames[levelKey]})`;
     
-    updateDisplay();
+    renderWords(database[levelKey]);
 }
 
-function playAudio() {
-    const item = db[currentLevel][currentIndex];
-    const utterance = new SpeechSynthesisUtterance(item.word);
+function speakWord(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'de-DE';
     utterance.rate = 0.85;
     window.speechSynthesis.speak(utterance);
 }
 
-function recordSpeech() {
+function filterWords() {
+    const query = document.getElementById('searchInput').value.toLowerCase();
+    const filtered = database[activeLevel].filter(item => 
+        item.word.toLowerCase().includes(query) || item.mean.includes(query)
+    );
+    renderWords(filtered);
+}
+
+function startVoiceRecognition() {
     const micBtn = document.getElementById('micBtn');
-    const result = document.getElementById('result');
+    const resultBox = document.getElementById('speechResult');
 
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        alert("গুগল ক্রোম ব্রাউজার ব্যবহার করুন।");
+        alert("ভয়েস উচ্চারণের জন্য গুগল ক্রোম ব্রাউজার ব্যবহার করুন।");
         return;
     }
 
@@ -330,54 +412,27 @@ function recordSpeech() {
     recognition.lang = 'de-DE';
 
     micBtn.classList.add('recording');
-    micBtn.innerText = "🛑 শুনছি...";
+    resultBox.innerText = "উচ্চারণ শুনছি...";
+    resultBox.style.color = "#d97706";
 
     recognition.start();
 
     recognition.onresult = function(e) {
         micBtn.classList.remove('recording');
-        micBtn.innerText = "🎙️ বলুন";
-        const spoken = e.results[0][0].transcript.trim().toLowerCase();
-        const target = db[currentLevel][currentIndex].word.replace(/^(der|die|das)\s+/i, '').toLowerCase();
-
-        if (spoken === target || spoken === db[currentLevel][currentIndex].word.toLowerCase()) {
-            result.innerText = "✅ চমৎকার! সঠিক উচ্চারণ হয়েছে।";
-            result.style.color = "#16a34a";
-        } else {
-            result.innerText = "❌ ভুল হয়েছে! আপনি বলেছেন: '" + spoken + "'";
-            result.style.color = "#dc2626";
-        }
+        const spoken = e.results[0][0].transcript;
+        resultBox.innerText = `আপনি বলেছেন: "${spoken}"`;
+        resultBox.style.color = "#16a34a";
     };
 
     recognition.onerror = function() {
         micBtn.classList.remove('recording');
-        micBtn.innerText = "🎙️ বলুন";
+        resultBox.innerText = "উচ্চারণ বোঝা যায়নি, আবার চেষ্টা করুন।";
+        resultBox.style.color = "#dc2626";
     };
 }
 
-function nextWord() {
-    const list = db[currentLevel];
-    if (currentIndex < list.length - 1) {
-        currentIndex++;
-    } else {
-        currentIndex = 0;
-    }
-    updateDisplay();
-}
-
-function filterWord() {
-    const query = document.getElementById('searchBox').value.toLowerCase();
-    const list = db[currentLevel];
-    const foundIndex = list.findIndex(i => i.word.toLowerCase().includes(query) || i.mean.includes(query));
-    
-    if (foundIndex !== -1) {
-        currentIndex = foundIndex;
-        updateDisplay();
-    }
-}
-
 // Initial Load
-updateDisplay();
+renderWords(database[activeLevel]);
 </script>
 
 </body>
