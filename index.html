@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
@@ -26,53 +26,65 @@
             max-width: 420px;
             background: #ffffff;
             position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* HD Homepage Image Style */
-        .homepage-img {
-            width: 100%;
-            display: block;
-            height: auto;
-            image-rendering: -webkit-optimize-contrast; /* Sharp HD Quality */
+        /* Top Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            border-bottom: 1px solid #f1f5f9;
         }
 
-        /* Menu Trigger Button Over Image */
-        .menu-trigger {
-            position: absolute;
-            top: 10px;
-            right: 14px;
-            width: 44px;
-            height: 44px;
-            background: transparent;
-            border: none;
+        .logo {
+            font-size: 20px;
+            font-weight: 800;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+        }
+
+        .menu-btn {
+            background: #f0fdf4;
+            border: 1px solid #dcfce7;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
             cursor: pointer;
-            z-index: 10;
+            transition: background 0.2s;
         }
 
-        /* Clickable Areas over the 4 Cards */
-        .card-link {
-            position: absolute;
-            cursor: pointer;
-            border-radius: 16px;
+        .menu-btn:active { background: #dcfce7; }
+
+        .menu-btn span {
+            width: 20px;
+            height: 2.5px;
+            background-color: #16a34a;
+            border-radius: 2px;
         }
 
-        /* Transparent overlays matching card positions */
-        .card-greetings { top: 295px; left: 16px; width: 46%; height: 175px; }
-        .card-a1 { top: 295px; right: 16px; width: 46%; height: 175px; }
-        .card-a2 { top: 482px; left: 16px; width: 46%; height: 175px; }
-        .card-b1 { top: 482px; right: 16px; width: 46%; height: 175px; }
-
-        /* Translator Dropdown Menu */
+        /* Language Dropdown */
         .lang-dropdown {
             display: none;
             position: absolute;
-            top: 58px;
-            right: 14px;
+            top: 65px;
+            right: 20px;
             background: #ffffff;
             border: 1px solid #e2e8f0;
-            border-radius: 12px;
+            border-radius: 14px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             width: 170px;
             z-index: 100;
@@ -82,7 +94,7 @@
         .lang-dropdown.show { display: block; }
 
         .lang-title {
-            padding: 10px 12px;
+            padding: 10px 14px;
             font-size: 11px;
             font-weight: 700;
             color: #64748b;
@@ -91,7 +103,7 @@
         }
 
         .lang-option {
-            padding: 12px;
+            padding: 12px 14px;
             font-size: 14px;
             font-weight: 600;
             color: #334155;
@@ -101,10 +113,112 @@
             justify-content: space-between;
         }
 
-        .lang-option:hover { background: #f1f5f9; }
+        .lang-option:hover { background: #f8fafc; }
         .lang-option.active { color: #16a34a; font-weight: 700; }
 
-        /* Modal/Popup for 50 Greetings Words */
+        /* Banner Section */
+        .hero-banner {
+            background: linear-gradient(135deg, #f0fdf4 0%, #e6f4ea 100%);
+            margin: 16px;
+            padding: 20px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border: 1px solid #dcfce7;
+        }
+
+        .banner-icon {
+            font-size: 44px;
+            background: #ffffff;
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.1);
+            flex-shrink: 0;
+        }
+
+        .banner-text h1 {
+            font-size: 17px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.4;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            padding: 0 16px 20px 16px;
+        }
+
+        .card {
+            border-radius: 20px;
+            padding: 20px 14px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+
+        .card:active {
+            transform: scale(0.97);
+        }
+
+        .card-icon {
+            width: 54px;
+            height: 54px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            font-size: 24px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+        }
+
+        .card-sub {
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 4px;
+            margin-bottom: 14px;
+            opacity: 0.85;
+        }
+
+        .card-btn {
+            background: #ffffff;
+            border: none;
+            padding: 7px 24px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            color: #1e293b;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            cursor: pointer;
+        }
+
+        /* Color Themes */
+        .bg-greetings { background: #dcfce7; color: #14532d; }
+        .bg-a1 { background: #fef3c7; color: #78350f; }
+        .bg-a2 { background: #fee2e2; color: #991b1b; }
+        .bg-b1 { background: #e0f2fe; color: #0369a1; }
+
+        /* Modal Popup for 50 Words */
         .modal {
             display: none;
             position: fixed;
@@ -124,29 +238,29 @@
             background: #ffffff;
             width: 90%;
             max-width: 380px;
-            max-height: 80vh;
-            border-radius: 20px;
+            max-height: 82vh;
+            border-radius: 22px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
 
         .modal-header {
-            background: #bcf0c4;
+            background: #dcfce7;
             color: #14532d;
-            padding: 16px;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: 800;
-            font-size: 16px;
+            font-size: 15px;
         }
 
         .close-btn {
             background: none;
             border: none;
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
             color: #14532d;
             cursor: pointer;
@@ -161,7 +275,7 @@
         .word-item {
             display: flex;
             justify-content: space-between;
-            padding: 10px 12px;
+            padding: 12px 14px;
             border-bottom: 1px solid #f1f5f9;
             font-size: 14px;
         }
@@ -174,37 +288,80 @@
 <body>
 
     <div class="app-container">
-        <!-- Transparent Clickable Area for Menu Icon -->
-        <button class="menu-trigger" onclick="toggleMenu()" aria-label="Open Menu"></button>
+        
+        <!-- Navbar -->
+        <nav class="navbar">
+            <div class="logo">DeutschAussprache</div>
+            <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
-        <!-- Language Menu Dropdown -->
-        <div class="lang-dropdown" id="langMenu">
-            <div class="lang-title" id="menuTitle">Select Language</div>
-            <div class="lang-option active" id="opt-bn" onclick="setLanguage('bn')"><span>🇧🇩 বাংলা</span></div>
-            <div class="lang-option" id="opt-en" onclick="setLanguage('en')"><span>🇬🇧 English</span></div>
-            <div class="lang-option" id="opt-de" onclick="setLanguage('de')"><span>🇩🇪 Deutsch</span></div>
-        </div>
+            <!-- Language Menu -->
+            <div class="lang-dropdown" id="langMenu">
+                <div class="lang-title" id="menuTitle">Select Language</div>
+                <div class="lang-option active" id="opt-bn" onclick="setLanguage('bn')"><span>🇧🇩 বাংলা</span></div>
+                <div class="lang-option" id="opt-en" onclick="setLanguage('en')"><span>🇬🇧 English</span></div>
+                <div class="lang-option" id="opt-de" onclick="setLanguage('de')"><span>🇩🇪 Deutsch</span></div>
+            </div>
+        </nav>
 
-        <!-- Original Homepage HD Image -->
-        <img src="banner.png" alt="DeutschAussprache Homepage" class="homepage-img">
+        <!-- Banner -->
+        <section class="hero-banner">
+            <div class="banner-icon">🇩🇪</div>
+            <div class="banner-text">
+                <h1 id="bannerHeading">জার্মান উচ্চারণ ও শব্দার্থের জগতে স্বাগতম!</h1>
+            </div>
+        </section>
 
-        <!-- Clickable Overlay Areas Over the 4 Cards -->
-        <div class="card-link" onclick="openGreetings()"></div>
-        <div class="card-link" onclick="alert('Level A1 শীঘ্রই আসছে!')" style="top: 295px; right: 16px; width: 46%; height: 175px;"></div>
-        <div class="card-link" onclick="alert('Level A2 শীঘ্রই আসছে!')" style="top: 482px; left: 16px; width: 46%; height: 175px;"></div>
-        <div class="card-link" onclick="alert('Level B1 শীঘ্রই আসছে!')" style="top: 482px; right: 16px; width: 46%; height: 175px;"></div>
+        <!-- Cards Grid -->
+        <section class="cards-grid">
+            
+            <!-- Greetings -->
+            <div class="card bg-greetings" onclick="openGreetings()">
+                <div class="card-icon">👋</div>
+                <div class="card-title">GREETINGS</div>
+                <div class="card-sub" id="sub-greetings">অভিভাদন</div>
+                <button class="card-btn">Play</button>
+            </div>
+
+            <!-- Level A1 -->
+            <div class="card bg-a1" onclick="alert('Level A1 শীঘ্রই আসছে!')">
+                <div class="card-icon">🌱</div>
+                <div class="card-title">LEVEL A1</div>
+                <div class="card-sub" id="sub-a1">প্রাথমিক স্তর (A1)</div>
+                <button class="card-btn">Go</button>
+            </div>
+
+            <!-- Level A2 -->
+            <div class="card bg-a2" onclick="alert('Level A2 শীঘ্রই আসছে!')">
+                <div class="card-icon">🚀</div>
+                <div class="card-title">LEVEL A2</div>
+                <div class="card-sub" id="sub-a2">মাধ্যমিক স্তর (A2)</div>
+                <button class="card-btn">Play</button>
+            </div>
+
+            <!-- Level B1 -->
+            <div class="card bg-b1" onclick="alert('Level B1 শীঘ্রই আসছে!')">
+                <div class="card-icon">🎓</div>
+                <div class="card-title">LEVEL B1</div>
+                <div class="card-sub" id="sub-b1">উচ্চ-মাধ্যমিক স্তর (B1)</div>
+                <button class="card-btn">Go</button>
+            </div>
+
+        </section>
+
     </div>
 
-    <!-- Greetings 50 Words Modal (Part 1) -->
+    <!-- Greetings 50 Words Modal -->
     <div class="modal" id="greetingsModal">
         <div class="modal-content">
             <div class="modal-header">
-                <span>🇩🇪 Greetings (Part 1 - ৫০টি শব্দ)</span>
+                <span id="modalHeaderTitle">🇩🇪 Greetings (Part 1 - ৫০টি শব্দ)</span>
                 <button class="close-btn" onclick="closeGreetings()">&times;</button>
             </div>
-            <div class="word-list" id="wordListContainer">
-                <!-- JavaScript will inject 50 words here -->
-            </div>
+            <div class="word-list" id="wordListContainer"></div>
         </div>
     </div>
 
@@ -213,7 +370,7 @@ function toggleMenu() {
     document.getElementById('langMenu').classList.toggle('show');
 }
 
-// 50 Greetings Words (German & Bengali)
+// 50 Greetings Words
 const greetingsPart1 = [
     {de: "Hallo", bn: "হ্যালো / ওহে"},
     {de: "Guten Morgen", bn: "শুভ সকাল"},
@@ -222,8 +379,8 @@ const greetingsPart1 = [
     {de: "Gute Nacht", bn: "শুভ রাত্রি"},
     {de: "Auf Wiedersehen", bn: "আবার দেখা হবে (বিদায়)"},
     {de: "Tschüss", bn: "বিদায় / টাটা"},
-    {de: "Wie geht es Ihnen?", bn: "আপনি কেমন আছেন? (формал)"},
-    {de: "Wie geht's?", bn: "কেমন আছো? (ইনফর্মোড)"},
+    {de: "Wie geht es Ihnen?", bn: "আপনি কেমন আছেন? (ফরমাল)"},
+    {de: "Wie geht's?", bn: "কেমন আছো? (ইনফরমাল)"},
     {de: "Danke, gut", bn: "ধন্যবাদ, ভালো আছি"},
     {de: "Und Ihnen?", bn: "আর আপনি? (ফরমাল)"},
     {de: "Und dir?", bn: "আর তুমি? (ইনফরমাল)"},
@@ -258,16 +415,15 @@ const greetingsPart1 = [
     {de: "Alles Gute zum Geburtstag", bn: "জন্মদিনের অনেক শুভেচ্ছা"},
     {de: "Gute Besserung", bn: "দ্রুত সুস্থ হয়ে উঠুন"},
     {de: "Viel Glück", bn: "শুভকামনা / শুভ ভাগ্য"},
-    {de: "Prost!", bn: "চিয়ার্স! (খাওয়ার সময়)"},
-    {de: "Guten Appetit", bn: "উপভোগ্য হোক খাবার (খাবার খাওয়ার আগে)"},
+    {de: "Prost!", bn: "চিয়ার্স!"},
+    {de: "Guten Appetit", bn: "খাবারের শুভেচ্ছা (Bon appétit)"},
     {de: "Willkommen", bn: "স্বাগতম"},
     {de: "Mach's gut", bn: "ভালো থেকো"},
     {de: "Schönen Tag noch", bn: "দিনটি ভালো কাটুক"},
     {de: "Bis später", bn: "পরে দেখা হবে"},
-    {de: "Auf Wiederhören", bn: "ফোন রাখার সময় বিদায়"}
+    {de: "Auf Wiederhören", bn: "ফোনে বিদায়"}
 ];
 
-// Load 50 words dynamically
 const listContainer = document.getElementById('wordListContainer');
 greetingsPart1.forEach((item, index) => {
     listContainer.innerHTML += `
@@ -288,13 +444,52 @@ function closeGreetings() {
 
 document.addEventListener('click', function(e) {
     const menu = document.getElementById('langMenu');
-    const btn = document.querySelector('.menu-trigger');
+    const btn = document.querySelector('.menu-btn');
     if (!menu.contains(e.target) && !btn.contains(e.target)) {
         menu.classList.remove('show');
     }
 });
 
+const translations = {
+    bn: {
+        menuTitle: "ভাষা নির্বাচন করুন",
+        bannerHeading: "জার্মান উচ্চারণ ও শব্দার্থের জগতে স্বাগতম!",
+        subGreetings: "অভিভাদন",
+        subA1: "প্রাথমিক স্তর (A1)",
+        subA2: "মাধ্যমিক স্তর (A2)",
+        subB1: "উচ্চ-মাধ্যমিক স্তর (B1)",
+        modalTitle: "🇩🇪 Greetings (Part 1 - ৫০টি শব্দ)"
+    },
+    en: {
+        menuTitle: "Select Language",
+        bannerHeading: "Welcome to the world of German pronunciation & vocabulary!",
+        subGreetings: "Greetings",
+        subA1: "Basic Level (A1)",
+        subA2: "Intermediate (A2)",
+        subB1: "Upper-Intermediate (B1)",
+        modalTitle: "🇩🇪 Greetings (Part 1 - 50 Words)"
+    },
+    de: {
+        menuTitle: "Sprache auswählen",
+        bannerHeading: "Willkommen in der Welt der deutschen Aussprache!",
+        subGreetings: "Begrüßung",
+        subA1: "Grundstufe (A1)",
+        subA2: "Mittelstufe (A2)",
+        subB1: "Fortgeschritten (B1)",
+        modalTitle: "🇩🇪 Greetings (Teil 1 - 50 Wörter)"
+    }
+};
+
 function setLanguage(lang) {
+    const t = translations[lang];
+    document.getElementById('menuTitle').innerText = t.menuTitle;
+    document.getElementById('bannerHeading').innerText = t.bannerHeading;
+    document.getElementById('sub-greetings').innerText = t.subGreetings;
+    document.getElementById('sub-a1').innerText = t.subA1;
+    document.getElementById('sub-a2').innerText = t.subA2;
+    document.getElementById('sub-b1').innerText = t.subB1;
+    document.getElementById('modalHeaderTitle').innerText = t.modalTitle;
+
     document.querySelectorAll('.lang-option').forEach(el => el.classList.remove('active'));
     document.getElementById('opt-' + lang).classList.add('active');
     toggleMenu();
