@@ -3,433 +3,324 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeutschAussprache</title>
+    <title>DeutschAussprache - জার্মান উচ্চারণ ও শব্দার্থ</title>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cloudflare.com">
     <style>
+        /* Global Styles */
         * {
-            box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', SolaimanLipi, sans-serif;
         }
-
         body {
             background-color: #f7f9fa;
-            color: #1a1a1a;
-            padding-bottom: 40px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        /* Top Bar */
-        .navbar {
+        /* Navbar */
+        nav {
             background: #ffffff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 16px;
-            border-bottom: 1px solid #e5e7eb;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 100;
         }
-
-        .logo {
-            font-size: 18px;
-            font-weight: 800;
-            color: #0f172a;
-        }
-
-        /* Menu Icon Button */
-        .menu-btn {
-            background: #e6f4ea;
-            border: none;
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
+        .nav-container {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 4px;
-            cursor: pointer;
-        }
-
-        .menu-btn span {
-            width: 18px;
-            height: 2px;
-            background-color: #1e8e3e;
-            border-radius: 2px;
-        }
-
-        /* Language Dropdown Menu */
-        .lang-dropdown {
-            display: none;
-            position: absolute;
-            top: 55px;
-            right: 16px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            width: 170px;
-            z-index: 1000;
-            overflow: hidden;
-        }
-
-        .lang-dropdown.show {
-            display: block;
-        }
-
-        .lang-title {
-            padding: 10px 14px;
-            font-size: 11px;
-            font-weight: 700;
-            color: #64748b;
-            background: #f8fafc;
-            border-bottom: 1px solid #f1f5f9;
-            text-transform: uppercase;
-        }
-
-        .lang-option {
-            padding: 10px 14px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #334155;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
             justify-content: space-between;
-            transition: background 0.2s;
-        }
-
-        .lang-option:hover {
-            background: #f1f5f9;
-        }
-
-        .lang-option.active {
-            color: #16a34a;
-            font-weight: 700;
-        }
-
-        /* Mobile Hero Banner */
-        .hero-section {
-            background: linear-gradient(180deg, #edf7f2 0%, #fffbf0 100%);
-            padding: 15px 12px;
-            text-align: center;
-            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            border-bottom: 1px solid #eaeaea;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #1a252f;
+        }
+        .logo span { color: #d9534f; }
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        .nav-menu a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+        }
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
         }
 
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #eef5f9 0%, #e0eef6 100%);
+            padding: 40px 0;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+        .hero-content h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: #111;
+        }
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 20px;
+        }
         .hero-avatar {
-            width: 80px;
-            height: 80px;
-            flex-shrink: 0;
+            font-size: 80px;
+            margin-bottom: 10px;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        .hero-banner-title {
-            font-size: 17px;
-            font-weight: 800;
-            color: #1e293b;
-            line-height: 1.3;
+        /* Feature Cards Grid */
+        .grid-section {
+            padding: 40px 0;
         }
-
-        /* Grid Cards (Exact Layout from Image) */
         .cards-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 15px 12px;
-            max-width: 500px;
-            margin: 0 auto;
+            grid-template-columns: repeat(4, 1max);
+            gap: 20px;
+        }
+        /* Desktop & Mobile Responsive Grid setup */
+        @media (min-width: 769px) {
+            .cards-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr); /* ২x২ গ্রিড ফোনে */
+            }
         }
 
         .card {
-            border-radius: 16px;
-            padding: 15px 10px;
+            background: #fff;
+            border-radius: 15px;
+            padding: 25px 15px;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
         }
-
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
         .card-icon {
-            font-size: 26px;
-            margin-bottom: 4px;
+            font-size: 40px;
+            margin-bottom: 15px;
         }
-
-        .card-title {
+        .card h3 {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .card p {
             font-size: 14px;
-            font-weight: 800;
-            letter-spacing: 0.3px;
+            color: #666;
+            margin-bottom: 15px;
         }
-
-        .card-sub {
-            font-size: 11px;
-            font-weight: 600;
-            margin-top: 2px;
-            margin-bottom: 10px;
-            opacity: 0.85;
-        }
-
         .card-btn {
-            background: #ffffff;
-            border: none;
-            padding: 5px 22px;
+            background: #f0f0f0;
+            padding: 8px 20px;
             border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #333333;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            display: inline-block;
+            width: 80%;
+            transition: background 0.2s;
         }
 
-        /* Color Schemes matching Phone Screenshot */
-        .bg-greetings { background: #bdf2ca; color: #14532d; }
-        .bg-a1 { background: #ffbe53; color: #78350f; }
-        .bg-a2 { background: #ff5252; color: #ffffff; }
-        .bg-b1 { background: #4299e1; color: #ffffff; }
+        /* Card Color Profiles */
+        .card-greetings .card-icon { color: #2ecc71; }
+        .card-greetings { border-top: 5px solid #2ecc71; }
+        .card-greetings:hover .card-btn { background: #2ecc71; color: #fff; }
 
-        /* Sample Course Material Panel */
-        .material-panel {
-            background: #fdf6e7;
-            border-radius: 16px;
-            margin: 0 12px;
-            padding: 15px;
-            border: 1px solid #f3e5c8;
-            max-width: 500px;
-            margin: 0 auto;
+        .card-a1 .card-icon { color: #f39c12; }
+        .card-a1 { border-top: 5px solid #f39c12; }
+        .card-a1:hover .card-btn { background: #f39c12; color: #fff; }
+
+        .card-a2 .card-icon { color: #e74c3c; }
+        .card-a2 { border-top: 5px solid #e74c3c; }
+        .card-a2:hover .card-btn { background: #e74c3c; color: #fff; }
+
+        .card-b1 .card-icon { color: #3498db; }
+        .card-b1 { border-top: 5px solid #3498db; }
+        .card-b1:hover .card-btn { background: #3498db; color: #fff; }
+
+        /* Sample & Practice Section */
+        .practice-section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            margin-bottom: 5px;
         }
-
-        .material-title {
-            font-size: 15px;
-            font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 12px;
+        .practice-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
         }
-
-        .word-list {
-            list-style: none;
+        @media (max-width: 768px) {
+            .practice-container {
+                grid-template-columns: 1fr;
+            }
         }
-
+        .sample-list h4, .search-box-sec h4 {
+            margin-bottom: 15px;
+            font-size: 18px;
+            color: #1a252f;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
         .word-row {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.04);
+            align-items: center;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 10px;
         }
-
         .word-german {
-            font-size: 15px;
-            font-weight: 700;
-            color: #1e293b;
-            width: 35%;
+            font-weight: bold;
+            color: #333;
+        }
+        .word-bangla {
+            color: #666;
+        }
+        .audio-btn {
+            background: #fff;
+            border: 1px solid #ddd;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            transition: all 0.2s;
+        }
+        .audio-btn:hover {
+            background: #3498db;
+            color: #fff;
+            border-color: #3498db;
         }
 
-        .audio-btn {
+        /* Search & Voice Box */
+        .search-area {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        .search-area input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 30px;
+            outline: none;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .search-area input:focus {
+            border-color: #3498db;
+        }
+        .mic-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
             background: none;
             border: none;
-            font-size: 15px;
+            font-size: 20px;
+            color: #e74c3c;
             cursor: pointer;
         }
 
-        .word-meaning {
-            font-size: 14px;
-            font-weight: 700;
-            color: #475569;
-            width: 45%;
-            text-align: right;
+        /* Responsive Mobile Specific overrides */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 1.7rem; }
+            .nav-menu { display: none; }
+            .hamburger { display: block; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Top Navbar -->
-    <nav class="navbar">
-        <div class="logo">DeutschAussprache</div>
-        <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-
-        <!-- Translator Dropdown -->
-        <div class="lang-dropdown" id="langMenu">
-            <div class="lang-title" id="menuTitle">Select Language</div>
-            <div class="lang-option active" id="opt-bn" onclick="setLanguage('bn')">
-                <span>🇧🇩 বাংলা</span>
-            </div>
-            <div class="lang-option" id="opt-en" onclick="setLanguage('en')">
-                <span>🇬🇧 English</span>
-            </div>
-            <div class="lang-option" id="opt-de" onclick="setLanguage('de')">
-                <span>🇩🇪 Deutsch</span>
-            </div>
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">Deutsch<span>Aussprache</span></div>
+            <ul class="nav-menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Search</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
         </div>
     </nav>
 
-    <!-- Header Banner -->
-    <section class="hero-section">
-        <!-- SVG Avatar Illustration -->
-        <svg class="hero-avatar" viewBox="0 0 100 100" fill="none">
-            <circle cx="50" cy="50" r="45" fill="#FFE8B2"/>
-            <path d="M20 50C20 33.4315 33.4315 20 50 20C66.5685 20 80 33.4315 80 50" stroke="#333" stroke-width="6"/>
-            <rect x="15" y="42" width="10" height="18" rx="5" fill="#333"/>
-            <rect x="75" y="42" width="10" height="18" rx="5" fill="#333"/>
-            <circle cx="50" cy="52" r="22" fill="#FFCC99"/>
-            <circle cx="42" cy="50" r="3" fill="#333"/>
-            <circle cx="58" cy="50" r="3" fill="#333"/>
-            <path d="M45 60C47 63 53 63 55 60" stroke="#333" stroke-width="2"/>
-            <path d="M25 85C25 72 35 70 50 70C65 70 75 72 75 85V100H25V85Z" fill="#E53E3E"/>
-        </svg>
-
-        <h1 class="hero-banner-title" id="bannerTitle">জার্মান উচ্চারণ ও<br>শব্দার্থের জগতে স্বাগতম!</h1>
-    </section>
-
-    <!-- 4 Cards Grid -->
-    <section class="cards-grid">
-        <div class="card bg-greetings">
-            <div class="card-icon">👥</div>
-            <div class="card-title">GREETINGS</div>
-            <div class="card-sub" id="sub-greetings">অভিভাদন</div>
-            <button class="card-btn" id="btn-greetings">Play</button>
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="container hero-content">
+            <div class="hero-avatar">👨‍🏫</div>
+            <h1>জার্মান উচ্চারণ ও শব্দার্থের জগতে স্বাগতম!</h1>
+            <p>সহজে সঠিক উচ্চারণ শুনুন এবং লেভেল অনুযায়ী প্র্যাকটিস করুন।</p>
         </div>
+    </header>
 
-        <div class="card bg-a1">
-            <div class="card-icon">🌱</div>
-            <div class="card-title">LEVEL A1</div>
-            <div class="card-sub" id="sub-a1">প্রাথমিক স্তর (A1)</div>
-            <button class="card-btn" id="btn-a1">Go</button>
-        </div>
+    <!-- 4 Main Feature Cards -->
+    <section class="grid-section">
+        <div class="container cards-grid">
+            
+            <!-- Greetings Card -->
+            <div class="card card-greetings" onclick="alert('Greetings সেকশনটি লোড হচ্ছে...')">
+                <div class="card-icon"><i class="fa-solid fa-comments"></i></div>
+                <h3>Greetings</h3>
+                <p>অভিবাদন ও সাধারণ কথাবার্তা</p>
+                <span class="card-btn">Play</span>
+            </div>
 
-        <div class="card bg-a2">
-            <div class="card-icon">🚀</div>
-            <div class="card-title">LEVEL A2</div>
-            <div class="card-sub" id="sub-a2">মাধ্যমিক স্তর (A2)</div>
-            <button class="card-btn" id="btn-a2">Play</button>
-        </div>
+            <!-- A1 Card -->
+            <div class="card card-a1" onclick="alert('Level A1 সেকশনটি লোড হচ্ছে...')">
+                <div class="card-icon"><i class="fa-solid fa-seedling"></i></div>
+                <h3>Level A1</h3>
+                <p>প্রাথমিক স্তর (A1)</p>
+                <span class="card-btn">Go</span>
+            </div>
 
-        <div class="card bg-b1">
-            <div class="card-icon">🎓</div>
-            <div class="card-title">LEVEL B1</div>
-            <div class="card-sub" id="sub-b1">উচ্চ-মাধ্যমিক স্তর (B1)</div>
-            <button class="card-btn" id="btn-b1">Go</button>
-        </div>
-    </section>
+            <!-- A2 Card -->
+            <div class="card card-a2" onclick="alert('Level A2 সেকশনটি লোড হচ্ছে...')">
+                <div class="card-icon"><i class="fa-solid fa-rocket"></i></div>
+                <h3>Level A2</h3>
+                <p>মাধ্যমিক স্তর (A2)</p>
+                <span class="card-btn">Play</span>
+            </div>
 
-    <!-- Sample Material Section -->
-    <section class="material-panel">
-        <div class="material-title" id="sampleTitle">Sample Course Material A1</div>
-        
-        <ul class="word-list" id="wordList">
-            <li class="word-row">
-                <span class="word-german">Hallo</span>
-                <button class="audio-btn" onclick="speak('Hallo')">🔊</button>
-                <span class="word-meaning" id="mean-hallo">হ্যালো</span>
-            </li>
-            <li class="word-row">
-                <span class="word-german">Danke</span>
-                <button class="audio-btn" onclick="speak('Danke')">🔊</button>
-                <span class="word-meaning" id="mean-danke">ধন্যবাদ</span>
-            </li>
-            <li class="word-row">
-                <span class="word-german">Apfel</span>
-                <button class="audio-btn" onclick="speak('Apfel')">🔊</button>
-                <span class="word-meaning" id="mean-apfel">আপেল</span>
-            </li>
-        </ul>
-    </section>
-
-<script>
-// Translations Dictionary
-const translations = {
-    bn: {
-        menuTitle: "ভাষা নির্বাচন করুন",
-        bannerTitle: "জার্মান উচ্চারণ ও<br>শব্দার্থের জগতে স্বাগতম!",
-        subGreetings: "অভিভাদন",
-        subA1: "প্রাথমিক স্তর (A1)",
-        subA2: "মাধ্যমিক স্তর (A2)",
-        subB1: "উচ্চ-মাধ্যমিক স্তর (B1)",
-        sampleTitle: "কোর্স উপাদানের উদাহরণ (A1)",
-        meanHallo: "হ্যালো",
-        meanDanke: "ধন্যবাদ",
-        meanApfel: "আপেল"
-    },
-    en: {
-        menuTitle: "Select Language",
-        bannerTitle: "Welcome to German<br>Pronunciation & Vocab!",
-        subGreetings: "Greetings",
-        subA1: "Basic Level (A1)",
-        subA2: "Intermediate Level (A2)",
-        subB1: "Upper-Intermediate (B1)",
-        sampleTitle: "Sample Course Material A1",
-        meanHallo: "Hello",
-        meanDanke: "Thank you",
-        meanApfel: "Apple"
-    },
-    de: {
-        menuTitle: "Sprache auswählen",
-        bannerTitle: "Willkommen zur deutschen<br>Aussprache & Wortschatz!",
-        subGreetings: "Begrüßung",
-        subA1: "Grundstufe (A1)",
-        subA2: "Mittelstufe (A2)",
-        subB1: "Fortgeschritten (B1)",
-        sampleTitle: "Beispiel Kursmaterial A1",
-        meanHallo: "Hallo",
-        meanDanke: "Danke",
-        meanApfel: "Apfel"
-    }
-};
-
-function toggleMenu() {
-    const menu = document.getElementById('langMenu');
-    menu.classList.toggle('show');
-}
-
-// Close menu when clicking outside
-document.addEventListener('click', function(e) {
-    const menu = document.getElementById('langMenu');
-    const btn = document.querySelector('.menu-btn');
-    if (!menu.contains(e.target) && !btn.contains(e.target)) {
-        menu.classList.remove('show');
-    }
-});
-
-function setLanguage(lang) {
-    const t = translations[lang];
-    
-    // Update Interface UI
-    document.getElementById('menuTitle').innerText = t.menuTitle;
-    document.getElementById('bannerTitle').innerHTML = t.bannerTitle;
-    document.getElementById('sub-greetings').innerText = t.subGreetings;
-    document.getElementById('sub-a1').innerText = t.subA1;
-    document.getElementById('sub-a2').innerText = t.subA2;
-    document.getElementById('sub-b1').innerText = t.subB1;
-    document.getElementById('sampleTitle').innerText = t.sampleTitle;
-    
-    // Update Meanings
-    document.getElementById('mean-hallo').innerText = t.meanHallo;
-    document.getElementById('mean-danke').innerText = t.meanDanke;
-    document.getElementById('mean-apfel').innerText = t.meanApfel;
-
-    // Active Language Highlight
-    document.querySelectorAll('.lang-option').forEach(el => el.classList.remove('active'));
-    document.getElementById('opt-' + lang).classList.add('active');
-
-    // Close Dropdown
-    toggleMenu();
-}
-
-function speak(text) {
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'de-DE';
-    utterance.rate = 0.85;
-    window.speechSynthesis.speak(utterance);
-}
-</script>
-
-</body>
-</html>
+            <!-- B1 Card -->
+            <div class="card card-b1" onclick="alert('Level B1 সেকশনটি লোড হচ্ছে...')">
+                <div class="card-icon"><i class="fa-solid fa-user-graduate"></i></div>
