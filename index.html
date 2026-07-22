@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>German Pronunciation Mentor Pro</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .card {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #2c3e50;
+            font-size: 24px;
+            margin-top: 0;
+        }
+        .score-board {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .word-box {
+            font-size: 40px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 20px 0;
+            letter-spacing: 1px;
+        }
+        button {
+            font-family: inherit;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 8px 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .btn-listen { background: #2980b9; }
+        .btn-listen:hover { background: #1f6391; }
+        
+        .btn-record { background: #27ae60; }
+        .btn-record.recording {
+            background: #e74c3c;
+            animation: pulse 1.5s infinite;
+        }
+        
+        .btn-next { background: #8e44ad; }
+        .btn-next:hover { background: #71338d; }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            min-height: 27px;
+        }
+        #tip {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+            background: #eef9f5;
+            padding: 12px;
+            border-radius: 10px;
+            display: none;
+            line-height: 1.5;
+            border-left: 5px solid #27ae60;
+            text-align: left;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1>🇩🇪 জার্মান উচ্চারণ চেকার</h1>
+    <div class="score-board">স্কোর: <span id="score">0</span> / <span id="total-words">0</span></div>
+    <p>নিচের শব্দটি সঠিক জার্মানে উচ্চারণ করুন:</p>
+    
+    <div class="word-box" id="targetWord">Brot</div>
+    
+    <button class="btn-listen" onclick="listenNative()">🔊 সঠিক উচ্চারণ শুনুন</button> 
+    <button class="btn-record" id="recordBtn" onclick="startDictation()">🎙️ উচ্চারণ রেকর্ড করুন</button>
+    <button class="btn-next" onclick="nextWord()">Next ➡️</button>
+
+    <div id="result"></div>
+    <div id="tip"></div>
+</div>
+
+<script>
+// জার্মান শব্দ, টিপস এবং অর্থ এর তালিকা
+const wordList = [
+    { word: "Brot", tip: "💡 টিপস: 'Brot' (রুটি) বলার সময় 'R' উচ্চারণটি গলার ভেতর থেকে কুলি (Gargle) করার মতো আওয়াজ বের করুন এবং শেষের 't' হালকা বলুন।" },
+    { word: "Danke", tip: "💡 টিপস: 'Danke' (ধন্যবাদ) বলার সময় শেষের 'e' উচ্চারণটি 'এ' বা 'আ' না হয়ে হালকা 'আহ্' এর মতো ছোট হবে।" },
+    { word: "Guten Tag", tip: "💡 টিপस: 'Guten Tag' (শুভ দিন) বলার সময় 'Tag' এর শেষের 'g' এর উচ্চারণ অনেকটা 'ক' (Tak) এর মতো শোনাবে।" },
+    { word: "Bitte", tip: "💡 টিপস: 'Bitte' (অনুগ্রহ করে) শব্দে ডাবল 't' থাকায় উচ্চারণটি কিছুটা দ্রুত এবং জোর দিয়ে হবে।" },
+    { word: "Tschüss", tip: "💡 টিপস: 'Tschüss' (বিদায়) বলার সময় ঠোঁট গোল করে 'চুউস' বলুন, তবে শেষের 's' এর উচ্চারণ স্পষ্ট হবে।" }
+];
+
+let currentIndex = 0;
+let score = 0;
+let recognition;
+
+// প্রাথমিক সেটআপ
+document.getElementById('total-words').innerText = wordList.length;
+updateWord();
+
+function updateWord() {
+    document.getElementById('targetWord').innerText = wordList[currentIndex].word;
+    document.getElementById('result').innerText = "";
+    document.getElementById('tip').style.display = "none";
+}
+
+function listenNative() {
+    const target = wordList[currentIndex].word;
+    const utterance = new SpeechSynthesisUtterance(target);
+    utterance.lang = 'de-DE';
+    utterance.rate = 0.85; 
+    window.speechSynthesis.speak(utterance);
+}
+
+function startDictation() {
+    const resultDiv = document.getElementById('result');
+    const tipDiv = document.getElementById('tip');
+    const recordBtn = document.getElementById('recordBtn');
+
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+        alert("আপনার ব্রাউজারে ভয়েস রিকগনিশন সাপোর্ট করছে না। Google Chrome ব্রাউজার ব্যবহার করুন।");
+        return;
+    }
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.lang = 'de-DE';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    // রেকর্ডিং স্টেট অ্যানিমেশন চালু
+    recordBtn.innerHTML = "🛑 শুনছি... বলুন";
+    recordBtn.classList.add('recording');
+    resultDiv.innerHTML = "কথা বলুন...";
+    resultDiv.style.color = "#d35400";
+
+    recognition.start();
+
+    recognition.onresult = function(event) {
+        const spokenWord = event.results[0][0].transcript.trim().toLowerCase();
+        const expectedWord = wordList[currentIndex].word.toLowerCase();
+        
+        // রেকর্ডিং স্টেট বন্ধ
+        resetRecordBtn();
+
+        // সঠিক বা ভুল যাচাই (কিছু কমন পাঙ্কচুয়েশন যেমন ডট রিমুভ করা হয়েছে)
+        if (spokenWord.replace('.', '') === expectedWord.replace('.', '')) {
+            resultDiv.innerHTML = "✅ চমৎকার! উচ্চারণ একদম সঠিক হয়েছে (" + spokenWord + ")";
+            resultDiv.style.color = "#27ae60";
+            tipDiv.style.display = "none";
+            
+            // স্কোর আপডেট (একই শব্দে বারবার স্কোর পাবেনা)
+            score++;
+            document.getElementById('score').innerText = score;
+        } else {
+            resultDiv.innerHTML = "❌ ভুল হয়েছে! আপনি বলেছেন: '" + spokenWord + "'";
+            resultDiv.style.color = "#c0392b";
+            tipDiv.innerHTML = wordList[currentIndex].tip;
+            tipDiv.style.display = "block";
+        }
+    };
+
+    recognition.onerror = function(event) {
+        resetRecordBtn();
+        resultDiv.innerHTML = "⚠️ কিছু শোনা যায়নি, আবার চেষ্টা করুন।";
+        resultDiv.style.color = "#7f8c8d";
+    };
+
+    recognition.onend = function() {
+        resetRecordBtn();
+    };
+}
+
+function resetRecordBtn() {
+    const recordBtn = document.getElementById('recordBtn');
+    recordBtn.innerHTML = "🎙️ উচ্চারণ রেকর্ড করুন";
+    recordBtn.classList.remove('recording');
+}
+
+function nextWord() {
+    if (currentIndex < wordList.length - 1) {
+        currentIndex++;
+    } else {
+        alert(`অভিনন্দন! আপনি সবগুলো শব্দ শেষ করেছেন। আপনার মোট স্কোর: ${score}/${wordList.length}`);
+        currentIndex = 0; // আবার প্রথম থেকে শুরু হবে
+        score = 0;
+        document.getElementById('score').innerText = score;
+    }
+    updateWord();
+}
+</script>
+
+</body>
+</html>
