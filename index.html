@@ -3,310 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeutschAussprache - অবিকল মোবাইল লেআউট</title>
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cloudflare.com">
-    <!-- Google Fonts for Premium Look -->
-    <link href="https://googleapis.com" rel="stylesheet">
-    
+    <title>DeutschAussprache</title>
     <style>
-        /* Global & Reset Styles */
         * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', 'Hind Siliguri', sans-serif;
         }
+
         body {
             background-color: #ffffff;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            padding: 10px 0;
+            color: #1a1a1a;
+            padding-bottom: 30px;
         }
 
-        /* Container simulating the exact Phone Screen width */
-        .phone-wrapper {
-            width: 100%;
-            max-width: 412px; /* Standard Mobile Width */
-            background: #ffffff;
-            min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            position: relative;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* Top Header Navbar */
+        /* Top Navbar */
         .navbar {
+            background: #ffffff;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
-            background: #ffffff;
-            border-bottom: 1px solid #f0f0f0;
+            padding: 14px 18px;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .brand-name {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1a1a1a;
-            letter-spacing: -0.5px;
+
+        .logo {
+            font-size: 19px;
+            font-weight: 800;
+            color: #111827;
+            letter-spacing: -0.3px;
         }
-        .hamburger-icon {
-            font-size: 22px;
-            color: #2ecc71; /* Exact Green tone from image */
+
+        /* Three Bar Menu Button */
+        .menu-btn {
+            background: #e6f4ea;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
             cursor: pointer;
         }
 
-        /* Hero Banner Section */
-        .hero-banner {
-            background: #eef9f6; /* Soft greenish pastel bg */
-            padding: 20px;
+        .menu-btn span {
+            width: 18px;
+            height: 2px;
+            background-color: #16a34a;
+            border-radius: 2px;
+        }
+
+        /* Translator Dropdown Menu */
+        .lang-dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 18px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            width: 180px;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .lang-dropdown.show {
+            display: block;
+        }
+
+        .lang-title {
+            padding: 10px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            background: #f8fafc;
+            border-bottom: 1px solid #f1f5f9;
+            text-transform: uppercase;
+        }
+
+        .lang-option {
+            padding: 12px 14px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 15px;
-            position: relative;
-            border-bottom: 1px solid #e2f3ee;
+            justify-content: space-between;
+            transition: background 0.2s;
         }
-        .hero-graphics {
-            width: 90px;
-            height: 90px;
-            background: #fff;
-            border-radius: 50%;
+
+        .lang-option:hover {
+            background: #f1f5f9;
+        }
+
+        .lang-option.active {
+            color: #16a34a;
+            font-weight: 700;
+        }
+
+        /* Hero Banner Section matching exact image */
+        .hero-section {
+            background: #eef7f2;
+            padding: 15px 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 55px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            border: 2px solid #ffcc00; /* Flag yellow border element */
-        }
-        .hero-text {
-            flex: 1;
-        }
-        .hero-text h1 {
-            font-size: 19px;
-            font-weight: 700;
-            line-height: 1.3;
-            color: #1a252f;
+            gap: 12px;
+            border-bottom: 1px solid #e5e7eb;
         }
 
-        /* 2x2 Feature Grid Section */
-        .grid-container {
-            padding: 20px;
+        .hero-banner-img {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 12px;
         }
+
+        /* 4 Main Level Cards Grid */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            padding: 16px 14px;
+            max-width: 480px;
+            margin: 0 auto;
         }
 
-        /* Card Styles to Match Image 100% */
         .card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 20px 10px;
+            border-radius: 18px;
+            padding: 18px 12px 14px 12px;
             text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Exact Soft Depth Shadow */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: space-between;
-            transition: transform 0.2s;
-            text-decoration: none;
-            cursor: pointer;
-            height: 175px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
-        .card:active {
-            transform: scale(0.97);
-        }
-        .icon-circle {
+
+        .card-icon {
             width: 45px;
             height: 45px;
-            border-radius: 50%;
-            background: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
-        .card h3 {
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 2px;
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 0.2px;
         }
-        .card p {
+
+        .card-sub {
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
+            margin-top: 2px;
             margin-bottom: 12px;
+            opacity: 0.9;
         }
 
-        /* Pill Shape Action Button inside Cards */
-        .action-btn {
+        .card-btn {
             background: #ffffff;
-            border: 1px solid #e0e0e0;
-            padding: 5px 22px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            color: #444;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            width: 75%;
-            text-align: center;
-        }
-
-        /* Specific Colors matching your exact picture */
-        /* Greetings - Soft Green */
-        .card-greetings h3 { color: #27ae60; }
-        .card-greetings p { color: #2ecc71; }
-        .card-greetings .icon-circle { color: #2ecc71; }
-        
-        /* A1 - Soft Orange */
-        .card-a1 h3 { color: #d35400; }
-        .card-a1 p { color: #e67e22; }
-        .card-a1 .icon-circle { color: #e67e22; }
-
-        /* A2 - Soft Red */
-        .card-a2 h3 { color: #c0392b; }
-        .card-a2 p { color: #e74c3c; }
-        .card-a2 .icon-circle { color: #e74c3c; }
-
-        /* B1 - Soft Blue */
-        .card-b1 h3 { color: #2980b9; }
-        .card-b1 p { color: #3498db; }
-        .card-b1 .icon-circle { color: #3498db; }
-
-
-        /* Bottom Course Material List Section */
-        .course-material-sec {
-            padding: 0 20px 20px 20px;
-        }
-        .sec-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: #222;
-            margin-bottom: 12px;
-        }
-        .material-box {
-            background: #fdfefe;
-            border: 1px solid #eceff1;
-            border-radius: 12px;
-            padding: 10px 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-        }
-        .word-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #f1f3f4;
-        }
-        .word-item:last-child {
-            border-bottom: none;
-        }
-        .left-content {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-        .ger-word {
-            font-size: 15px;
-            font-weight: 600;
-            color: #2c3e50;
-            width: 60px;
-        }
-        .bn-word {
-            font-size: 14px;
-            color: #515a6e;
-            font-weight: 500;
-        }
-        .volume-icon-btn {
-            background: none;
             border: none;
-            color: #7f8c8d;
-            font-size: 15px;
+            padding: 6px 26px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 800;
+            color: #2d3748;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
             cursor: pointer;
-            padding: 5px;
-            transition: color 0.2s;
+            transition: transform 0.1s;
         }
-        .volume-icon-btn:hover {
-            color: #2ecc71;
+
+        .card-btn:active {
+            transform: scale(0.95);
         }
+
+        /* Color Schemes matching Phone Screenshot */
+        .bg-greetings { background: #bcf0c7; color: #14532d; }
+        .bg-a1 { background: #ffba42; color: #78350f; }
+        .bg-a2 { background: #ff5252; color: #ffffff; }
+        .bg-b1 { background: #4299e1; color: #ffffff; }
+
     </style>
 </head>
 <body>
 
-    <!-- Phone Wrapper Context Container -->
-    <div class="phone-wrapper">
+    <!-- Top Navbar -->
+    <nav class="navbar">
+        <div class="logo">DeutschAussprache</div>
+        <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Translator Dropdown Menu -->
+        <div class="lang-dropdown" id="langMenu">
+            <div class="lang-title" id="menuTitle">Select Language</div>
+            <div class="lang-option active" id="opt-bn" onclick="setLanguage('bn')">
+                <span>🇧🇩 বাংলা</span>
+            </div>
+            <div class="lang-option" id="opt-en" onclick="setLanguage('en')">
+                <span>🇬🇧 English</span>
+            </div>
+            <div class="lang-option" id="opt-de" onclick="setLanguage('de')">
+                <span>🇩🇪 Deutsch</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header Banner Area -->
+    <section class="hero-section">
+        <!-- SVG Graphic Banner styled exactly like original layout -->
+        <svg class="hero-banner-img" viewBox="0 0 360 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="360" height="110" rx="10" fill="#E8F5E9"/>
+            <!-- Avatar Boy Header -->
+            <circle cx="55" cy="55" r="32" fill="#FFE0B2"/>
+            <path d="M30 55C30 41.1929 41.1929 30 55 30C68.8071 30 80 41.1929 80 55" stroke="#374151" stroke-width="5"/>
+            <rect x="25" y="48" width="8" height="15" rx="4" fill="#1F2937"/>
+            <rect x="77" y="48" width="8" height="15" rx="4" fill="#1F2937"/>
+            <!-- Face & Mic -->
+            <path d="M40 45C42 35 68 35 70 45C60 40 50 40 40 45Z" fill="#7C2D12"/>
+            <circle cx="48" cy="53" r="2.5" fill="#1F2937"/>
+            <circle cx="62" cy="53" r="2.5" fill="#1F2937"/>
+            <path d="M50 62C52 65 58 65 60 62" stroke="#1F2937" stroke-width="2" stroke-linecap="round"/>
+            <path d="M35 88C35 72 43 70 55 70C67 70 75 72 75 88V110H35V88Z" fill="#EF4444"/>
+            <!-- Mic Icon -->
+            <rect x="85" y="50" width="8" height="16" rx="4" fill="#4B5563"/>
+            <path d="M81 58C81 64 97 64 97 58" stroke="#4B5563" stroke-width="2"/>
+            <line x1="89" y1="65" x2="89" y2="72" stroke="#4B5563" stroke-width="2"/>
+            <!-- Banner Text -->
+            <text x="110" y="48" fill="#111827" font-size="18" font-weight="bold" id="bannerLine1">জার্মান উচ্চারণ ও</text>
+            <text x="110" y="73" fill="#111827" font-size="18" font-weight="bold" id="bannerLine2">শব্দার্থের জগতে স্বাগতম!</text>
+        </svg>
+    </section>
+
+    <!-- 4 Main Action Cards -->
+    <section class="cards-grid">
         
-        <!-- Navbar -->
-        <header class="navbar">
-            <div class="brand-name">DeutschAussprache</div>
-            <div class="hamburger-icon"><i class="fa-solid fa-bars"></i></div>
-        </header>
+        <!-- Greetings -->
+        <div class="card bg-greetings">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#15803d"/>
+                <circle cx="9" cy="7" r="4" stroke="#15803d"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="#15803d"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="#15803d"/>
+            </svg>
+            <div class="card-title">GREETINGS</div>
+            <div class="card-sub" id="sub-greetings">অভিভাদন</div>
+            <button class="card-btn">Play</button>
+        </div>
 
-        <!-- Hero Section Banner -->
-        <section class="hero-banner">
-            <div class="hero-graphics">👨‍音</div>
-            <div class="hero-text">
-                <h1>জার্মান উচ্চারণ ও শব্দার্থের জগতে স্বাগতম!</h1>
-            </div>
-        </section>
+        <!-- Level A1 -->
+        <div class="card bg-a1">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22v-9" stroke="#92400e"/>
+                <path d="M12 13C12 7.5 7.5 6 4 6c0 5.5 4.5 7 8 7z" stroke="#92400e" fill="#b45309"/>
+                <path d="M12 13C12 8.5 15.5 7 18 7c0 4.5-3.5 6-6 6z" stroke="#92400e"/>
+            </svg>
+            <div class="card-title">LEVEL A1</div>
+            <div class="card-sub" id="sub-a1">প্রাথমিক স্তর (A1)</div>
+            <button class="card-btn">Go</button>
+        </div>
 
-        <!-- Main 2x2 Grid -->
-        <main class="grid-container">
-            <div class="cards-grid">
-                
-                <!-- Card 1: Greetings -->
-                <div class="card card-greetings" onclick="playAudioText('Hallo! Wie geht es dir?')">
-                    <div class="icon-circle"><i class="fa-solid fa-users"></i></div>
-                    <h3>Greetings</h3>
-                    <p>অভিবাদন</p>
-                    <div class="action-btn">Play</div>
-                </div>
+        <!-- Level A2 -->
+        <div class="card bg-a2">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71 1.26-1.5 1.5-2.5l-3-3c-1 0-1.79.79-1.5 2.5z" fill="#fff"/>
+                <path d="M15 5l3 3-8.5 8.5-3-3L15 5z" fill="#fff"/>
+                <path d="M12 2l4 4-2 2-4-4 2-2z" fill="#fff"/>
+            </svg>
+            <div class="card-title">LEVEL A2</div>
+            <div class="card-sub" id="sub-a2">মাধ্যমিক স্তর (A2)</div>
+            <button class="card-btn">Play</button>
+        </div>
 
-                <!-- Card 2: A1 -->
-                <div class="card card-a1" onclick="alert('Level A1 সেকশনে নিয়ে যাওয়া হচ্ছে...')">
-                    <div class="icon-circle"><i class="fa-solid fa-seedling"></i></div>
-                    <h3>Level A1</h3>
-                    <p>প্রাথমিক স্তর (A1)</p>
-                    <div class="action-btn">Go</div>
-                </div>
+        <!-- Level B1 -->
+        <div class="card bg-b1">
+            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke="#fff"/>
+                <path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5" stroke="#fff"/>
+            </svg>
+            <div class="card-title">LEVEL B1</div>
+            <div class="card-sub" id="sub-b1">উচ্চ-মাধ্যমিক স্তর (B1)</div>
+            <button class="card-btn">Go</button>
+        </div>
 
-                <!-- Card 3: A2 -->
-                <div class="card card-a2" onclick="playAudioText('Guten Tag, wie kann ich helfen?')">
-                    <div class="icon-circle"><i class="fa-solid fa-rocket"></i></div>
-                    <h3>Level A2</h3>
-                    <p>মাধ্যমিক স্তর (A2)</p>
-                    <div class="action-btn">Play</div>
-                </div>
+    </section>
 
-                <!-- Card 4: B1 -->
-                <div class="card card-b1" onclick="alert('Level B1 সেকশনে নিয়ে যাওয়া হচ্ছে...')">
-                    <div class="icon-circle"><i class="fa-solid fa-user-graduate"></i></div>
-                    <h3>Level B1</h3>
-                    <p>উচ্চ-মাধ্যমিক স্তর (B1)</p>
-                    <div class="action-btn">Go</div>
-                </div>
+<script>
+// Translations Dictionary for Translator Dropdown
+const translations = {
+    bn: {
+        menuTitle: "ভাষা নির্বাচন করুন",
+        line1: "জার্মান উচ্চারণ ও",
+        line2: "শব্দার্থের জগতে স্বাগতম!",
+        subGreetings: "অভিভাদন",
+        subA1: "প্রাথমিক স্তর (A1)",
+        subA2: "মাধ্যমিক স্তর (A2)",
+        subB1: "উচ্চ-মাধ্যমিক স্তর (B1)"
+    },
+    en: {
+        menuTitle: "Select Language",
+        line1: "Welcome to German",
+        line2: "Pronunciation & Vocab!",
+        subGreetings: "Greetings",
+        subA1: "Basic Level (A1)",
+        subA2: "Intermediate Level (A2)",
+        subB1: "Upper-Intermediate (B1)"
+    },
+    de: {
+        menuTitle: "Sprache auswählen",
+        line1: "Willkommen zur deutschen",
+        line2: "Aussprache & Wortschatz!",
+        subGreetings: "Begrüßung",
+        subA1: "Grundstufe (A1)",
+        subA2: "Mittelstufe (A2)",
+        subB1: "Fortgeschritten (B1)"
+    }
+};
 
-            </div>
-        </main>
+function toggleMenu() {
+    const menu = document.getElementById('langMenu');
+    menu.classList.toggle('show');
+}
 
-        <!-- Bottom Lists (Sample Course Material A1) -->
-        <section class="course-material-sec">
-            <div class="sec-title">Sample Course Material A1</div>
-            
-            <div class="material-box">
-                <!-- Item 1 -->
-                <div class="word-item">
-                    <div class="left-content">
-                        <span class="ger-word">Hallo</span>
-                        <button class="volume-icon-btn" onclick="playAudioText('Hallo')"><i class="fa-solid fa-volume-high"></i></button>
-                        <span class="bn-word">হ্যালো</span>
-                    </div>
-                </div>
+// Close menu when clicking outside
+document.addEventListener('click', function(e) {
+    const menu = document.getElementById('langMenu');
+    const btn = document.querySelector('.menu-btn');
+    if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('show');
+    }
+});
 
-                <!-- Item 2 -->
+function setLanguage(lang) {
+    const t = translations[lang];
+    
+    // Update Interface UI Text
+    document.getElementById('menuTitle').innerText = t.menuTitle;
+    document.getElementById('bannerLine1').textContent = t.line1;
+    document.getElementById('bannerLine2').textContent = t.line2;
+    document.getElementById('sub-greetings').innerText = t.subGreetings;
+    document.getElementById('sub-a1').innerText = t.subA1;
+    document.getElementById('sub-a2').innerText = t.subA2;
+    document.getElementById('sub-b1').innerText = t.subB1;
+
+    // Active Language Highlight
+    document.querySelectorAll('.lang-option').forEach(el => el.classList.remove('active'));
+    document.getElementById('opt-' + lang).classList.add('active');
+
+    // Close Dropdown
+    toggleMenu();
+}
+</script>
+
+</body>
+</html>
