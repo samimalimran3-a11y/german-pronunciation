@@ -3,436 +3,432 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeutschAussprache - জার্মান উচ্চারণ ও শব্দার্থ</title>
+    <title>DeutschAussprache</title>
     <style>
         * {
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
+
         body {
-            background-color: #fcfbf7;
-            color: #2b2b2b;
-            padding-bottom: 50px;
+            background-color: #f7f9fa;
+            color: #1a1a1a;
+            padding-bottom: 40px;
         }
 
-        /* Top Navbar */
+        /* Top Bar */
         .navbar {
             background: #ffffff;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 6%;
-            border-bottom: 1px solid #eaeaea;
+            padding: 12px 16px;
+            border-bottom: 1px solid #e5e7eb;
             position: sticky;
             top: 0;
             z-index: 100;
         }
+
         .logo {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 800;
-            color: #111;
+            color: #0f172a;
         }
-        .nav-links {
+
+        /* Menu Icon Button */
+        .menu-btn {
+            background: #e6f4ea;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
             display: flex;
-            gap: 10px;
-            list-style: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
         }
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
+
+        .menu-btn span {
+            width: 18px;
+            height: 2px;
+            background-color: #1e8e3e;
+            border-radius: 2px;
+        }
+
+        /* Language Dropdown Menu */
+        .lang-dropdown {
+            display: none;
+            position: absolute;
+            top: 55px;
+            right: 16px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            width: 170px;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .lang-dropdown.show {
+            display: block;
+        }
+
+        .lang-title {
+            padding: 10px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            background: #f8fafc;
+            border-bottom: 1px solid #f1f5f9;
+            text-transform: uppercase;
+        }
+
+        .lang-option {
+            padding: 10px 14px;
             font-size: 14px;
             font-weight: 600;
-            padding: 6px 14px;
-            border-radius: 20px;
-            transition: 0.3s;
-        }
-        .nav-links a.active {
-            background: #e2f1e8;
-            color: #1b4d3e;
-        }
-
-        /* Hero Banner Section with Graphic Illustration */
-        .hero-banner {
-            background: linear-gradient(180deg, #f3f8f4 0%, #fffbf0 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px 5%;
-            gap: 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-            border-radius: 0 0 25px 25px;
-        }
-        .hero-img {
-            width: 220px;
-            max-width: 35%;
-            height: auto;
-        }
-        .hero-title-img {
-            max-width: 450px;
-            width: 60%;
-            height: auto;
-        }
-
-        /* Responsive Hero for Mobile */
-        @media (max-width: 650px) {
-            .hero-banner {
-                flex-direction: column;
-                text-align: center;
-                padding: 15px;
-            }
-            .hero-img {
-                width: 140px;
-                max-width: 80%;
-            }
-            .hero-title-img {
-                width: 90%;
-            }
-        }
-
-        /* 4 Main Action Cards */
-        .cards-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            max-width: 1000px;
-            margin: 25px auto;
-            padding: 0 4%;
-        }
-        @media (max-width: 768px) {
-            .cards-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        .card {
-            border-radius: 18px;
-            padding: 18px 10px;
-            text-align: center;
+            color: #334155;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            border: 2px solid transparent;
-        }
-        .card:hover {
-            transform: translateY(-3px);
-        }
-        .card.active-card {
-            border-color: #222;
-        }
-
-        .card-icon {
-            font-size: 32px;
-            margin-bottom: 6px;
-        }
-        .card-title {
-            font-weight: 800;
-            font-size: 15px;
-            letter-spacing: 0.5px;
-        }
-        .card-sub {
-            font-size: 11px;
-            margin-top: 3px;
-            font-weight: 600;
-            opacity: 0.85;
-        }
-
-        /* Exact Backgrounds from Design */
-        .bg-greetings { background: #d2f8d8; color: #164e24; }
-        .bg-a1 { background: #ffca62; color: #5c3b00; }
-        .bg-a2 { background: #ff6b6b; color: #ffffff; }
-        .bg-b1 { background: #4a90e2; color: #ffffff; }
-
-        /* Bottom Section: 2 Column Layout like the Picture */
-        .content-section {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 4%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        @media (max-width: 768px) {
-            .content-section {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .box-panel {
-            background: #fff8e7;
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid #f0e6d2;
-        }
-
-        .section-heading {
-            font-weight: 700;
-            font-size: 16px;
-            margin-bottom: 15px;
-            color: #333;
-        }
-
-        /* Word List Styling */
-        .word-list {
-            list-style: none;
-        }
-        .word-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 8px 12px;
-            background: #ffffff;
-            border-radius: 10px;
-            margin-bottom: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
-        .word-german {
-            font-weight: 700;
-            font-size: 16px;
-            width: 40%;
-        }
-        .audio-icon-btn {
-            background: none;
-            border: none;
-            font-size: 18px;
-            cursor: pointer;
-        }
-        .word-meaning {
-            font-weight: 600;
-            font-size: 15px;
-            color: #444;
-            width: 45%;
-            text-align: right;
+            transition: background 0.2s;
         }
 
-        /* Search & Practice Input Area */
-        .search-container {
-            position: relative;
-            margin-top: 10px;
+        .lang-option:hover {
+            background: #f1f5f9;
         }
-        .search-input {
-            width: 100%;
-            padding: 12px 45px 12px 18px;
-            border-radius: 25px;
-            border: 1px solid #ccc;
-            font-size: 14px;
-            outline: none;
-            background: #fff;
+
+        .lang-option.active {
+            color: #16a34a;
+            font-weight: 700;
         }
-        .mic-icon-btn {
-            position: absolute;
-            right: 8px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #ff4747;
-            border: none;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            color: white;
-            font-size: 14px;
-            cursor: pointer;
+
+        /* Mobile Hero Banner */
+        .hero-section {
+            background: linear-gradient(180deg, #edf7f2 0%, #fffbf0 100%);
+            padding: 15px 12px;
+            text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        .mic-icon-btn.recording {
-            animation: pulse 1s infinite;
-            background: #22c55e;
+            gap: 10px;
+            border-bottom: 1px solid #eaeaea;
         }
 
-        .speech-result {
-            margin-top: 12px;
-            font-weight: 600;
-            font-size: 14px;
+        .hero-avatar {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+        }
+
+        .hero-banner-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: #1e293b;
+            line-height: 1.3;
+        }
+
+        /* Grid Cards (Exact Layout from Image) */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 15px 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .card {
+            border-radius: 16px;
+            padding: 15px 10px;
             text-align: center;
-            min-height: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
         }
 
-        @keyframes pulse {
-            0% { transform: translateY(-50%) scale(1); }
-            50% { transform: translateY(-50%) scale(1.15); }
-            100% { transform: translateY(-50%) scale(1); }
+        .card-icon {
+            font-size: 26px;
+            margin-bottom: 4px;
+        }
+
+        .card-title {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+        }
+
+        .card-sub {
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 2px;
+            margin-bottom: 10px;
+            opacity: 0.85;
+        }
+
+        .card-btn {
+            background: #ffffff;
+            border: none;
+            padding: 5px 22px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #333333;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        /* Color Schemes matching Phone Screenshot */
+        .bg-greetings { background: #bdf2ca; color: #14532d; }
+        .bg-a1 { background: #ffbe53; color: #78350f; }
+        .bg-a2 { background: #ff5252; color: #ffffff; }
+        .bg-b1 { background: #4299e1; color: #ffffff; }
+
+        /* Sample Course Material Panel */
+        .material-panel {
+            background: #fdf6e7;
+            border-radius: 16px;
+            margin: 0 12px;
+            padding: 15px;
+            border: 1px solid #f3e5c8;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .material-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .word-list {
+            list-style: none;
+        }
+
+        .word-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .word-german {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e293b;
+            width: 35%;
+        }
+
+        .audio-btn {
+            background: none;
+            border: none;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .word-meaning {
+            font-size: 14px;
+            font-weight: 700;
+            color: #475569;
+            width: 45%;
+            text-align: right;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Navbar -->
+    <!-- Top Navbar -->
     <nav class="navbar">
         <div class="logo">DeutschAussprache</div>
-        <ul class="nav-links">
-            <li><a href="#" class="active">Home</a></li>
-            <li><a href="#">Search</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
+        <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Translator Dropdown -->
+        <div class="lang-dropdown" id="langMenu">
+            <div class="lang-title" id="menuTitle">Select Language</div>
+            <div class="lang-option active" id="opt-bn" onclick="setLanguage('bn')">
+                <span>🇧🇩 বাংলা</span>
+            </div>
+            <div class="lang-option" id="opt-en" onclick="setLanguage('en')">
+                <span>🇬🇧 English</span>
+            </div>
+            <div class="lang-option" id="opt-de" onclick="setLanguage('de')">
+                <span>🇩🇪 Deutsch</span>
+            </div>
+        </div>
     </nav>
 
-    <!-- Banner Graphic Header -->
-    <header class="hero-banner">
-        <img src="https://illustrations.popey.dev/german-avatar.png" alt="German Learning Character" class="hero-img" onerror="this.src='https://cdn-icons-png.flaticon.com/512/4140/4140048.png'">
-        <div style="text-align: center;">
-            <h1 style="font-size: 24px; color: #111; margin-bottom: 5px;">জার্মান উচ্চারণ এবং শব্দার্থের জগতে স্বাগতম!</h1>
-            <p style="font-size: 13px; color: #666;">সহজে জার্মান বলুন এবং সঠিক উচ্চারণ শিখুন</p>
-        </div>
-    </header>
+    <!-- Header Banner -->
+    <section class="hero-section">
+        <!-- SVG Avatar Illustration -->
+        <svg class="hero-avatar" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="45" fill="#FFE8B2"/>
+            <path d="M20 50C20 33.4315 33.4315 20 50 20C66.5685 20 80 33.4315 80 50" stroke="#333" stroke-width="6"/>
+            <rect x="15" y="42" width="10" height="18" rx="5" fill="#333"/>
+            <rect x="75" y="42" width="10" height="18" rx="5" fill="#333"/>
+            <circle cx="50" cy="52" r="22" fill="#FFCC99"/>
+            <circle cx="42" cy="50" r="3" fill="#333"/>
+            <circle cx="58" cy="50" r="3" fill="#333"/>
+            <path d="M45 60C47 63 53 63 55 60" stroke="#333" stroke-width="2"/>
+            <path d="M25 85C25 72 35 70 50 70C65 70 75 72 75 85V100H25V85Z" fill="#E53E3E"/>
+        </svg>
 
-    <!-- 4 Level Cards -->
-    <section class="cards-container">
-        <div class="card bg-greetings active-card" onclick="selectLevel('greetings', this)">
+        <h1 class="hero-banner-title" id="bannerTitle">জার্মান উচ্চারণ ও<br>শব্দার্থের জগতে স্বাগতম!</h1>
+    </section>
+
+    <!-- 4 Cards Grid -->
+    <section class="cards-grid">
+        <div class="card bg-greetings">
             <div class="card-icon">👥</div>
             <div class="card-title">GREETINGS</div>
-            <div class="card-sub">অভিভাদন</div>
+            <div class="card-sub" id="sub-greetings">অভিভাদন</div>
+            <button class="card-btn" id="btn-greetings">Play</button>
         </div>
-        <div class="card bg-a1" onclick="selectLevel('a1', this)">
+
+        <div class="card bg-a1">
             <div class="card-icon">🌱</div>
             <div class="card-title">LEVEL A1</div>
-            <div class="card-sub">প্রাথমিক স্তর (A1)</div>
+            <div class="card-sub" id="sub-a1">প্রাথমিক স্তর (A1)</div>
+            <button class="card-btn" id="btn-a1">Go</button>
         </div>
-        <div class="card bg-a2" onclick="selectLevel('a2', this)">
+
+        <div class="card bg-a2">
             <div class="card-icon">🚀</div>
             <div class="card-title">LEVEL A2</div>
-            <div class="card-sub">মাধ্যমিক স্তর (A2)</div>
+            <div class="card-sub" id="sub-a2">মাধ্যমিক স্তর (A2)</div>
+            <button class="card-btn" id="btn-a2">Play</button>
         </div>
-        <div class="card bg-b1" onclick="selectLevel('b1', this)">
+
+        <div class="card bg-b1">
             <div class="card-icon">🎓</div>
             <div class="card-title">LEVEL B1</div>
-            <div class="card-sub">উচ্চ-মাধ্যমিক স্তর (B1)</div>
+            <div class="card-sub" id="sub-b1">উচ্চ-মাধ্যমিক স্তর (B1)</div>
+            <button class="card-btn" id="btn-b1">Go</button>
         </div>
     </section>
 
-    <!-- Content Split Area (2 Columns) -->
-    <section class="content-section">
+    <!-- Sample Material Section -->
+    <section class="material-panel">
+        <div class="material-title" id="sampleTitle">Sample Course Material A1</div>
         
-        <!-- Left Column: Word List -->
-        <div class="box-panel">
-            <ul class="word-list" id="wordListContainer">
-                <!-- Javascript will load items here -->
-            </ul>
-        </div>
-
-        <!-- Right Column: Interactive Search & Practice -->
-        <div class="box-panel">
-            <div class="section-heading" id="currentLevelTitle">কোর্স উপাদানের উদাহরণ (A1)</div>
-            
-            <div class="search-container">
-                <input type="text" class="search-input" id="searchInput" placeholder="Search..." oninput="filterWords()">
-                <button class="mic-icon-btn" id="micBtn" onclick="startVoiceRecognition()">🎙️</button>
-            </div>
-
-            <div class="speech-result" id="speechResult"></div>
-        </div>
-
+        <ul class="word-list" id="wordList">
+            <li class="word-row">
+                <span class="word-german">Hallo</span>
+                <button class="audio-btn" onclick="speak('Hallo')">🔊</button>
+                <span class="word-meaning" id="mean-hallo">হ্যালো</span>
+            </li>
+            <li class="word-row">
+                <span class="word-german">Danke</span>
+                <button class="audio-btn" onclick="speak('Danke')">🔊</button>
+                <span class="word-meaning" id="mean-danke">ধন্যবাদ</span>
+            </li>
+            <li class="word-row">
+                <span class="word-german">Apfel</span>
+                <button class="audio-btn" onclick="speak('Apfel')">🔊</button>
+                <span class="word-meaning" id="mean-apfel">আপেল</span>
+            </li>
+        </ul>
     </section>
 
 <script>
-const database = {
-    greetings: [
-        { word: "Hallo", mean: "হ্যালো" },
-        { word: "Guten Tag", mean: "শুভ দিন" },
-        { word: "Tschüss", mean: "বিদায়" },
-        { word: "Danke", mean: "ধন্যবাদ" }
-    ],
-    a1: [
-        { word: "Hallo", mean: "হ্যালো" },
-        { word: "Danke", mean: "ধন্যবাদ" },
-        { word: "Apfel", mean: "আপেল" },
-        { word: "Brot", mean: "রুটি" },
-        { word: "Wasser", mean: "পানি" }
-    ],
-    a2: [
-        { word: "Termin", mean: "অ্যাপয়েন্টমেন্ট" },
-        { word: "Arbeit", mean: "কাজ" },
-        { word: "Schule", mean: "স্কুল" }
-    ],
-    b1: [
-        { word: "Zukunft", mean: "ভবিষ্যৎ" },
-        { word: "Erfahrung", mean: "অভিজ্ঞতা" }
-    ]
+// Translations Dictionary
+const translations = {
+    bn: {
+        menuTitle: "ভাষা নির্বাচন করুন",
+        bannerTitle: "জার্মান উচ্চারণ ও<br>শব্দার্থের জগতে স্বাগতম!",
+        subGreetings: "অভিভাদন",
+        subA1: "প্রাথমিক স্তর (A1)",
+        subA2: "মাধ্যমিক স্তর (A2)",
+        subB1: "উচ্চ-মাধ্যমিক স্তর (B1)",
+        sampleTitle: "কোর্স উপাদানের উদাহরণ (A1)",
+        meanHallo: "হ্যালো",
+        meanDanke: "ধন্যবাদ",
+        meanApfel: "আপেল"
+    },
+    en: {
+        menuTitle: "Select Language",
+        bannerTitle: "Welcome to German<br>Pronunciation & Vocab!",
+        subGreetings: "Greetings",
+        subA1: "Basic Level (A1)",
+        subA2: "Intermediate Level (A2)",
+        subB1: "Upper-Intermediate (B1)",
+        sampleTitle: "Sample Course Material A1",
+        meanHallo: "Hello",
+        meanDanke: "Thank you",
+        meanApfel: "Apple"
+    },
+    de: {
+        menuTitle: "Sprache auswählen",
+        bannerTitle: "Willkommen zur deutschen<br>Aussprache & Wortschatz!",
+        subGreetings: "Begrüßung",
+        subA1: "Grundstufe (A1)",
+        subA2: "Mittelstufe (A2)",
+        subB1: "Fortgeschritten (B1)",
+        sampleTitle: "Beispiel Kursmaterial A1",
+        meanHallo: "Hallo",
+        meanDanke: "Danke",
+        meanApfel: "Apfel"
+    }
 };
 
-let activeLevel = 'a1';
-
-function renderWords(items) {
-    const container = document.getElementById('wordListContainer');
-    container.innerHTML = '';
-    
-    items.forEach(item => {
-        const li = document.createElement('li');
-        li.className = 'word-item';
-        li.innerHTML = `
-            <span class="word-german">${item.word}</span>
-            <button class="audio-icon-btn" onclick="speakWord('${item.word}')">🔊</button>
-            <span class="word-meaning">${item.mean}</span>
-        `;
-        container.appendChild(li);
-    });
+function toggleMenu() {
+    const menu = document.getElementById('langMenu');
+    menu.classList.toggle('show');
 }
 
-function selectLevel(levelKey, cardElem) {
-    activeLevel = levelKey;
-    document.querySelectorAll('.card').forEach(c => c.classList.remove('active-card'));
-    cardElem.classList.add('active-card');
+// Close menu when clicking outside
+document.addEventListener('click', function(e) {
+    const menu = document.getElementById('langMenu');
+    const btn = document.querySelector('.menu-btn');
+    if (!menu.contains(e.target) && !btn.contains(e.target)) {
+        menu.classList.remove('show');
+    }
+});
+
+function setLanguage(lang) {
+    const t = translations[lang];
     
-    const levelNames = { greetings: 'GREETINGS', a1: 'A1', a2: 'A2', b1: 'B1' };
-    document.getElementById('currentLevelTitle').innerText = `কোর্স উপাদানের উদাহরণ (${levelNames[levelKey]})`;
+    // Update Interface UI
+    document.getElementById('menuTitle').innerText = t.menuTitle;
+    document.getElementById('bannerTitle').innerHTML = t.bannerTitle;
+    document.getElementById('sub-greetings').innerText = t.subGreetings;
+    document.getElementById('sub-a1').innerText = t.subA1;
+    document.getElementById('sub-a2').innerText = t.subA2;
+    document.getElementById('sub-b1').innerText = t.subB1;
+    document.getElementById('sampleTitle').innerText = t.sampleTitle;
     
-    renderWords(database[levelKey]);
+    // Update Meanings
+    document.getElementById('mean-hallo').innerText = t.meanHallo;
+    document.getElementById('mean-danke').innerText = t.meanDanke;
+    document.getElementById('mean-apfel').innerText = t.meanApfel;
+
+    // Active Language Highlight
+    document.querySelectorAll('.lang-option').forEach(el => el.classList.remove('active'));
+    document.getElementById('opt-' + lang).classList.add('active');
+
+    // Close Dropdown
+    toggleMenu();
 }
 
-function speakWord(text) {
+function speak(text) {
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'de-DE';
     utterance.rate = 0.85;
     window.speechSynthesis.speak(utterance);
 }
-
-function filterWords() {
-    const query = document.getElementById('searchInput').value.toLowerCase();
-    const filtered = database[activeLevel].filter(item => 
-        item.word.toLowerCase().includes(query) || item.mean.includes(query)
-    );
-    renderWords(filtered);
-}
-
-function startVoiceRecognition() {
-    const micBtn = document.getElementById('micBtn');
-    const resultBox = document.getElementById('speechResult');
-
-    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
-        alert("ভয়েস উচ্চারণের জন্য গুগল ক্রোম ব্রাউজার ব্যবহার করুন।");
-        return;
-    }
-
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new SpeechRecognition();
-    recognition.lang = 'de-DE';
-
-    micBtn.classList.add('recording');
-    resultBox.innerText = "উচ্চারণ শুনছি...";
-    resultBox.style.color = "#d97706";
-
-    recognition.start();
-
-    recognition.onresult = function(e) {
-        micBtn.classList.remove('recording');
-        const spoken = e.results[0][0].transcript;
-        resultBox.innerText = `আপনি বলেছেন: "${spoken}"`;
-        resultBox.style.color = "#16a34a";
-    };
-
-    recognition.onerror = function() {
-        micBtn.classList.remove('recording');
-        resultBox.innerText = "উচ্চারণ বোঝা যায়নি, আবার চেষ্টা করুন।";
-        resultBox.style.color = "#dc2626";
-    };
-}
-
-// Initial Load
-renderWords(database[activeLevel]);
 </script>
 
 </body>
