@@ -1,3 +1,4 @@
+                        
             <!DOCTYPE html>
 <html lang="bn">
 <head>
@@ -7,71 +8,61 @@
     <style>
         * {
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             margin: 0;
             padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
-            background-color: #ffffff;
-            color: #1a1a1a;
-            padding-bottom: 30px;
-        }
-
-        /* Top Navbar */
-        .navbar {
-            background: #ffffff;
+            background-color: #f1f5f9;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 18px;
-            border-bottom: 1px solid #eee;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .logo {
-            font-size: 19px;
-            font-weight: 800;
-            color: #111827;
-            letter-spacing: -0.3px;
-        }
-
-        /* Three Bar Menu Button */
-        .menu-btn {
-            background: #e6f4ea;
-            border: none;
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
-            align-items: center;
-            gap: 4px;
-            cursor: pointer;
+            align-items: flex-start;
+            min-height: 100vh;
         }
 
-        .menu-btn span {
-            width: 18px;
-            height: 2px;
-            background-color: #16a34a;
-            border-radius: 2px;
+        /* Mobile Container */
+        .app-container {
+            width: 100%;
+            max-width: 420px;
+            background: #ffffff;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            min-height: 100vh;
+        }
+
+        /* Homepage Image */
+        .homepage-img {
+            width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        /* Menu Button Trigger Area Over Image */
+        .menu-trigger {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            width: 44px;
+            height: 44px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            z-index: 10;
         }
 
         /* Translator Dropdown Menu */
         .lang-dropdown {
             display: none;
             position: absolute;
-            top: 60px;
-            right: 18px;
+            top: 50px;
+            right: 12px;
             background: #ffffff;
             border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-            width: 180px;
-            z-index: 1000;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 170px;
+            z-index: 100;
             overflow: hidden;
         }
 
@@ -80,7 +71,7 @@
         }
 
         .lang-title {
-            padding: 10px 14px;
+            padding: 10px 12px;
             font-size: 11px;
             font-weight: 700;
             color: #64748b;
@@ -90,7 +81,7 @@
         }
 
         .lang-option {
-            padding: 12px 14px;
+            padding: 12px;
             font-size: 14px;
             font-weight: 600;
             color: #334155;
@@ -98,7 +89,6 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: background 0.2s;
         }
 
         .lang-option:hover {
@@ -109,105 +99,15 @@
             color: #16a34a;
             font-weight: 700;
         }
-
-        /* Hero Banner Section matching exact image */
-        .hero-section {
-            background: #eef7f2;
-            padding: 15px 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .hero-banner-img {
-            width: 100%;
-            max-width: 420px;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-            border-radius: 12px;
-        }
-
-        /* 4 Main Level Cards Grid */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-            padding: 16px 14px;
-            max-width: 480px;
-            margin: 0 auto;
-        }
-
-        .card {
-            border-radius: 18px;
-            padding: 18px 12px 14px 12px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        }
-
-        .card-icon {
-            width: 45px;
-            height: 45px;
-            margin-bottom: 6px;
-        }
-
-        .card-title {
-            font-size: 15px;
-            font-weight: 800;
-            letter-spacing: 0.2px;
-        }
-
-        .card-sub {
-            font-size: 11px;
-            font-weight: 700;
-            margin-top: 2px;
-            margin-bottom: 12px;
-            opacity: 0.9;
-        }
-
-        .card-btn {
-            background: #ffffff;
-            border: none;
-            padding: 6px 26px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 800;
-            color: #2d3748;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-            cursor: pointer;
-            transition: transform 0.1s;
-        }
-
-        .card-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Color Schemes matching Phone Screenshot */
-        .bg-greetings { background: #bcf0c7; color: #14532d; }
-        .bg-a1 { background: #ffba42; color: #78350f; }
-        .bg-a2 { background: #ff5252; color: #ffffff; }
-        .bg-b1 { background: #4299e1; color: #ffffff; }
-
     </style>
 </head>
 <body>
 
-    <!-- Top Navbar -->
-    <nav class="navbar">
-        <div class="logo">DeutschAussprache</div>
-        <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+    <div class="app-container">
+        <!-- Transparent Clickable Button over top right Menu -->
+        <button class="menu-trigger" onclick="toggleMenu()" aria-label="Open Menu"></button>
 
-        <!-- Translator Dropdown Menu -->
+        <!-- Language Menu -->
         <div class="lang-dropdown" id="langMenu">
             <div class="lang-title" id="menuTitle">Select Language</div>
             <div class="lang-option active" id="opt-bn" onclick="setLanguage('bn')">
@@ -220,150 +120,28 @@
                 <span>🇩🇪 Deutsch</span>
             </div>
         </div>
-    </nav>
 
-    <!-- Header Banner Area -->
-    <section class="hero-section">
-        <!-- SVG Graphic Banner styled exactly like original layout -->
-        <svg class="hero-banner-img" viewBox="0 0 360 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="360" height="110" rx="10" fill="#E8F5E9"/>
-            <!-- Avatar Boy Header -->
-            <circle cx="55" cy="55" r="32" fill="#FFE0B2"/>
-            <path d="M30 55C30 41.1929 41.1929 30 55 30C68.8071 30 80 41.1929 80 55" stroke="#374151" stroke-width="5"/>
-            <rect x="25" y="48" width="8" height="15" rx="4" fill="#1F2937"/>
-            <rect x="77" y="48" width="8" height="15" rx="4" fill="#1F2937"/>
-            <!-- Face & Mic -->
-            <path d="M40 45C42 35 68 35 70 45C60 40 50 40 40 45Z" fill="#7C2D12"/>
-            <circle cx="48" cy="53" r="2.5" fill="#1F2937"/>
-            <circle cx="62" cy="53" r="2.5" fill="#1F2937"/>
-            <path d="M50 62C52 65 58 65 60 62" stroke="#1F2937" stroke-width="2" stroke-linecap="round"/>
-            <path d="M35 88C35 72 43 70 55 70C67 70 75 72 75 88V110H35V88Z" fill="#EF4444"/>
-            <!-- Mic Icon -->
-            <rect x="85" y="50" width="8" height="16" rx="4" fill="#4B5563"/>
-            <path d="M81 58C81 64 97 64 97 58" stroke="#4B5563" stroke-width="2"/>
-            <line x1="89" y1="65" x2="89" y2="72" stroke="#4B5563" stroke-width="2"/>
-            <!-- Banner Text -->
-            <text x="110" y="48" fill="#111827" font-size="18" font-weight="bold" id="bannerLine1">জার্মান উচ্চারণ ও</text>
-            <text x="110" y="73" fill="#111827" font-size="18" font-weight="bold" id="bannerLine2">শব্দার্থের জগতে স্বাগতম!</text>
-        </svg>
-    </section>
-
-    <!-- 4 Main Action Cards -->
-    <section class="cards-grid">
-        
-        <!-- Greetings -->
-        <div class="card bg-greetings">
-            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="#15803d"/>
-                <circle cx="9" cy="7" r="4" stroke="#15803d"/>
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="#15803d"/>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="#15803d"/>
-            </svg>
-            <div class="card-title">GREETINGS</div>
-            <div class="card-sub" id="sub-greetings">অভিভাদন</div>
-            <button class="card-btn">Play</button>
-        </div>
-
-        <!-- Level A1 -->
-        <div class="card bg-a1">
-            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 22v-9" stroke="#92400e"/>
-                <path d="M12 13C12 7.5 7.5 6 4 6c0 5.5 4.5 7 8 7z" stroke="#92400e" fill="#b45309"/>
-                <path d="M12 13C12 8.5 15.5 7 18 7c0 4.5-3.5 6-6 6z" stroke="#92400e"/>
-            </svg>
-            <div class="card-title">LEVEL A1</div>
-            <div class="card-sub" id="sub-a1">প্রাথমিক স্তর (A1)</div>
-            <button class="card-btn">Go</button>
-        </div>
-
-        <!-- Level A2 -->
-        <div class="card bg-a2">
-            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.71 1.26-1.5 1.5-2.5l-3-3c-1 0-1.79.79-1.5 2.5z" fill="#fff"/>
-                <path d="M15 5l3 3-8.5 8.5-3-3L15 5z" fill="#fff"/>
-                <path d="M12 2l4 4-2 2-4-4 2-2z" fill="#fff"/>
-            </svg>
-            <div class="card-title">LEVEL A2</div>
-            <div class="card-sub" id="sub-a2">মাধ্যমিক স্তর (A2)</div>
-            <button class="card-btn">Play</button>
-        </div>
-
-        <!-- Level B1 -->
-        <div class="card bg-b1">
-            <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 10v6M2 10l10-5 10 5-10 5z" stroke="#fff"/>
-                <path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5" stroke="#fff"/>
-            </svg>
-            <div class="card-title">LEVEL B1</div>
-            <div class="card-sub" id="sub-b1">উচ্চ-মাধ্যমিক স্তর (B1)</div>
-            <button class="card-btn">Go</button>
-        </div>
-
-    </section>
+        <!-- Your Cropped Image -->
+        <img src="banner.png" alt="DeutschAussprache Homepage" class="homepage-img">
+    </div>
 
 <script>
-// Translations Dictionary for Translator Dropdown
-const translations = {
-    bn: {
-        menuTitle: "ভাষা নির্বাচন করুন",
-        line1: "জার্মান উচ্চারণ ও",
-        line2: "শব্দার্থের জগতে স্বাগতম!",
-        subGreetings: "অভিভাদন",
-        subA1: "প্রাথমিক স্তর (A1)",
-        subA2: "মাধ্যমিক স্তর (A2)",
-        subB1: "উচ্চ-মাধ্যমিক স্তর (B1)"
-    },
-    en: {
-        menuTitle: "Select Language",
-        line1: "Welcome to German",
-        line2: "Pronunciation & Vocab!",
-        subGreetings: "Greetings",
-        subA1: "Basic Level (A1)",
-        subA2: "Intermediate Level (A2)",
-        subB1: "Upper-Intermediate (B1)"
-    },
-    de: {
-        menuTitle: "Sprache auswählen",
-        line1: "Willkommen zur deutschen",
-        line2: "Aussprache & Wortschatz!",
-        subGreetings: "Begrüßung",
-        subA1: "Grundstufe (A1)",
-        subA2: "Mittelstufe (A2)",
-        subB1: "Fortgeschritten (B1)"
-    }
-};
-
 function toggleMenu() {
     const menu = document.getElementById('langMenu');
     menu.classList.toggle('show');
 }
 
-// Close menu when clicking outside
 document.addEventListener('click', function(e) {
     const menu = document.getElementById('langMenu');
-    const btn = document.querySelector('.menu-btn');
+    const btn = document.querySelector('.menu-trigger');
     if (!menu.contains(e.target) && !btn.contains(e.target)) {
         menu.classList.remove('show');
     }
 });
 
 function setLanguage(lang) {
-    const t = translations[lang];
-    
-    // Update Interface UI Text
-    document.getElementById('menuTitle').innerText = t.menuTitle;
-    document.getElementById('bannerLine1').textContent = t.line1;
-    document.getElementById('bannerLine2').textContent = t.line2;
-    document.getElementById('sub-greetings').innerText = t.subGreetings;
-    document.getElementById('sub-a1').innerText = t.subA1;
-    document.getElementById('sub-a2').innerText = t.subA2;
-    document.getElementById('sub-b1').innerText = t.subB1;
-
-    // Active Language Highlight
     document.querySelectorAll('.lang-option').forEach(el => el.classList.remove('active'));
     document.getElementById('opt-' + lang).classList.add('active');
-
-    // Close Dropdown
     toggleMenu();
 }
 </script>
