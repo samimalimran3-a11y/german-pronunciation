@@ -1,5 +1,4 @@
-                        
-            <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
@@ -11,6 +10,7 @@
             margin: 0;
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -21,28 +21,28 @@
             min-height: 100vh;
         }
 
-        /* Mobile Container */
         .app-container {
             width: 100%;
             max-width: 420px;
             background: #ffffff;
             position: relative;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             min-height: 100vh;
         }
 
-        /* Homepage Image */
+        /* HD Homepage Image Style */
         .homepage-img {
             width: 100%;
             display: block;
             height: auto;
+            image-rendering: -webkit-optimize-contrast; /* Sharp HD Quality */
         }
 
-        /* Menu Button Trigger Area Over Image */
+        /* Menu Trigger Button Over Image */
         .menu-trigger {
             position: absolute;
-            top: 8px;
-            right: 10px;
+            top: 10px;
+            right: 14px;
             width: 44px;
             height: 44px;
             background: transparent;
@@ -51,24 +51,35 @@
             z-index: 10;
         }
 
+        /* Clickable Areas over the 4 Cards */
+        .card-link {
+            position: absolute;
+            cursor: pointer;
+            border-radius: 16px;
+        }
+
+        /* Transparent overlays matching card positions */
+        .card-greetings { top: 295px; left: 16px; width: 46%; height: 175px; }
+        .card-a1 { top: 295px; right: 16px; width: 46%; height: 175px; }
+        .card-a2 { top: 482px; left: 16px; width: 46%; height: 175px; }
+        .card-b1 { top: 482px; right: 16px; width: 46%; height: 175px; }
+
         /* Translator Dropdown Menu */
         .lang-dropdown {
             display: none;
             position: absolute;
-            top: 50px;
-            right: 12px;
+            top: 58px;
+            right: 14px;
             background: #ffffff;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             width: 170px;
             z-index: 100;
             overflow: hidden;
         }
 
-        .lang-dropdown.show {
-            display: block;
-        }
+        .lang-dropdown.show { display: block; }
 
         .lang-title {
             padding: 10px 12px;
@@ -77,7 +88,6 @@
             color: #64748b;
             background: #f8fafc;
             border-bottom: 1px solid #f1f5f9;
-            text-transform: uppercase;
         }
 
         .lang-option {
@@ -91,44 +101,189 @@
             justify-content: space-between;
         }
 
-        .lang-option:hover {
-            background: #f1f5f9;
+        .lang-option:hover { background: #f1f5f9; }
+        .lang-option.active { color: #16a34a; font-weight: 700; }
+
+        /* Modal/Popup for 50 Greetings Words */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
 
-        .lang-option.active {
-            color: #16a34a;
-            font-weight: 700;
+        .modal.show { display: flex; }
+
+        .modal-content {
+            background: #ffffff;
+            width: 90%;
+            max-width: 380px;
+            max-height: 80vh;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
+
+        .modal-header {
+            background: #bcf0c4;
+            color: #14532d;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 22px;
+            font-weight: bold;
+            color: #14532d;
+            cursor: pointer;
+        }
+
+        .word-list {
+            padding: 12px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .word-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+        }
+
+        .word-item:nth-child(even) { background: #f8fafc; }
+        .de-word { font-weight: 700; color: #0f172a; }
+        .bn-word { color: #475569; }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <!-- Transparent Clickable Button over top right Menu -->
+        <!-- Transparent Clickable Area for Menu Icon -->
         <button class="menu-trigger" onclick="toggleMenu()" aria-label="Open Menu"></button>
 
-        <!-- Language Menu -->
+        <!-- Language Menu Dropdown -->
         <div class="lang-dropdown" id="langMenu">
             <div class="lang-title" id="menuTitle">Select Language</div>
-            <div class="lang-option active" id="opt-bn" onclick="setLanguage('bn')">
-                <span>🇧🇩 বাংলা</span>
-            </div>
-            <div class="lang-option" id="opt-en" onclick="setLanguage('en')">
-                <span>🇬🇧 English</span>
-            </div>
-            <div class="lang-option" id="opt-de" onclick="setLanguage('de')">
-                <span>🇩🇪 Deutsch</span>
-            </div>
+            <div class="lang-option active" id="opt-bn" onclick="setLanguage('bn')"><span>🇧🇩 বাংলা</span></div>
+            <div class="lang-option" id="opt-en" onclick="setLanguage('en')"><span>🇬🇧 English</span></div>
+            <div class="lang-option" id="opt-de" onclick="setLanguage('de')"><span>🇩🇪 Deutsch</span></div>
         </div>
 
-        <!-- Your Cropped Image -->
+        <!-- Original Homepage HD Image -->
         <img src="banner.png" alt="DeutschAussprache Homepage" class="homepage-img">
+
+        <!-- Clickable Overlay Areas Over the 4 Cards -->
+        <div class="card-link" onclick="openGreetings()"></div>
+        <div class="card-link" onclick="alert('Level A1 শীঘ্রই আসছে!')" style="top: 295px; right: 16px; width: 46%; height: 175px;"></div>
+        <div class="card-link" onclick="alert('Level A2 শীঘ্রই আসছে!')" style="top: 482px; left: 16px; width: 46%; height: 175px;"></div>
+        <div class="card-link" onclick="alert('Level B1 শীঘ্রই আসছে!')" style="top: 482px; right: 16px; width: 46%; height: 175px;"></div>
+    </div>
+
+    <!-- Greetings 50 Words Modal (Part 1) -->
+    <div class="modal" id="greetingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span>🇩🇪 Greetings (Part 1 - ৫০টি শব্দ)</span>
+                <button class="close-btn" onclick="closeGreetings()">&times;</button>
+            </div>
+            <div class="word-list" id="wordListContainer">
+                <!-- JavaScript will inject 50 words here -->
+            </div>
+        </div>
     </div>
 
 <script>
 function toggleMenu() {
-    const menu = document.getElementById('langMenu');
-    menu.classList.toggle('show');
+    document.getElementById('langMenu').classList.toggle('show');
+}
+
+// 50 Greetings Words (German & Bengali)
+const greetingsPart1 = [
+    {de: "Hallo", bn: "হ্যালো / ওহে"},
+    {de: "Guten Morgen", bn: "শুভ সকাল"},
+    {de: "Guten Tag", bn: "শুভ দিন"},
+    {de: "Guten Abend", bn: "শুভ সন্ধ্যা"},
+    {de: "Gute Nacht", bn: "শুভ রাত্রি"},
+    {de: "Auf Wiedersehen", bn: "আবার দেখা হবে (বিদায়)"},
+    {de: "Tschüss", bn: "বিদায় / টাটা"},
+    {de: "Wie geht es Ihnen?", bn: "আপনি কেমন আছেন? (формал)"},
+    {de: "Wie geht's?", bn: "কেমন আছো? (ইনফর্মোড)"},
+    {de: "Danke, gut", bn: "ধন্যবাদ, ভালো আছি"},
+    {de: "Und Ihnen?", bn: "আর আপনি? (ফরমাল)"},
+    {de: "Und dir?", bn: "আর তুমি? (ইনফরমাল)"},
+    {de: "Es freut mich", bn: "আনন্দিত হলাম"},
+    {de: "Freut mich, Sie kennenzulernen", bn: "আপনার সাথে পরিচিত হয়ে ভালো লাগলো"},
+    {de: "Bis bald", bn: "শীঘ্রই দেখা হবে"},
+    {de: "Bis morgen", bn: "আগামীকাল দেখা হবে"},
+    {de: "Ja", bn: "হ্যাঁ"},
+    {de: "Nein", bn: "না"},
+    {de: "Bitte", bn: "দয়া করে / স্বাগতম"},
+    {de: "Danke schön", bn: "অসংখ্য ধন্যবাদ"},
+    {de: "Vielen Dank", bn: "অনেক ধন্যবাদ"},
+    {de: "Keine Ursache", bn: "কোনো সমস্যা নেই / স্বাগতম"},
+    {de: "Entschuldigung", bn: "মাফ করবেন / দুঃখিত"},
+    {de: "Es tut mir leid", bn: "আমি দুঃখিত"},
+    {de: "Kein Problem", bn: "কোনো সমস্যা নেই"},
+    {de: "Sprechen Sie Englisch?", bn: "আপনি কি ইংরেজি বলেন?"},
+    {de: "Ich spreche ein bisschen Deutsch", bn: "আমি সামান্য জার্মান বলতে পারি"},
+    {de: "Ich verstehe nicht", bn: "আমি বুঝতে পারছি না"},
+    {de: "Können Sie das wiederholen?", bn: "আপনি কি এটা আবার বলতে পারবেন?"},
+    {de: "Bitte sprechen Sie langsamer", bn: "দয়া করে একটু আস্তে বলুন"},
+    {de: "Wie heißen Sie?", bn: "আপনার নাম কী?"},
+    {de: "Ich heiße...", bn: "আমার নাম..."},
+    {de: "Wer sind Sie?", bn: "আপনি কে?"},
+    {de: "Woher kommen Sie?", bn: "আপনার বাড়ি কোথায়?"},
+    {de: "Ich komme aus...", bn: "আমি ... থেকে এসেছি"},
+    {de: "Wo wohnen Sie?", bn: "আপনি কোথায় থাকেন?"},
+    {de: "Ich wohne in...", bn: "আমি ... এ থাকি"},
+    {de: "Wie alt sind Sie?", bn: "আপনার বয়স কত?"},
+    {de: "Ich bin ... Jahre alt", bn: "আমার বয়স ... বছর"},
+    {de: "Herzlichen Glückwunsch", bn: "আন্তরিক অভিনন্দন"},
+    {de: "Alles Gute zum Geburtstag", bn: "জন্মদিনের অনেক শুভেচ্ছা"},
+    {de: "Gute Besserung", bn: "দ্রুত সুস্থ হয়ে উঠুন"},
+    {de: "Viel Glück", bn: "শুভকামনা / শুভ ভাগ্য"},
+    {de: "Prost!", bn: "চিয়ার্স! (খাওয়ার সময়)"},
+    {de: "Guten Appetit", bn: "উপভোগ্য হোক খাবার (খাবার খাওয়ার আগে)"},
+    {de: "Willkommen", bn: "স্বাগতম"},
+    {de: "Mach's gut", bn: "ভালো থেকো"},
+    {de: "Schönen Tag noch", bn: "দিনটি ভালো কাটুক"},
+    {de: "Bis später", bn: "পরে দেখা হবে"},
+    {de: "Auf Wiederhören", bn: "ফোন রাখার সময় বিদায়"}
+];
+
+// Load 50 words dynamically
+const listContainer = document.getElementById('wordListContainer');
+greetingsPart1.forEach((item, index) => {
+    listContainer.innerHTML += `
+        <div class="word-item">
+            <span class="de-word">${index + 1}. ${item.de}</span>
+            <span class="bn-word">${item.bn}</span>
+        </div>
+    `;
+});
+
+function openGreetings() {
+    document.getElementById('greetingsModal').classList.add('show');
+}
+
+function closeGreetings() {
+    document.getElementById('greetingsModal').classList.remove('show');
 }
 
 document.addEventListener('click', function(e) {
