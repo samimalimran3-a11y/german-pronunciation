@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeutschAussprache - German Learning & Pronunciation</title>
+    <title>DeutschAussprache - Ultimate German Learning & Pronunciation Engine</title>
     <style>
         * {
             box-sizing: border-box;
@@ -46,44 +46,56 @@
             border-bottom: 1px solid #e2e8f0;
         }
 
-        .logo {
-            font-size: 20px;
-            font-weight: 800;
-            color: #0f172a;
-        }
+        .logo { font-size: 20px; font-weight: 800; color: #0f172a; }
 
         .menu-btn {
             background: #f0fdf4;
             border: 1px solid #dcfce7;
-            width: 40px;
-            height: 40px;
+            width: 40px; height: 40px;
             border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 4px;
-            cursor: pointer;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            gap: 4px; cursor: pointer;
         }
+        .menu-btn span { width: 18px; height: 2px; background-color: #16a34a; border-radius: 2px; }
 
-        .menu-btn span {
-            width: 18px;
-            height: 2px;
-            background-color: #16a34a;
-            border-radius: 2px;
-        }
-
-        /* Search Bar Section */
+        /* Search Section & Switcher */
         .search-container {
             padding: 16px;
             background: #f8fafc;
             border-bottom: 1px solid #e2e8f0;
         }
 
-        .search-box {
+        .switch-bar {
             display: flex;
-            gap: 8px;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            background: #e2e8f0;
+            padding: 4px;
+            border-radius: 10px;
         }
+
+        .switch-btn {
+            flex: 1;
+            padding: 8px;
+            border: none;
+            background: transparent;
+            font-size: 13px;
+            font-weight: 800;
+            color: #475569;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .switch-btn.active {
+            background: #ffffff;
+            color: #16a34a;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .search-box { display: flex; gap: 8px; }
 
         .search-input {
             flex: 1;
@@ -93,10 +105,7 @@
             font-size: 15px;
             outline: none;
         }
-
-        .search-input:focus {
-            border-color: #16a34a;
-        }
+        .search-input:focus { border-color: #16a34a; }
 
         .search-btn {
             background: #16a34a;
@@ -108,64 +117,82 @@
             cursor: pointer;
         }
 
-        /* Search Result Card */
+        /* Result Card */
         .result-card {
             display: none;
             margin: 12px 16px 0 16px;
             padding: 16px;
             background: #f0fdf4;
             border: 1px solid #bbf7d0;
-            border-radius: 14px;
+            border-radius: 16px;
         }
 
         .result-card.active { display: block; }
-        .word-title { font-size: 20px; font-weight: 800; color: #166534; }
+        .word-title { font-size: 22px; font-weight: 800; color: #166534; }
         .word-meta { font-size: 14px; color: #374151; margin-top: 6px; line-height: 1.5; }
         .word-en { font-size: 15px; font-weight: 700; color: #0f172a; margin-top: 8px; }
+
+        .audio-group { display: flex; gap: 8px; margin-top: 10px; }
+        .btn-audio {
+            padding: 6px 12px; background: #0284c7; color: white;
+            border: none; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;
+        }
+
+        /* Search Practice Feature Box */
+        .search-practice-box {
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px dashed #bbf7d0;
+        }
+
+        .btn-search-record {
+            width: 100%;
+            padding: 10px;
+            background: #16a34a;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .btn-search-record.recording { background: #dc2626; animation: pulse 1s infinite; }
+
+        .search-feedback {
+            margin-top: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+        }
 
         /* Banner */
         .hero-banner {
             background: linear-gradient(135deg, #f0fdf4 0%, #e6f4ea 100%);
-            margin: 16px;
-            padding: 18px;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            border: 1px solid #dcfce7;
+            margin: 16px; padding: 18px;
+            border-radius: 18px; display: flex; align-items: center;
+            gap: 14px; border: 1px solid #dcfce7;
         }
-
         .banner-icon { font-size: 36px; }
         .banner-text h1 { font-size: 16px; font-weight: 800; color: #0f172a; line-height: 1.3; }
 
         /* Grid Cards */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 0 16px;
-        }
-
+        .cards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 16px; }
         .card {
-            border-radius: 18px;
-            padding: 16px 12px;
-            text-align: center;
-            cursor: pointer;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            transition: transform 0.1s;
+            border-radius: 18px; padding: 16px 12px; text-align: center;
+            cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
-
         .card:active { transform: scale(0.97); }
         .card-icon { font-size: 28px; margin-bottom: 6px; }
         .card-title { font-size: 13px; font-weight: 800; }
         .card-sub { font-size: 11px; font-weight: 600; margin: 4px 0 10px 0; opacity: 0.85; }
         .card-btn {
-            background: #ffffff;
-            border: none;
-            padding: 6px 20px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 800;
+            background: #ffffff; border: none; padding: 6px 20px;
+            border-radius: 16px; font-size: 12px; font-weight: 800;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
@@ -176,31 +203,17 @@
 
         /* Modal */
         .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;
         }
-
         .modal.show { display: flex; }
-
         .modal-card {
-            background: #ffffff;
-            width: 90%;
-            max-width: 380px;
-            border-radius: 24px;
-            padding: 24px 20px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            position: relative;
+            background: #ffffff; width: 90%; max-width: 380px;
+            border-radius: 24px; padding: 24px 20px; text-align: center;
+            position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
         }
-
         .close-modal {
-            position: absolute;
-            top: 14px; right: 18px;
+            position: absolute; top: 14px; right: 18px;
             font-size: 22px; background: none; border: none; cursor: pointer; color: #64748b;
         }
 
@@ -209,62 +222,26 @@
         .target-word { font-size: 32px; font-weight: 900; color: #0f172a; margin: 12px 0; }
         .target-sub { font-size: 14px; color: #64748b; margin-bottom: 20px; }
 
-        .speed-control {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
+        .speed-control { display: flex; justify-content: center; gap: 8px; margin-bottom: 12px; }
         .speed-btn {
-            background: #f1f5f9;
-            border: 1px solid #cbd5e1;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
+            background: #f1f5f9; border: 1px solid #cbd5e1; padding: 4px 12px;
+            border-radius: 12px; font-size: 12px; font-weight: 700; cursor: pointer;
         }
-
-        .speed-btn.active {
-            background: #0284c7;
-            color: white;
-            border-color: #0284c7;
-        }
+        .speed-btn.active { background: #0284c7; color: white; border-color: #0284c7; }
 
         .btn-action {
-            width: 100%;
-            padding: 12px;
-            border-radius: 30px;
-            border: none;
-            font-size: 14px;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 10px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
+            width: 100%; padding: 12px; border-radius: 30px; border: none;
+            font-size: 14px; font-weight: 700; color: white; margin-bottom: 10px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-
         .btn-listen { background: #0284c7; }
         .btn-record { background: #16a34a; }
         .btn-record.recording { background: #dc2626; animation: pulse 1s infinite; }
         .btn-next { background: #7c3aed; }
 
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
-        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
 
-        .feedback-text {
-            font-size: 13px;
-            font-weight: 700;
-            margin-top: 8px;
-            min-height: 20px;
-        }
+        .feedback-text { font-size: 13px; font-weight: 700; margin-top: 8px; min-height: 20px; }
     </style>
 </head>
 <body>
@@ -273,13 +250,15 @@
         <!-- Navbar -->
         <nav class="navbar">
             <div class="logo">🇩🇪 DeutschAussprache</div>
-            <button class="menu-btn">
-                <span></span><span></span>
-            </button>
+            <button class="menu-btn"><span></span><span></span></button>
         </nav>
 
-        <!-- Search Bar Section -->
+        <!-- Search Bar Section with Mode Switcher -->
         <div class="search-container">
+            <div class="switch-bar">
+                <button class="switch-btn active" id="btnDEtoEN" onclick="setMode('DE_EN')">🇩🇪 German ➔ 🇬🇧 English</button>
+                <button class="switch-btn" id="btnENtoDE" onclick="setMode('EN_DE')">🇬🇧 English ➔ 🇩🇪 German</button>
+            </div>
             <div class="search-box">
                 <input type="text" id="searchInput" class="search-input" placeholder="Type German word or sentence...">
                 <button class="search-btn" onclick="searchWord()">Search</button>
@@ -289,13 +268,20 @@
         <!-- Search Result Card -->
         <div id="searchResult" class="result-card">
             <div class="word-title" id="resWord">-</div>
-            <div class="word-meta">
+            <div class="word-meta" id="resMetaGroup">
                 <b>Article:</b> <span id="resArticle">None</span> | <b>Plural:</b> <span id="resPlural">None</span>
             </div>
-            <div class="word-en"><b>English Meaning:</b> <span id="resEn">Translating...</span></div>
-            <div style="margin-top: 10px; display: flex; gap: 8px;">
-                <button onclick="speakCurrentWord(1.0)" style="padding: 6px 12px; background: #0284c7; color: white; border: none; border-radius: 8px; font-size: 12px; font-weight:700; cursor: pointer;">🔊 1.0x</button>
-                <button onclick="speakCurrentWord(0.75)" style="padding: 6px 12px; background: #0284c7; color: white; border: none; border-radius: 8px; font-size: 12px; font-weight:700; cursor: pointer;">🔊 0.75x Slow</button>
+            <div class="word-en"><b>Translation:</b> <span id="resEn">Translating...</span></div>
+            
+            <div class="audio-group">
+                <button class="btn-audio" onclick="speakCurrentWord(1.0)">🔊 1.0x Normal</button>
+                <button class="btn-audio" onclick="speakCurrentWord(0.75)">🔊 0.75x Slow</button>
+            </div>
+
+            <!-- Integrated Pronunciation Practice in Search Result -->
+            <div class="search-practice-box">
+                <button class="btn-search-record" id="btnSearchRecord" onclick="toggleSearchRecord()">🎙️ Practice Pronunciation</button>
+                <div class="search-feedback" id="searchFeedback"></div>
             </div>
         </div>
 
@@ -364,152 +350,160 @@
     </div>
 
 <script>
-// Expanded Comprehensive German Nouns Database
-const nounDatabase = {
-    // Family & People
-    "opa": { article: "der", plural: "die Opas" },
-    "oma": { article: "die", plural: "die Omas" },
-    "mutter": { article: "die", plural: "die Mütter" },
-    "vater": { article: "der", plural: "die Väter" },
-    "bruder": { article: "der", plural: "die Brüder" },
-    "schwester": { article: "die", plural: "die Schwestern" },
-    "kind": { article: "das", plural: "die Kinder" },
-    "son": { article: "der", plural: "die Söhne" },
-    "sohn": { article: "der", plural: "die Söhne" },
-    "tochter": { article: "die", plural: "die Töchter" },
-    "eltern": { article: "None", plural: "die Eltern" },
-    "grossvater": { article: "der", plural: "die Großväter" },
-    "großvater": { article: "der", plural: "die Großväter" },
-    "grossmutter": { article: "die", plural: "die Großmütter" },
-    "großmutter": { article: "die", plural: "die Großmütter" },
-    "mann": { article: "der", plural: "die Männer" },
-    "frau": { article: "die", plural: "die Frauen" },
-    "junge": { article: "der", plural: "die Jungen" },
-    "mädchen": { article: "das", plural: "die Mädchen" },
-    "madchen": { article: "das", plural: "die Mädchen" },
-    "freund": { article: "der", plural: "die Freunde" },
-    "freundin": { article: "die", plural: "die Freundinnen" },
-    "familie": { article: "die", plural: "die Familien" },
-    "lehrer": { article: "der", plural: "die Lehrer" },
-    "lehrerin": { article: "die", plural: "die Lehrerinnen" },
-    "student": { article: "der", plural: "die Studenten" },
-    "studentin": { article: "die", plural: "die Studentinnen" },
-
-    // Food & Drinks
-    "brot": { article: "das", plural: "die Brote" },
-    "apfel": { article: "der", plural: "die Äpfel" },
-    "wasser": { article: "das", plural: "None" },
-    "kaffee": { article: "der", plural: "die Kaffees" },
-    "tee": { article: "der", plural: "die Tees" },
-    "milch": { article: "die", plural: "None" },
-    "käse": { article: "der", plural: "None" },
-    "kase": { article: "der", plural: "None" },
-    "fleisch": { article: "das", plural: "None" },
-    "fisch": { article: "der", plural: "die Fische" },
-    "ei": { article: "das", plural: "die Eier" },
-    "zucker": { article: "der", plural: "None" },
-    "salz": { article: "das", plural: "None" },
-    "obst": { article: "das", plural: "None" },
-    "gemüse": { article: "das", plural: "die Gemüse" },
-    "gemuse": { article: "das", plural: "die Gemüse" },
-
-    // Objects & Places
-    "haus": { article: "das", plural: "die Häuser" },
-    "buch": { article: "das", plural: "die Bücher" },
-    "tisch": { article: "der", plural: "die Tische" },
-    "stuhl": { article: "der", plural: "die Stühle" },
-    "bett": { article: "das", plural: "die Betten" },
-    "tür": { article: "die", plural: "die Türen" },
-    "tur": { article: "die", plural: "die Türen" },
-    "fenster": { article: "das", plural: "die Fenster" },
-    "auto": { article: "das", plural: "die Autos" },
-    "bus": { article: "der", plural: "die Busse" },
-    "zug": { article: "der", plural: "die Züge" },
-    "stadt": { article: "die", plural: "die Städte" },
-    "land": { article: "das", plural: "die Länder" },
-    "schule": { article: "die", plural: "die Schulen" },
-    "arbeit": { article: "die", plural: "die Arbeiten" },
-    "tag": { article: "der", plural: "die Tage" },
-    "nacht": { article: "die", plural: "die Nächte" },
-
-    // Animals
-    "katze": { article: "die", plural: "die Katzen" },
-    "hund": { article: "der", plural: "die Hunde" }
-};
-
-const practiceWordsList = [
-    { de: "Opa", article: "der", plural: "die Opas", en: "grandpa", category: "A1" },
-    { de: "Brot", article: "das", plural: "die Brote", en: "bread", category: "A1" },
-    { de: "Apfel", article: "der", plural: "die Äpfel", en: "apple", category: "A1" },
-    { de: "Wasser", article: "das", plural: "None", en: "water", category: "A1" },
-    { de: "Hallo", article: "None", plural: "None", en: "hello", category: "Greetings" },
-    { de: "Danke schön", article: "None", plural: "None", en: "thank you very much", category: "Greetings" },
-    { de: "Haus", article: "das", plural: "die Häuser", en: "house", category: "A1" },
-    { de: "Buch", article: "das", plural: "die Bücher", en: "book", category: "A2" },
-    { de: "Arbeit", article: "die", plural: "die Arbeiten", en: "work / job", category: "B1" }
-];
-
-let currentWordIndex = 0;
-let activeModuleWords = [];
-let currentScore = 0;
-let selectedSpeed = 1.0;
-let isRecording = false;
+let currentMode = "DE_EN"; // Default German to English
+let targetGermanWord = ""; 
 let currentSearchedWord = "";
+let isSearchRecording = false;
+
+function setMode(mode) {
+    currentMode = mode;
+    document.getElementById('btnDEtoEN').classList.toggle('active', mode === 'DE_EN');
+    document.getElementById('btnENtoDE').classList.toggle('active', mode === 'EN_DE');
+    
+    const input = document.getElementById('searchInput');
+    if(mode === 'DE_EN') {
+        input.placeholder = "Type German word or sentence...";
+        document.getElementById('resMetaGroup').style.display = "block";
+    } else {
+        input.placeholder = "Type English word or sentence...";
+        document.getElementById('resMetaGroup').style.display = "none";
+    }
+}
 
 async function searchWord() {
     const query = document.getElementById('searchInput').value.trim();
     const resultBox = document.getElementById('searchResult');
-    
     if(!query) return;
 
-    currentSearchedWord = query;
     resultBox.classList.add('active');
-
     document.getElementById('resWord').innerText = query;
     document.getElementById('resArticle').innerText = "...";
     document.getElementById('resPlural').innerText = "...";
     document.getElementById('resEn').innerText = "Translating...";
+    document.getElementById('searchFeedback').innerText = "";
 
+    let sl = currentMode === "DE_EN" ? "de" : "en";
+    let tl = currentMode === "DE_EN" ? "en" : "de";
+
+    // 1. Multi-lingual Translation Engine
+    try {
+        const transRes = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sl}&tl=${tl}&dt=t&q=${encodeURIComponent(query)}`);
+        const transData = await transRes.json();
+        
+        let translatedText = transData[0].map(item => item[0]).join('');
+        document.getElementById('resEn').innerText = translatedText;
+
+        if(currentMode === "EN_DE") {
+            targetGermanWord = translatedText.trim();
+            currentSearchedWord = translatedText.trim();
+        } else {
+            targetGermanWord = query.trim();
+            currentSearchedWord = query.trim();
+        }
+    } catch(e) {
+        document.getElementById('resEn').innerText = "Translation error.";
+    }
+
+    // 2. German Universal Grammar & Article Logic
+    if(currentMode === "DE_EN") {
+        fetchGermanGrammar(query);
+    }
+}
+
+async function fetchGermanGrammar(word) {
     let article = "None";
     let plural = "None";
-    const cleanWord = query.toLowerCase();
 
-    // 1. Check Local Expanded Noun DB First
-    if (nounDatabase[cleanWord]) {
-        article = nounDatabase[cleanWord].article;
-        plural = nounDatabase[cleanWord].plural;
-    } else {
-        // Fallback rule for standard capitalised Nouns if not found in db
-        if (query.charAt(0) === query.charAt(0).toUpperCase() && query.length > 2) {
-            // Automatic smart gender guessing logic if API delays
-            article = "der/die/das";
-        }
-    }
-
-    // 2. Fetch Translation via Google Translate Engine
     try {
-        const translateRes = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=de&tl=en&dt=t&q=${encodeURIComponent(query)}`);
-        const translateData = await translateRes.json();
-
-        if (translateData && translateData[0]) {
-            let translatedText = translateData[0].map(item => item[0]).join('');
-            displayResult(query, article, plural, translatedText);
-        } else {
-            displayResult(query, article, plural, "Translation unavailable.");
+        // Query Universal Free Dictionary API for German Language
+        const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/de/${encodeURIComponent(word)}`);
+        if(res.ok) {
+            const data = await res.json();
+            const entry = data[0];
+            
+            if(entry.meanings) {
+                for(let m of entry.meanings) {
+                    if(m.partOfSpeech.toLowerCase().includes('substantiv') || m.partOfSpeech.toLowerCase().includes('noun')) {
+                        // Extract Gender / Article
+                        const defStr = JSON.stringify(data).toLowerCase();
+                        if(defStr.includes("femininum") || defStr.includes(" feminine ")) article = "die";
+                        else if(defStr.includes("maskulinum") || defStr.includes(" masculine ")) article = "der";
+                        else if(defStr.includes("neutrum") || defStr.includes(" neuter ")) article = "das";
+                    }
+                }
+            }
         }
-    } catch (err) {
-        displayResult(query, article, plural, "Translation error. Please check connection.");
-    }
-}
+    } catch(e) {}
 
-function displayResult(word, article, plural, en) {
-    document.getElementById('resWord').innerText = word;
+    // Fallback: Query Wiktionary Open API
+    if(article === "None") {
+        try {
+            const wRes = await fetch(`https://de.wiktionary.org/api/rest_v1/page/definition/${encodeURIComponent(word)}`);
+            if(wRes.ok) {
+                const wData = await wRes.json();
+                if(wData.de && wData.de[0] && wData.de[0].partOfSpeech === "Substantiv") {
+                    const txt = JSON.stringify(wData.de[0]);
+                    if(txt.includes("f")) article = "die";
+                    else if(txt.includes("m")) article = "der";
+                    else if(txt.includes("n")) article = "das";
+                }
+            }
+        } catch(e) {}
+    }
+
     document.getElementById('resArticle').innerText = article;
     document.getElementById('resPlural').innerText = plural;
-    document.getElementById('resEn').innerText = en;
 }
 
-// Speech Engine
+// Direct Pronunciation Checker in Search
+function toggleSearchRecord() {
+    const btn = document.getElementById('btnSearchRecord');
+    const feedback = document.getElementById('searchFeedback');
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+        alert("Please use Chrome Browser for voice recognition.");
+        return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'de-DE';
+
+    if (!isSearchRecording) {
+        isSearchRecording = true;
+        btn.classList.add('recording');
+        btn.innerText = "🛑 Listening... Speak now";
+        feedback.innerText = "";
+        recognition.start();
+
+        recognition.onresult = function(event) {
+            const spokenText = event.results[0][0].transcript.trim().toLowerCase();
+            const target = targetGermanWord.toLowerCase();
+
+            isSearchRecording = false;
+            btn.classList.remove('recording');
+            btn.innerText = "🎙️ Practice Pronunciation";
+
+            if (spokenText.includes(target) || target.includes(spokenText)) {
+                feedback.style.color = "#16a34a";
+                feedback.innerText = `🎉 Perfect! Correct Pronunciation (${spokenText})`;
+            } else {
+                feedback.style.color = "#dc2626";
+                feedback.innerHTML = `❌ Incorrect! You said: "<b>${spokenText}</b>"<br>💡 Hint: Listen to 1.0x audio and try again.`;
+            }
+        };
+
+        recognition.onerror = function() {
+            isSearchRecording = false;
+            btn.classList.remove('recording');
+            btn.innerText = "🎙️ Practice Pronunciation";
+            feedback.style.color = "#dc2626";
+            feedback.innerText = "Couldn't hear clearly. Please speak again.";
+        };
+    }
+}
+
+// Speech Audio Engine
 function speakWord(text, speed) {
     if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
@@ -523,6 +517,23 @@ function speakWord(text, speed) {
 function speakCurrentWord(speed) {
     if(currentSearchedWord) speakWord(currentSearchedWord, speed);
 }
+
+// Standard Practice Section Engine
+const practiceWordsList = [
+    { de: "Pizza", article: "die", plural: "die Pizzas", en: "pizza", category: "A1" },
+    { de: "Opa", article: "der", plural: "die Opas", en: "grandpa", category: "A1" },
+    { de: "Brot", article: "das", plural: "die Brote", en: "bread", category: "A1" },
+    { de: "Apfel", article: "der", plural: "die Äpfel", en: "apple", category: "A1" },
+    { de: "Wasser", article: "das", plural: "None", en: "water", category: "A1" },
+    { de: "Hallo", article: "None", plural: "None", en: "hello", category: "Greetings" },
+    { de: "Danke schön", article: "None", plural: "None", en: "thank you very much", category: "Greetings" }
+];
+
+let currentWordIndex = 0;
+let activeModuleWords = [];
+let currentScore = 0;
+let selectedSpeed = 1.0;
+let isRecording = false;
 
 function setSpeed(speed) {
     selectedSpeed = speed;
@@ -547,33 +558,25 @@ function loadPracticeWord() {
     document.getElementById('feedbackText').innerText = '';
 }
 
-function playNativeAudio() {
-    speakWord(activeModuleWords[currentWordIndex].de, selectedSpeed);
-}
+function playNativeAudio() { speakWord(activeModuleWords[currentWordIndex].de, selectedSpeed); }
 
 function nextWord() {
     if(currentWordIndex < activeModuleWords.length - 1) {
-        currentWordIndex++;
-        loadPracticeWord();
+        currentWordIndex++; loadPracticeWord();
     } else {
         alert(`Practice Complete! Your Score: ${currentScore}`);
         closePractice();
     }
 }
 
-function closePractice() {
-    document.getElementById('practiceModal').classList.remove('show');
-}
+function closePractice() { document.getElementById('practiceModal').classList.remove('show'); }
 
 function toggleRecording() {
     const btn = document.getElementById('recordBtn');
     const feedback = document.getElementById('feedbackText');
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
-    if (!SpeechRecognition) {
-        alert("Please use Chrome Browser for voice recording.");
-        return;
-    }
+    if (!SpeechRecognition) { alert("Please use Chrome Browser."); return; }
 
     const recognition = new SpeechRecognition();
     recognition.lang = 'de-DE';
@@ -582,7 +585,6 @@ function toggleRecording() {
         isRecording = true;
         btn.classList.add('recording');
         btn.innerText = "🛑 Listening... Speak now";
-        feedback.innerText = "";
         recognition.start();
 
         recognition.onresult = function(event) {
@@ -595,12 +597,12 @@ function toggleRecording() {
 
             if (spokenText.includes(targetWord) || targetWord.includes(spokenText)) {
                 feedback.style.color = "#16a34a";
-                feedback.innerText = `🎉 Perfect! Correct pronunciation (${spokenText})`;
+                feedback.innerText = `🎉 Correct! (${spokenText})`;
                 currentScore++;
                 document.getElementById('scoreText').innerText = `${currentScore} / ${activeModuleWords.length}`;
             } else {
                 feedback.style.color = "#dc2626";
-                feedback.innerText = `❌ Try again! Heard: "${spokenText}"`;
+                feedback.innerText = `❌ Incorrect! Heard: "${spokenText}"`;
             }
         };
 
@@ -609,7 +611,7 @@ function toggleRecording() {
             btn.classList.remove('recording');
             btn.innerText = "🎙️ Record Voice";
             feedback.style.color = "#dc2626";
-            feedback.innerText = "Could not recognize audio, please try again.";
+            feedback.innerText = "Audio Error. Try again.";
         };
     }
 }
