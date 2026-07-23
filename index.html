@@ -1,9 +1,9 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeutschAussprache</title>
+    <title>DeutschAussprache - German Learning & Pronunciation</title>
     <style>
         * {
             box-sizing: border-box;
@@ -23,16 +23,17 @@
 
         .app-container {
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             background: #ffffff;
             position: relative;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            padding-bottom: 30px;
         }
 
-        /* Top Navbar */
+        /* Navbar */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -42,190 +43,142 @@
             position: sticky;
             top: 0;
             z-index: 20;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         .logo {
             font-size: 20px;
             font-weight: 800;
             color: #0f172a;
-            letter-spacing: -0.5px;
         }
 
         .menu-btn {
             background: #f0fdf4;
             border: 1px solid #dcfce7;
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 5px;
+            gap: 4px;
             cursor: pointer;
-            transition: background 0.2s;
         }
 
-        .menu-btn:active { background: #dcfce7; }
-
         .menu-btn span {
-            width: 20px;
-            height: 2.5px;
+            width: 18px;
+            height: 2px;
             background-color: #16a34a;
             border-radius: 2px;
         }
 
-        /* Language Dropdown */
-        .lang-dropdown {
-            display: none;
-            position: absolute;
-            top: 65px;
-            right: 20px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            width: 170px;
-            z-index: 100;
-            overflow: hidden;
-        }
-
-        .lang-dropdown.show { display: block; }
-
-        .lang-title {
-            padding: 10px 14px;
-            font-size: 11px;
-            font-weight: 700;
-            color: #64748b;
+        /* Search Bar Section */
+        .search-container {
+            padding: 16px;
             background: #f8fafc;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
         }
 
-        .lang-option {
-            padding: 12px 14px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #334155;
-            cursor: pointer;
+        .search-box {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            gap: 8px;
         }
 
-        .lang-option:hover { background: #f8fafc; }
-        .lang-option.active { color: #16a34a; font-weight: 700; }
+        .search-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 12px;
+            font-size: 15px;
+            outline: none;
+        }
 
-        /* Banner Section */
+        .search-input:focus {
+            border-color: #16a34a;
+        }
+
+        .search-btn {
+            background: #16a34a;
+            color: white;
+            border: none;
+            padding: 0 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* Search Result Card */
+        .result-card {
+            display: none;
+            margin: 12px 16px 0 16px;
+            padding: 16px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 14px;
+        }
+
+        .result-card.active { display: block; }
+        .word-title { font-size: 20px; font-weight: 800; color: #166534; }
+        .word-meta { font-size: 14px; color: #374151; margin-top: 4px; }
+        .word-bn { font-size: 16px; font-weight: 700; color: #0f172a; margin-top: 6px; }
+
+        /* Banner */
         .hero-banner {
             background: linear-gradient(135deg, #f0fdf4 0%, #e6f4ea 100%);
             margin: 16px;
-            padding: 20px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            border: 1px solid #dcfce7;
-        }
-
-        .banner-icon {
-            font-size: 44px;
-            background: #ffffff;
-            width: 70px;
-            height: 70px;
+            padding: 18px;
             border-radius: 18px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(22, 163, 74, 0.1);
-            flex-shrink: 0;
+            gap: 14px;
+            border: 1px solid #dcfce7;
         }
 
-        .banner-text h1 {
-            font-size: 17px;
-            font-weight: 800;
-            color: #0f172a;
-            line-height: 1.4;
-        }
+        .banner-icon { font-size: 36px; }
+        .banner-text h1 { font-size: 16px; font-weight: 800; color: #0f172a; line-height: 1.3; }
 
-        /* Cards Grid */
+        /* Grid Cards */
         .cards-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 14px;
-            padding: 0 16px 20px 16px;
+            gap: 12px;
+            padding: 0 16px;
         }
 
         .card {
-            border-radius: 20px;
-            padding: 20px 14px;
+            border-radius: 18px;
+            padding: 16px 12px;
             text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            transition: transform 0.1s;
         }
 
-        .card:active {
-            transform: scale(0.97);
-        }
-
-        .card-icon {
-            width: 54px;
-            height: 54px;
-            background: #ffffff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 12px;
-            font-size: 24px;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.06);
-        }
-
-        .card-title {
-            font-size: 14px;
-            font-weight: 800;
-            letter-spacing: 0.3px;
-        }
-
-        .card-sub {
-            font-size: 12px;
-            font-weight: 700;
-            margin-top: 4px;
-            margin-bottom: 14px;
-            opacity: 0.85;
-        }
-
+        .card:active { transform: scale(0.97); }
+        .card-icon { font-size: 28px; margin-bottom: 6px; }
+        .card-title { font-size: 13px; font-weight: 800; }
+        .card-sub { font-size: 11px; font-weight: 600; margin: 4px 0 10px 0; opacity: 0.85; }
         .card-btn {
             background: #ffffff;
             border: none;
-            padding: 7px 24px;
-            border-radius: 20px;
+            padding: 6px 20px;
+            border-radius: 16px;
             font-size: 12px;
             font-weight: 800;
-            color: #1e293b;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* Color Themes */
         .bg-greetings { background: #dcfce7; color: #14532d; }
         .bg-a1 { background: #fef3c7; color: #78350f; }
         .bg-a2 { background: #fee2e2; color: #991b1b; }
         .bg-b1 { background: #e0f2fe; color: #0369a1; }
 
-        /* Modal Popup for 50 Words */
+        /* Practice & Pronunciation Modal */
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.5);
             z-index: 1000;
             justify-content: center;
@@ -234,265 +187,339 @@
 
         .modal.show { display: flex; }
 
-        .modal-content {
+        .modal-card {
             background: #ffffff;
             width: 90%;
             max-width: 380px;
-            max-height: 82vh;
-            border-radius: 22px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            border-radius: 24px;
+            padding: 24px 20px;
+            text-align: center;
             box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            position: relative;
         }
 
-        .modal-header {
-            background: #dcfce7;
-            color: #14532d;
-            padding: 16px 20px;
+        .close-modal {
+            position: absolute;
+            top: 14px; right: 18px;
+            font-size: 22px; background: none; border: none; cursor: pointer; color: #64748b;
+        }
+
+        .practice-header { font-size: 18px; font-weight: 800; color: #1e293b; margin-bottom: 6px; }
+        .score-badge { font-size: 13px; font-weight: 700; color: #64748b; margin-bottom: 16px; }
+        .target-word { font-size: 32px; font-weight: 900; color: #0f172a; margin: 12px 0; }
+        .target-sub { font-size: 14px; color: #64748b; margin-bottom: 20px; }
+
+        /* Speed Control Buttons */
+        .speed-control {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 800;
-            font-size: 15px;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            font-weight: bold;
-            color: #14532d;
+        .speed-btn {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
             cursor: pointer;
         }
 
-        .word-list {
+        .speed-btn.active {
+            background: #0284c7;
+            color: white;
+            border-color: #0284c7;
+        }
+
+        /* Action Buttons */
+        .btn-action {
+            width: 100%;
             padding: 12px;
-            overflow-y: auto;
-            flex: 1;
-        }
-
-        .word-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 14px;
-            border-bottom: 1px solid #f1f5f9;
+            border-radius: 30px;
+            border: none;
             font-size: 14px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
-        .word-item:nth-child(even) { background: #f8fafc; }
-        .de-word { font-weight: 700; color: #0f172a; }
-        .bn-word { color: #475569; }
+        .btn-listen { background: #0284c7; }
+        .btn-record { background: #16a34a; }
+        .btn-record.recording { background: #dc2626; animation: pulse 1s infinite; }
+        .btn-next { background: #7c3aed; }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .feedback-text {
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 8px;
+            min-height: 20px;
+        }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        
         <!-- Navbar -->
         <nav class="navbar">
-            <div class="logo">DeutschAussprache</div>
-            <button class="menu-btn" onclick="toggleMenu()" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="logo">🇩🇪 DeutschAussprache</div>
+            <button class="menu-btn" onclick="alert('Menu options coming soon!')">
+                <span></span><span></span>
             </button>
-
-            <!-- Language Menu -->
-            <div class="lang-dropdown" id="langMenu">
-                <div class="lang-title" id="menuTitle">Select Language</div>
-                <div class="lang-option active" id="opt-bn" onclick="setLanguage('bn')"><span>🇧🇩 বাংলা</span></div>
-                <div class="lang-option" id="opt-en" onclick="setLanguage('en')"><span>🇬🇧 English</span></div>
-                <div class="lang-option" id="opt-de" onclick="setLanguage('de')"><span>🇩🇪 Deutsch</span></div>
-            </div>
         </nav>
+
+        <!-- Search Bar Option -->
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" id="searchInput" class="search-input" placeholder="জার্মান শব্দ লিখুন (যেমন: Brot, Apfel)...">
+                <button class="search-btn" onclick="searchWord()">খুঁজুন</button>
+            </div>
+        </div>
+
+        <!-- Search Result Box -->
+        <div id="searchResult" class="result-card">
+            <div class="word-title" id="resWord">-</div>
+            <div class="word-meta">
+                <b>Article:</b> <span id="resArticle">-</span> | <b>Plural:</b> <span id="resPlural">-</span>
+            </div>
+            <div class="word-bn"><b>বাংলা অর্থ:</b> <span id="resBn">-</span></div>
+            <div style="margin-top: 10px;">
+                <button onclick="speakCurrentWord(1.0)" style="padding: 4px 10px; background: #0284c7; color: white; border: none; border-radius: 8px; font-size: 12px; cursor: pointer;">🔊 1.0x</button>
+                <button onclick="speakCurrentWord(0.75)" style="padding: 4px 10px; background: #0284c7; color: white; border: none; border-radius: 8px; font-size: 12px; cursor: pointer;">🔊 0.75x Slow</button>
+            </div>
+        </div>
 
         <!-- Banner -->
         <section class="hero-banner">
-            <div class="banner-icon">🇩🇪</div>
+            <div class="banner-icon">🗣️</div>
             <div class="banner-text">
-                <h1 id="bannerHeading">জার্মান উচ্চারণ ও শব্দার্থের জগতে স্বাগতম!</h1>
+                <h1>জার্মান উচ্চারণ ও শব্দার্থের জগতে স্বাগতম!</h1>
             </div>
         </section>
 
-        <!-- Cards Grid -->
+        <!-- Main 4 Sections -->
         <section class="cards-grid">
-            
-            <!-- Greetings -->
-            <div class="card bg-greetings" onclick="openGreetings()">
+            <div class="card bg-greetings" onclick="startPractice('Greetings')">
                 <div class="card-icon">👋</div>
                 <div class="card-title">GREETINGS</div>
-                <div class="card-sub" id="sub-greetings">অভিভাদন</div>
-                <button class="card-btn">Play</button>
+                <div class="card-sub">অভিভাদন</div>
+                <button class="card-btn">Practice</button>
             </div>
 
-            <!-- Level A1 -->
-            <div class="card bg-a1" onclick="alert('Level A1 শীঘ্রই আসছে!')">
+            <div class="card bg-a1" onclick="startPractice('A1')">
                 <div class="card-icon">🌱</div>
                 <div class="card-title">LEVEL A1</div>
-                <div class="card-sub" id="sub-a1">প্রাথমিক স্তর (A1)</div>
-                <button class="card-btn">Go</button>
+                <div class="card-sub">প্রাথমিক স্তর (A1)</div>
+                <button class="card-btn">Practice</button>
             </div>
 
-            <!-- Level A2 -->
-            <div class="card bg-a2" onclick="alert('Level A2 শীঘ্রই আসছে!')">
+            <div class="card bg-a2" onclick="startPractice('A2')">
                 <div class="card-icon">🚀</div>
                 <div class="card-title">LEVEL A2</div>
-                <div class="card-sub" id="sub-a2">মাধ্যমিক স্তর (A2)</div>
-                <button class="card-btn">Play</button>
+                <div class="card-sub">মাধ্যমিক স্তর (A2)</div>
+                <button class="card-btn">Practice</button>
             </div>
 
-            <!-- Level B1 -->
-            <div class="card bg-b1" onclick="alert('Level B1 শীঘ্রই আসছে!')">
+            <div class="card bg-b1" onclick="startPractice('B1')">
                 <div class="card-icon">🎓</div>
                 <div class="card-title">LEVEL B1</div>
-                <div class="card-sub" id="sub-b1">উচ্চ-মাধ্যমিক স্তর (B1)</div>
-                <button class="card-btn">Go</button>
+                <div class="card-sub">উচ্চ-মাধ্যমিক স্তর (B1)</div>
+                <button class="card-btn">Practice</button>
             </div>
-
         </section>
-
     </div>
 
-    <!-- Greetings 50 Words Modal -->
-    <div class="modal" id="greetingsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span id="modalHeaderTitle">🇩🇪 Greetings (Part 1 - ৫০টি শব্দ)</span>
-                <button class="close-btn" onclick="closeGreetings()">&times;</button>
+    <!-- Pronunciation Checker Modal -->
+    <div class="modal" id="practiceModal">
+        <div class="modal-card">
+            <button class="close-modal" onclick="closePractice()">&times;</button>
+            <div class="practice-header">🇩🇪 জার্মান উচ্চারণ চেকার</div>
+            <div class="score-badge">স্কোর: <span id="scoreText">0 / 5</span></div>
+            
+            <p style="font-size: 13px; color: #475569;">নিচের শব্দটি সঠিক জার্মানে উচ্চারণ করুন:</p>
+            <div class="target-word" id="targetWordText">Brot</div>
+            <div class="target-sub" id="targetWordSub">Das Brot (বহুবচন: die Brote) - রুটি</div>
+
+            <!-- Speed Toggle Controls -->
+            <div class="speed-control">
+                <button class="speed-btn active" id="sp10" onclick="setSpeed(1.0)">1.0x Normal</button>
+                <button class="speed-btn" id="sp075" onclick="setSpeed(0.75)">0.75x Slow</button>
             </div>
-            <div class="word-list" id="wordListContainer"></div>
+
+            <button class="btn-action btn-listen" onclick="playNativeAudio()">🔊 সঠিক উচ্চারণ শুনুন</button>
+            <button class="btn-action btn-record" id="recordBtn" onclick="toggleRecording()">🎙️ উচ্চারণ রেকর্ড করুন</button>
+            <button class="btn-action btn-next" onclick="nextWord()">Next ➜</button>
+
+            <div class="feedback-text" id="feedbackText"></div>
         </div>
     </div>
 
 <script>
-function toggleMenu() {
-    document.getElementById('langMenu').classList.toggle('show');
-}
-
-// 50 Greetings Words
-const greetingsPart1 = [
-    {de: "Hallo", bn: "হ্যালো / ওহে"},
-    {de: "Guten Morgen", bn: "শুভ সকাল"},
-    {de: "Guten Tag", bn: "শুভ দিন"},
-    {de: "Guten Abend", bn: "শুভ সন্ধ্যা"},
-    {de: "Gute Nacht", bn: "শুভ রাত্রি"},
-    {de: "Auf Wiedersehen", bn: "আবার দেখা হবে (বিদায়)"},
-    {de: "Tschüss", bn: "বিদায় / টাটা"},
-    {de: "Wie geht es Ihnen?", bn: "আপনি কেমন আছেন? (ফরমাল)"},
-    {de: "Wie geht's?", bn: "কেমন আছো? (ইনফরমাল)"},
-    {de: "Danke, gut", bn: "ধন্যবাদ, ভালো আছি"},
-    {de: "Und Ihnen?", bn: "আর আপনি? (ফরমাল)"},
-    {de: "Und dir?", bn: "আর তুমি? (ইনফরমাল)"},
-    {de: "Es freut mich", bn: "আনন্দিত হলাম"},
-    {de: "Freut mich, Sie kennenzulernen", bn: "আপনার সাথে পরিচিত হয়ে ভালো লাগলো"},
-    {de: "Bis bald", bn: "শীঘ্রই দেখা হবে"},
-    {de: "Bis morgen", bn: "আগামীকাল দেখা হবে"},
-    {de: "Ja", bn: "হ্যাঁ"},
-    {de: "Nein", bn: "না"},
-    {de: "Bitte", bn: "দয়া করে / স্বাগতম"},
-    {de: "Danke schön", bn: "অসংখ্য ধন্যবাদ"},
-    {de: "Vielen Dank", bn: "অনেক ধন্যবাদ"},
-    {de: "Keine Ursache", bn: "কোনো সমস্যা নেই / স্বাগতম"},
-    {de: "Entschuldigung", bn: "মাফ করবেন / দুঃখিত"},
-    {de: "Es tut mir leid", bn: "আমি দুঃখিত"},
-    {de: "Kein Problem", bn: "কোনো সমস্যা নেই"},
-    {de: "Sprechen Sie Englisch?", bn: "আপনি কি ইংরেজি বলেন?"},
-    {de: "Ich spreche ein bisschen Deutsch", bn: "আমি সামান্য জার্মান বলতে পারি"},
-    {de: "Ich verstehe nicht", bn: "আমি বুঝতে পারছি না"},
-    {de: "Können Sie das wiederholen?", bn: "আপনি কি এটা আবার বলতে পারবেন?"},
-    {de: "Bitte sprechen Sie langsamer", bn: "দয়া করে একটু আস্তে বলুন"},
-    {de: "Wie heißen Sie?", bn: "আপনার নাম কী?"},
-    {de: "Ich heiße...", bn: "আমার নাম..."},
-    {de: "Wer sind Sie?", bn: "আপনি কে?"},
-    {de: "Woher kommen Sie?", bn: "আপনার বাড়ি কোথায়?"},
-    {de: "Ich komme aus...", bn: "আমি ... থেকে এসেছি"},
-    {de: "Wo wohnen Sie?", bn: "আপনি কোথায় থাকেন?"},
-    {de: "Ich wohne in...", bn: "আমি ... এ থাকি"},
-    {de: "Wie alt sind Sie?", bn: "আপনার বয়স কত?"},
-    {de: "Ich bin ... Jahre alt", bn: "আমার বয়স ... বছর"},
-    {de: "Herzlichen Glückwunsch", bn: "আন্তরিক অভিনন্দন"},
-    {de: "Alles Gute zum Geburtstag", bn: "জন্মদিনের অনেক শুভেচ্ছা"},
-    {de: "Gute Besserung", bn: "দ্রুত সুস্থ হয়ে উঠুন"},
-    {de: "Viel Glück", bn: "শুভকামনা / শুভ ভাগ্য"},
-    {de: "Prost!", bn: "চিয়ার্স!"},
-    {de: "Guten Appetit", bn: "খাবারের শুভেচ্ছা (Bon appétit)"},
-    {de: "Willkommen", bn: "স্বাগতম"},
-    {de: "Mach's gut", bn: "ভালো থেকো"},
-    {de: "Schönen Tag noch", bn: "দিনটি ভালো কাটুক"},
-    {de: "Bis später", bn: "পরে দেখা হবে"},
-    {de: "Auf Wiederhören", bn: "ফোনে বিদায়"}
+// Built-in Mini Dictionary Database
+const dictionary = [
+    { de: "Brot", article: "das", plural: "die Brote", bn: "রুটি", category: "A1" },
+    { de: "Apfel", article: "der", plural: "die Äpfel", bn: "আপেল", category: "A1" },
+    { de: "Wasser", article: "das", plural: "-", bn: "পানি", category: "A1" },
+    { de: "Hallo", article: "-", plural: "-", bn: "হ্যালো / ওহে", category: "Greetings" },
+    { de: "Guten Morgen", article: "-", plural: "-", bn: "শুভ সকাল", category: "Greetings" },
+    { de: "Tschüss", article: "-", plural: "-", bn: "বিদায়", category: "Greetings" },
+    { de: "Buch", article: "das", plural: "die Bücher", bn: "বই", category: "A2" },
+    { de: "Arbeit", article: "die", plural: "die Arbeiten", bn: "কাজ", category: "B1" }
 ];
 
-const listContainer = document.getElementById('wordListContainer');
-greetingsPart1.forEach((item, index) => {
-    listContainer.innerHTML += `
-        <div class="word-item">
-            <span class="de-word">${index + 1}. ${item.de}</span>
-            <span class="bn-word">${item.bn}</span>
-        </div>
-    `;
-});
+let currentWordIndex = 0;
+let activeModuleWords = [];
+let currentScore = 0;
+let selectedSpeed = 1.0;
+let isRecording = false;
+let currentSearchedWord = null;
 
-function openGreetings() {
-    document.getElementById('greetingsModal').classList.add('show');
+// Search Functionality
+function searchWord() {
+    const query = document.getElementById('searchInput').value.trim().toLowerCase();
+    const resultBox = document.getElementById('searchResult');
+    
+    if(!query) return;
+
+    const found = dictionary.find(item => item.de.toLowerCase() === query);
+
+    if(found) {
+        currentSearchedWord = found.de;
+        document.getElementById('resWord').innerText = (found.article !== '-' ? found.article + " " : "") + found.de;
+        document.getElementById('resArticle').innerText = found.article;
+        document.getElementById('resPlural').innerText = found.plural;
+        document.getElementById('resBn').innerText = found.bn;
+        resultBox.classList.add('active');
+    } else {
+        alert("শব্দটি ডিকশনারিতে পাওয়া যায়নি। অন্য শব্দ চেষ্টা করুন (যেমন: Brot, Apfel, Hallo, Buch)!");
+        resultBox.classList.remove('active');
+    }
 }
 
-function closeGreetings() {
-    document.getElementById('greetingsModal').classList.remove('show');
+// Native Speech Engine (Text to Speech)
+function speakWord(text, speed) {
+    if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'de-DE'; // Native German accent
+        utterance.rate = speed;
+        window.speechSynthesis.speak(utterance);
+    } else {
+        alert("আপনার ব্রাউজারে স্পিচ সাপোর্ট নেই।");
+    }
 }
 
-document.addEventListener('click', function(e) {
-    const menu = document.getElementById('langMenu');
-    const btn = document.querySelector('.menu-btn');
-    if (!menu.contains(e.target) && !btn.contains(e.target)) {
-        menu.classList.remove('show');
+function speakCurrentWord(speed) {
+    if(currentSearchedWord) speakWord(currentSearchedWord, speed);
+}
+
+// Speed Toggle
+function setSpeed(speed) {
+    selectedSpeed = speed;
+    document.getElementById('sp10').classList.toggle('active', speed === 1.0);
+    document.getElementById('sp075').classList.toggle('active', speed === 0.75);
+}
+
+// Start Module Practice
+function startPractice(category) {
+    activeModuleWords = dictionary.filter(w => w.category === category);
+    if(activeModuleWords.length === 0) {
+        activeModuleWords = dictionary; // Fallback
     }
-});
+    currentWordIndex = 0;
+    currentScore = 0;
+    loadPracticeWord();
+    document.getElementById('practiceModal').classList.add('show');
+}
 
-const translations = {
-    bn: {
-        menuTitle: "ভাষা নির্বাচন করুন",
-        bannerHeading: "জার্মান উচ্চারণ ও শব্দার্থের জগতে স্বাগতম!",
-        subGreetings: "অভিভাদন",
-        subA1: "প্রাথমিক স্তর (A1)",
-        subA2: "মাধ্যমিক স্তর (A2)",
-        subB1: "উচ্চ-মাধ্যমিক স্তর (B1)",
-        modalTitle: "🇩🇪 Greetings (Part 1 - ৫০টি শব্দ)"
-    },
-    en: {
-        menuTitle: "Select Language",
-        bannerHeading: "Welcome to the world of German pronunciation & vocabulary!",
-        subGreetings: "Greetings",
-        subA1: "Basic Level (A1)",
-        subA2: "Intermediate (A2)",
-        subB1: "Upper-Intermediate (B1)",
-        modalTitle: "🇩🇪 Greetings (Part 1 - 50 Words)"
-    },
-    de: {
-        menuTitle: "Sprache auswählen",
-        bannerHeading: "Willkommen in der Welt der deutschen Aussprache!",
-        subGreetings: "Begrüßung",
-        subA1: "Grundstufe (A1)",
-        subA2: "Mittelstufe (A2)",
-        subB1: "Fortgeschritten (B1)",
-        modalTitle: "🇩🇪 Greetings (Teil 1 - 50 Wörter)"
+function loadPracticeWord() {
+    const word = activeModuleWords[currentWordIndex];
+    document.getElementById('targetWordText').innerText = word.de;
+    document.getElementById('targetWordSub').innerText = `${word.article !== '-' ? word.article + ' ' : ''}${word.de} ${word.plural !== '-' ? '(বহুবচন: ' + word.plural + ')' : ''} - ${word.bn}`;
+    document.getElementById('scoreText').innerText = `${currentScore} / ${activeModuleWords.length}`;
+    document.getElementById('feedbackText').innerText = '';
+}
+
+function playNativeAudio() {
+    const word = activeModuleWords[currentWordIndex].de;
+    speakWord(word, selectedSpeed);
+}
+
+function nextWord() {
+    if(currentWordIndex < activeModuleWords.length - 1) {
+        currentWordIndex++;
+        loadPracticeWord();
+    } else {
+        alert(`অভিনন্দন! আপনি প্র্যাকটিস শেষ করেছেন। আপনার মোট স্কোর: ${currentScore}`);
+        closePractice();
     }
-};
+}
 
-function setLanguage(lang) {
-    const t = translations[lang];
-    document.getElementById('menuTitle').innerText = t.menuTitle;
-    document.getElementById('bannerHeading').innerText = t.bannerHeading;
-    document.getElementById('sub-greetings').innerText = t.subGreetings;
-    document.getElementById('sub-a1').innerText = t.subA1;
-    document.getElementById('sub-a2').innerText = t.subA2;
-    document.getElementById('sub-b1').innerText = t.subB1;
-    document.getElementById('modalHeaderTitle').innerText = t.modalTitle;
+function closePractice() {
+    document.getElementById('practiceModal').classList.remove('show');
+}
 
-    document.querySelectorAll('.lang-option').forEach(el => el.classList.remove('active'));
-    document.getElementById('opt-' + lang).classList.add('active');
-    toggleMenu();
+// Web Speech Recognition for Pronunciation Checker
+function toggleRecording() {
+    const btn = document.getElementById('recordBtn');
+    const feedback = document.getElementById('feedbackText');
+
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+        alert("আপনার ব্রাউজারে ভয়েস রিকগনিশন সাপোর্ট করছে না। Google Chrome ব্যবহার করুন।");
+        return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'de-DE';
+
+    if (!isRecording) {
+        isRecording = true;
+        btn.classList.add('recording');
+        btn.innerText = "🛑 শুনছি... এখন বলুন";
+        feedback.innerText = "";
+        recognition.start();
+
+        recognition.onresult = function(event) {
+            const spokenText = event.results[0][0].transcript.trim().toLowerCase();
+            const targetWord = activeModuleWords[currentWordIndex].de.toLowerCase();
+
+            isRecording = false;
+            btn.classList.remove('recording');
+            btn.innerText = "🎙️ উচ্চারণ রেকর্ড করুন";
+
+            if (spokenText.includes(targetWord) || targetWord.includes(spokenText)) {
+                feedback.style.color = "#16a34a";
+                feedback.innerText = `🎉 দারুণ! সঠিক উচ্চারণ হয়েছে। (${spokenText})`;
+                currentScore++;
+                document.getElementById('scoreText').innerText = `${currentScore} / ${activeModuleWords.length}`;
+            } else {
+                feedback.style.color = "#dc2626";
+                feedback.innerText = `❌ আবার চেষ্টা করুন! আপনি বলেছেন: "${spokenText}"`;
+            }
+        };
+
+        recognition.onerror = function() {
+            isRecording = false;
+            btn.classList.remove('recording');
+            btn.innerText = "🎙️ উচ্চারণ রেকর্ড করুন";
+            feedback.style.color = "#dc2626";
+            feedback.innerText = "উচ্চারণ বোঝা যায়নি, আবার চেষ্টা করুন।";
+        };
+    }
 }
 </script>
 
