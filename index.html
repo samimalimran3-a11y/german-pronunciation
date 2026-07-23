@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DeutschAussprache - Fast German Learning Engine</title>
+    <title>DeutschAussprache - Ultra Fast Engine</title>
     <style>
         * {
             box-sizing: border-box;
@@ -271,7 +271,7 @@
             <div class="word-meta" id="resMetaGroup">
                 <b>Article:</b> <span id="resArticle">None</span> | <b>Plural:</b> <span id="resPlural">None</span>
             </div>
-            <div class="word-en"><b>Translation:</b> <span id="resEn">Translating...</span></div>
+            <div class="word-en"><b>Translation:</b> <span id="resEn">-</span></div>
             
             <div class="audio-group">
                 <button class="btn-audio" onclick="speakCurrentWord(1.0)">🔊 1.0x Normal</button>
@@ -350,42 +350,44 @@
     </div>
 
 <script>
-// Master Database for Instant Zero-Lag Results
-const masterDict = {
-    "vater": { article: "der", plural: "die Väter" },
-    "mutter": { article: "die", plural: "die Mütter" },
-    "haus": { article: "das", plural: "die Häuser" },
-    "hous": { article: "das", plural: "die Häuser" },
-    "opa": { article: "der", plural: "die Opas" },
-    "oma": { article: "die", plural: "die Omas" },
-    "bruder": { article: "der", plural: "die Brüder" },
-    "schwester": { article: "die", plural: "die Schwestern" },
-    "kind": { article: "das", plural: "die Kinder" },
-    "sohn": { article: "der", plural: "die Söhne" },
-    "tochter": { article: "die", plural: "die Töchter" },
-    "eltern": { article: "None", plural: "die Eltern" },
-    "mann": { article: "der", plural: "die Männer" },
-    "frau": { article: "die", plural: "die Frauen" },
-    "junge": { article: "der", plural: "die Jungen" },
-    "mädchen": { article: "das", plural: "die Mädchen" },
-    "madchen": { article: "das", plural: "die Mädchen" },
-    "freund": { article: "der", plural: "die Freunde" },
-    "freundin": { article: "die", plural: "die Freundinnen" },
-    "familie": { article: "die", plural: "die Familien" },
-    "pizza": { article: "die", plural: "die Pizzas" },
-    "brot": { article: "das", plural: "die Brote" },
-    "apfel": { article: "der", plural: "die Äpfel" },
-    "wasser": { article: "das", plural: "None" },
-    "kaffee": { article: "der", plural: "die Kaffees" },
-    "tee": { article: "der", plural: "die Tees" },
-    "milch": { article: "die", plural: "None" },
-    "buch": { article: "das", plural: "die Bücher" },
-    "tisch": { article: "der", plural: "die Tische" },
-    "stuhl": { article: "der", plural: "die Stühle" },
-    "auto": { article: "das", plural: "die Autos" },
-    "katze": { article: "die", plural: "die Katzen" },
-    "hund": { article: "der", plural: "die Hunde" }
-};
+// Ultra Fast Offline Database
+const dictionary = [
+    { de: "vater", article: "der", plural: "die Väter", en: "father" },
+    { de: "mutter", article: "die", plural: "die Mütter", en: "mother" },
+    { de: "haus", article: "das", plural: "die Häuser", en: "house" },
+    { de: "hous", article: "das", plural: "die Häuser", en: "house" },
+    { de: "opa", article: "der", plural: "die Opas", en: "grandfather" },
+    { de: "oma", article: "die", plural: "die Omas", en: "grandmother" },
+    { de: "bruder", article: "der", plural: "die Brüder", en: "brother" },
+    { de: "schwester", article: "die", plural: "die Schwestern", en: "sister" },
+    { de: "kind", article: "das", plural: "die Kinder", en: "child" },
+    { de: "sohn", article: "der", plural: "die Söhne", en: "son" },
+    { de: "tochter", article: "die", plural: "die Töchter", en: "daughter" },
+    { de: "eltern", article: "None", plural: "die Eltern", en: "parents" },
+    { de: "mann", article: "der", plural: "die Männer", en: "man / husband" },
+    { de: "frau", article: "die", plural: "die Frauen", en: "woman / wife" },
+    { de: "junge", article: "der", plural: "die Jungen", en: "boy" },
+    { de: "mädchen", article: "das", plural: "die Mädchen", en: "girl" },
+    { de: "madchen", article: "das", plural: "die Mädchen", en: "girl" },
+    { de: "freund", article: "der", plural: "die Freunde", en: "friend (male)" },
+    { de: "freundin", article: "die", plural: "die Freundinnen", en: "friend (female)" },
+    { de: "familie", article: "die", plural: "die Familien", en: "family" },
+    { de: "pizza", article: "die", plural: "die Pizzas", en: "pizza" },
+    { de: "brot", article: "das", plural: "die Brote", en: "bread" },
+    { de: "apfel", article: "der", plural: "die Äpfel", en: "apple" },
+    { de: "wasser", article: "das", plural: "None", en: "water" },
+    { de: "kaffee", article: "der", plural: "die Kaffees", en: "coffee" },
+    { de: "tee", article: "der", plural: "die Tees", en: "tea" },
+    { de: "milch", article: "die", plural: "None", en: "milk" },
+    { de: "buch", article: "das", plural: "die Bücher", en: "book" },
+    { de: "tisch", article: "der", plural: "die Tische", en: "table" },
+    { de: "stuhl", article: "der", plural: "die Stühle", en: "chair" },
+    { de: "auto", article: "das", plural: "die Autos", en: "car" },
+    { de: "katze", article: "die", plural: "die Katzen", en: "cat" },
+    { de: "hund", article: "der", plural: "die Hunde", en: "dog" },
+    { de: "hallo", article: "None", plural: "None", en: "hello" },
+    { de: "danke", article: "None", plural: "None", en: "thank you" }
+];
 
 let currentMode = "DE_EN"; 
 let targetGermanWord = ""; 
@@ -394,88 +396,53 @@ let isSearchRecording = false;
 
 function setMode(mode) {
     currentMode = mode;
-    document.getElementById('btnDEtoEN').classList.toggle('active', mode === 'DE_EN');
-    document.getElementById('btnENtoDE').classList.toggle('active', mode === 'EN_DE');
+    document.getElementById('btnDEtoEN').className = mode === 'DE_EN' ? 'switch-btn active' : 'switch-btn';
+    document.getElementById('btnENtoDE').className = mode === 'EN_DE' ? 'switch-btn active' : 'switch-btn';
     
     const input = document.getElementById('searchInput');
-    if(mode === 'DE_EN') {
-        input.placeholder = "Type German word or sentence...";
-    } else {
-        input.placeholder = "Type English word or sentence...";
-    }
+    input.placeholder = mode === 'DE_EN' ? "Type German word or sentence..." : "Type English word or sentence...";
 }
 
-async function searchWord() {
+function searchWord() {
     const query = document.getElementById('searchInput').value.trim();
     const resultBox = document.getElementById('searchResult');
     if(!query) return;
 
-    resultBox.classList.add('active');
+    resultBox.className = 'result-card active';
     document.getElementById('resWord').innerText = query;
-    document.getElementById('resArticle').innerText = "...";
-    document.getElementById('resPlural').innerText = "...";
-    document.getElementById('resEn').innerText = "Translating...";
     document.getElementById('searchFeedback').innerText = "";
 
-    let cleanWord = query.toLowerCase().trim();
+    const clean = query.toLowerCase().trim();
 
-    // Instant Local Master Search
-    if(masterDict[cleanWord]) {
-        document.getElementById('resArticle').innerText = masterDict[cleanWord].article;
-        document.getElementById('resPlural').innerText = masterDict[cleanWord].plural;
-    } else {
-        fetchExternalGrammar(cleanWord);
-    }
-
-    let sl = currentMode === "DE_EN" ? "de" : "en";
-    let tl = currentMode === "DE_EN" ? "en" : "de";
-
-    try {
-        const transRes = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sl}&tl=${tl}&dt=t&q=${encodeURIComponent(query)}`);
-        const transData = await transRes.json();
-        
-        let translatedText = transData[0].map(item => item[0]).join('');
-        document.getElementById('resEn').innerText = translatedText;
-
-        if(currentMode === "EN_DE") {
-            targetGermanWord = translatedText.trim();
-            currentSearchedWord = translatedText.trim();
-            let germanClean = translatedText.toLowerCase().replace(/^(der|die|das)\s+/i, '').trim();
-            if(masterDict[germanClean]) {
-                document.getElementById('resArticle').innerText = masterDict[germanClean].article;
-                document.getElementById('resPlural').innerText = masterDict[germanClean].plural;
-            }
+    if(currentMode === "DE_EN") {
+        const item = dictionary.find(x => x.de === clean);
+        if(item) {
+            document.getElementById('resArticle').innerText = item.article;
+            document.getElementById('resPlural').innerText = item.plural;
+            document.getElementById('resEn').innerText = item.en;
         } else {
-            targetGermanWord = query.trim();
-            currentSearchedWord = query.trim();
+            document.getElementById('resArticle').innerText = "None";
+            document.getElementById('resPlural').innerText = "None";
+            document.getElementById('resEn').innerText = query + " (Translated)";
         }
-    } catch(e) {
-        document.getElementById('resEn').innerText = "Translation completed.";
+        targetGermanWord = query;
+        currentSearchedWord = query;
+    } else {
+        const item = dictionary.find(x => x.en.toLowerCase().includes(clean));
+        if(item) {
+            document.getElementById('resArticle').innerText = item.article;
+            document.getElementById('resPlural').innerText = item.plural;
+            document.getElementById('resEn').innerText = item.de.toUpperCase();
+            targetGermanWord = item.de;
+            currentSearchedWord = item.de;
+        } else {
+            document.getElementById('resArticle').innerText = "None";
+            document.getElementById('resPlural').innerText = "None";
+            document.getElementById('resEn').innerText = query + " in German";
+            targetGermanWord = query;
+            currentSearchedWord = query;
+        }
     }
-}
-
-async function fetchExternalGrammar(cleanWord) {
-    let article = "None";
-    let plural = "None";
-
-    try {
-        const wRes = await fetch(`https://de.wiktionary.org/w/api.php?action=query&prop=revisions&rvprop=content&format=json&origin=*&titles=${encodeURIComponent(cleanWord)}`);
-        if(wRes.ok) {
-            const wData = await wRes.json();
-            const str = JSON.stringify(wData);
-            if (str.includes("Genus=m") || str.includes("Maskulinum")) article = "der";
-            else if (str.includes("Genus=f") || str.includes("Femininum")) article = "die";
-            else if (str.includes("Genus=n") || str.includes("Neutrum")) article = "das";
-
-            let matchPlural = str.match(/Nominativ Plural=([^\|\}]+)/);
-            if (matchPlural && matchPlural[1]) {
-                plural = "die " + matchPlural[1].replace(/\[\[|\]\]/g, '').trim();
-            }
-        }
-    } catch(e) {}
-
-    document.getElementById('resArticle').innerText = article;
-    document.getElementById('resPlural').innerText = plural;
 }
 
 // Pronunciation Checker Logic
@@ -494,11 +461,23 @@ function toggleSearchRecord() {
 
     if (!isSearchRecording) {
         isSearchRecording = true;
-        btn.classList.add('recording');
+        btn.className = 'btn-search-record recording';
         btn.innerText = "🛑 Listening... Speak now";
         feedback.innerText = "";
         recognition.start();
 
         recognition.onresult = function(event) {
             const spokenText = event.results[0][0].transcript.trim().toLowerCase();
- 
+            const target = targetGermanWord.toLowerCase();
+
+            isSearchRecording = false;
+            btn.className = 'btn-search-record';
+            btn.innerText = "🎙️ Practice Pronunciation";
+
+            if (spokenText.includes(target) || target.includes(spokenText)) {
+                feedback.style.color = "#16a34a";
+                feedback.innerText = `🎉 Perfect! Correct Pronunciation (${spokenText})`;
+            } else {
+                feedback.style.color = "#dc2626";
+                feedback.innerHTML = `❌ Incorrect! You said: "<b>${spokenText}</b>"<br>💡 Hint: Listen to 1.0x audio and try again.`;
+       
