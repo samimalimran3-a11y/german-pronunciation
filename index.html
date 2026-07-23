@@ -120,8 +120,8 @@
 
         .result-card.active { display: block; }
         .word-title { font-size: 20px; font-weight: 800; color: #166534; }
-        .word-meta { font-size: 14px; color: #374151; margin-top: 4px; }
-        .word-en { font-size: 15px; font-weight: 700; color: #0f172a; margin-top: 6px; }
+        .word-meta { font-size: 14px; color: #374151; margin-top: 6px; line-height: 1.5; }
+        .word-en { font-size: 15px; font-weight: 700; color: #0f172a; margin-top: 8px; }
 
         /* Banner */
         .hero-banner {
@@ -290,7 +290,7 @@
         <div id="searchResult" class="result-card">
             <div class="word-title" id="resWord">-</div>
             <div class="word-meta">
-                <b>Article:</b> <span id="resArticle">-</span> | <b>Plural:</b> <span id="resPlural">-</span>
+                <b>Article:</b> <span id="resArticle">None</span> | <b>Plural:</b> <span id="resPlural">None</span>
             </div>
             <div class="word-en"><b>English Meaning:</b> <span id="resEn">Translating...</span></div>
             <div style="margin-top: 10px; display: flex; gap: 8px;">
@@ -364,13 +364,36 @@
     </div>
 
 <script>
-// Built-in Practice Data
+// Built-in Grammar Database for Common German Nouns
+const nounDatabase = {
+    "mutter": { article: "die", plural: "die Mütter" },
+    "vater": { article: "der", plural: "die Väter" },
+    "bruder": { article: "der", plural: "die Brüder" },
+    "schwester": { article: "die", plural: "die Schwestern" },
+    "kind": { article: "das", plural: "die Kinder" },
+    "brot": { article: "das", plural: "die Brote" },
+    "apfel": { article: "der", plural: "die Äpfel" },
+    "wasser": { article: "das", plural: "None" },
+    "haus": { article: "das", plural: "die Häuser" },
+    "buch": { article: "das", plural: "die Bücher" },
+    "arbeit": { article: "die", plural: "die Arbeiten" },
+    "auto": { article: "das", plural: "die Autos" },
+    "tisch": { article: "der", plural: "die Tische" },
+    "stuhl": { article: "der", plural: "die Stühle" },
+    "mann": { article: "der", plural: "die Männer" },
+    "frau": { article: "die", plural: "die Frauen" },
+    "freund": { article: "der", plural: "die Freunde" },
+    "freundin": { article: "die", plural: "die Freundinnen" },
+    "katze": { article: "die", plural: "die Katzen" },
+    "hund": { article: "der", plural: "die Hunde" }
+};
+
 const practiceWordsList = [
     { de: "Brot", article: "das", plural: "die Brote", en: "bread", category: "A1" },
     { de: "Apfel", article: "der", plural: "die Äpfel", en: "apple", category: "A1" },
-    { de: "Wasser", article: "das", plural: "-", en: "water", category: "A1" },
-    { de: "Hallo", article: "-", plural: "-", en: "hello", category: "Greetings" },
-    { de: "Danke schön", article: "-", plural: "-", en: "thank you very much", category: "Greetings" },
+    { de: "Wasser", article: "das", plural: "None", en: "water", category: "A1" },
+    { de: "Hallo", article: "None", plural: "None", en: "hello", category: "Greetings" },
+    { de: "Danke schön", article: "None", plural: "None", en: "thank you very much", category: "Greetings" },
     { de: "Haus", article: "das", plural: "die Häuser", en: "house", category: "A1" },
     { de: "Buch", article: "das", plural: "die Bücher", en: "book", category: "A2" },
     { de: "Arbeit", article: "die", plural: "die Arbeiten", en: "work / job", category: "B1" }
@@ -383,7 +406,6 @@ let selectedSpeed = 1.0;
 let isRecording = false;
 let currentSearchedWord = "";
 
-// Google Translate Engine + Dictionary API Integration
 async function searchWord() {
     const query = document.getElementById('searchInput').value.trim();
     const resultBox = document.getElementById('searchResult');
@@ -398,22 +420,36 @@ async function searchWord() {
     document.getElementById('resPlural').innerText = "...";
     document.getElementById('resEn').innerText = "Translating with Google Translate...";
 
-    // 1. Fetch Article & Plural details if single word
-    let article = "-";
-    let plural = "-";
+    let article = "None";
+    let plural = "None";
+    const cleanWord = query.toLowerCase();
 
-    try {
-        const dictRes = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/de/${encodeURIComponent(query)}`);
-        if (dictRes.ok) {
-            const dictData = await dictRes.json();
-            const meanings = dictData[0]?.meanings || [];
-            if(meanings.some(m => m.partOfSpeech === 'noun')) {
-                article = "Noun";
+    // 1. Check Local Noun DB First (Instant & Accurate)
+    if (nounDatabase[cleanWord]) {
+        article = nounDatabase[cleanWord].article;
+        plural = nounDatabase[cleanWord].plural;
+    } else {
+        // 2. Query Wiktionary Grammar Data Live
+        try {
+            const wikiRes = await fetch(`https://de.wiktionary.org/api/rest_v1/page/definition/${encodeURIComponent(query)}`);
+            if (wikiRes.ok) {
+                const wikiData = await wikiRes.json();
+                if (wikiData.de && wikiData.de[0]) {
+                    const pos = wikiData.de[0].partOfSpeech;
+                    if (pos === "Substantiv") {
+                        // Noun detected, query gender/article
+                        const genRes = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/de/${encodeURIComponent(query)}`);
+                        if(genRes.ok) {
+                            const genData = await genRes.json();
+                            article = "Noun";
+                        }
+                    }
+                }
             }
-        }
-    } catch (e) {}
+        } catch (e) {}
+    }
 
-    // 2. Fetch Live English Translation via Google Translate Engine
+    // 3. Google Translate Engine for Live Translation
     try {
         const translateRes = await fetch(`https://translate.googleapis.com/translate_a/single?client=gtx&sl=de&tl=en&dt=t&q=${encodeURIComponent(query)}`);
         const translateData = await translateRes.json();
@@ -469,7 +505,7 @@ function startPractice(category) {
 function loadPracticeWord() {
     const word = activeModuleWords[currentWordIndex];
     document.getElementById('targetWordText').innerText = word.de;
-    document.getElementById('targetWordSub').innerText = `${word.article !== '-' ? word.article + ' ' : ''}${word.de} - ${word.en}`;
+    document.getElementById('targetWordSub').innerText = `${word.article !== 'None' ? word.article + ' ' : ''}${word.de} - ${word.en}`;
     document.getElementById('scoreText').innerText = `${currentScore} / ${activeModuleWords.length}`;
     document.getElementById('feedbackText').innerText = '';
 }
