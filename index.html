@@ -20,6 +20,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -30,11 +31,10 @@
             min-height: 100vh;
         }
 
-        /* Header Bar */
         header {
             background-color: var(--card-bg);
             border-bottom: 2px solid var(--primary-color);
-            padding: 12px 20px;
+            padding: 12px 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -45,22 +45,21 @@
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 18px;
             font-weight: bold;
             color: var(--primary-color);
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
-        /* Translator Widget */
         .translator-box {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
             background: #f0f0f0;
-            padding: 5px 12px;
+            padding: 4px 8px;
             border-radius: 20px;
         }
 
@@ -69,8 +68,8 @@
             background: transparent;
             outline: none;
             padding: 4px;
-            font-size: 14px;
-            width: 140px;
+            font-size: 13px;
+            width: 90px;
         }
 
         .translator-box button {
@@ -83,9 +82,8 @@
             font-size: 12px;
         }
 
-        /* Container & Navigation */
         .container {
-            max-width: 700px;
+            max-width: 600px;
             margin: 0 auto;
             width: 100%;
             padding: 20px 15px;
@@ -99,35 +97,34 @@
             font-size: 16px;
             cursor: pointer;
             margin-bottom: 15px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 5px;
             font-weight: 600;
+            padding: 5px 0;
         }
 
-        /* Grid Categories (Homepage) */
         .grid-categories {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .category-card {
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 30px 15px;
+            padding: 25px 10px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0,0,0,0.05);
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
             border: 1px solid var(--border-color);
+            user-select: none;
         }
 
-        .category-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(142, 36, 170, 0.15);
-            border-color: var(--primary-color);
+        .category-card:active {
+            background-color: #f3e5f5;
+            transform: scale(0.97);
         }
 
         .category-card i {
@@ -137,77 +134,68 @@
         }
 
         .category-card h3 {
-            font-size: 18px;
+            font-size: 16px;
         }
 
-        /* Lesson List View (Image 1 Style) */
         .lesson-list {
             display: flex;
             flex-direction: column;
-            gap: 1px;
-            background: var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
+            gap: 8px;
         }
 
         .lesson-item {
             background: var(--card-bg);
-            padding: 15px 20px;
+            padding: 15px;
+            border-radius: 8px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            transition: background 0.2s;
+            border: 1px solid var(--border-color);
         }
 
-        .lesson-item:hover {
-            background: #fdf7ff;
+        .lesson-item:active {
+            background: #f3e5f5;
         }
 
         .lesson-info h4 {
-            color: #555;
-            font-size: 14px;
-            font-weight: 500;
+            color: #777;
+            font-size: 12px;
         }
 
         .lesson-info h3 {
             color: #222;
-            font-size: 16px;
+            font-size: 15px;
             margin-top: 2px;
         }
 
-        .lesson-item i {
-            color: #888;
-        }
-
-        /* Practice Card Interface (Image 2 Style) */
         .practice-card {
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 25px 20px;
+            padding: 25px 15px;
             text-align: center;
             box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             position: relative;
         }
 
         .card-counter {
             position: absolute;
             top: 15px;
-            left: 20px;
+            left: 15px;
             color: #888;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         .word-display {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: bold;
-            margin: 25px 0 10px 0;
+            margin: 25px 0 8px 0;
             color: #222;
         }
 
         .translation-display {
-            font-size: 16px;
+            font-size: 15px;
             color: #666;
             margin-bottom: 20px;
         }
@@ -215,22 +203,21 @@
         .play-main-btn {
             background: var(--primary-color);
             color: white;
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
             border: none;
-            font-size: 24px;
+            font-size: 22px;
             cursor: pointer;
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             box-shadow: 0 4px 10px rgba(142, 36, 170, 0.3);
-            transition: background 0.2s;
         }
 
-        .play-main-btn:hover {
-            background: var(--primary-hover);
+        .play-main-btn:active {
+            transform: scale(0.92);
         }
 
         .practice-controls {
@@ -239,16 +226,15 @@
             align-items: center;
             border-top: 1px solid #eee;
             padding-top: 15px;
-            margin-top: 15px;
         }
 
         .mic-btn {
             background: #f0f0f0;
             border: none;
-            width: 45px;
-            height: 45px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
-            font-size: 18px;
+            font-size: 20px;
             color: #555;
             cursor: pointer;
         }
@@ -256,30 +242,22 @@
         .mic-btn.recording {
             background: #e53935;
             color: white;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-            100% { transform: scale(1); }
         }
 
         .nav-btn {
             background: none;
             border: none;
-            font-size: 20px;
+            font-size: 22px;
             color: var(--primary-color);
             cursor: pointer;
-            padding: 5px 10px;
+            padding: 10px;
         }
 
-        /* Feedback Box */
         .feedback-box {
             margin-top: 15px;
             padding: 10px;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
             display: none;
         }
 
@@ -295,7 +273,6 @@
             border: 1px solid #ef9a9a;
         }
 
-        /* Words Table List (Image 3 Style) */
         .word-list-table {
             background: var(--card-bg);
             border-radius: 8px;
@@ -307,31 +284,26 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 18px;
+            padding: 12px 15px;
             border-bottom: 1px solid var(--border-color);
         }
 
-        .word-row:last-child {
-            border-bottom: none;
-        }
-
         .word-text .de-word {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             color: var(--primary-color);
         }
 
         .word-text .en-word {
-            font-size: 14px;
+            font-size: 13px;
             color: #555;
-            margin-bottom: 2px;
         }
 
         .mini-play-btn {
             background: none;
             border: 1px solid var(--border-color);
-            width: 35px;
-            height: 35px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             color: #555;
             cursor: pointer;
@@ -340,27 +312,18 @@
             align-items: center;
         }
 
-        .mini-play-btn:hover {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-
         .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <!-- Header Section -->
     <header>
-        <div class="logo" onclick="showHomepage()">
-            <i class="fas fa-language"></i> Deutsch Pronounce
+        <div class="logo" id="logo-btn">
+            <i class="fas fa-language"></i> Deutsch
         </div>
-        
-        <!-- Google Translator Quick Search -->
         <div class="translator-box">
-            <input type="text" id="transInput" placeholder="জার্মান শব্দ লিখুন...">
-            <button onclick="translateWord()"><i class="fas fa-search"></i> অর্থ</button>
+            <input type="text" id="transInput" placeholder="শব্দ লিখুন...">
+            <button id="trans-btn"><i class="fas fa-search"></i> অর্থ</button>
         </div>
     </header>
 
@@ -368,78 +331,70 @@
 
         <!-- 1. HOMEPAGE VIEW -->
         <div id="homepage-view">
-            <h2 style="margin-bottom: 10px;">শেখার লেভেল বাছাই করুন</h2>
-            <p style="color: #666; margin-bottom: 20px;">আপনার পছন্দের ক্যাটাগরিতে প্রবেশ করে প্র্যাকটিস শুরু করুন:</p>
+            <h2 style="margin-bottom: 5px; font-size: 18px;">শেখার লেভেল বাছাই করুন</h2>
+            <p style="color: #666; font-size: 13px; margin-bottom: 15px;">যেকোনো অপশনে টাচ করুন:</p>
 
             <div class="grid-categories">
-                <div class="category-card" onclick="openCategory('Greetings')">
+                <div class="category-card" data-cat="Greetings">
                     <i class="fas fa-handshake"></i>
                     <h3>Greetings</h3>
                 </div>
-                <div class="category-card" onclick="openCategory('A1')">
+                <div class="category-card" data-cat="A1">
                     <i class="fas fa-seedling"></i>
                     <h3>Level A1</h3>
                 </div>
-                <div class="category-card" onclick="openCategory('A2')">
+                <div class="category-card" data-cat="A2">
                     <i class="fas fa-book-open"></i>
                     <h3>Level A2</h3>
                 </div>
-                <div class="category-card" onclick="openCategory('B1')">
+                <div class="category-card" data-cat="B1">
                     <i class="fas fa-graduation-cap"></i>
                     <h3>Level B1</h3>
                 </div>
             </div>
         </div>
 
-        <!-- 2. LESSON LIST VIEW (Image 1) -->
+        <!-- 2. LESSON LIST VIEW -->
         <div id="lessons-view" class="hidden">
-            <button class="back-btn" onclick="showHomepage()"><i class="fas fa-arrow-left"></i> হোমপেজ</button>
-            <h2 id="category-title" style="margin-bottom: 15px;">Lessons</h2>
-            <div class="lesson-list" id="lesson-list-container">
-                <!-- Dynamic Lessons Will Be Injected Here -->
-            </div>
+            <button class="back-btn" id="back-to-home"><i class="fas fa-arrow-left"></i> হোমপেজ</button>
+            <h2 id="category-title" style="margin-bottom: 15px; font-size: 18px;">Lessons</h2>
+            <div class="lesson-list" id="lesson-list-container"></div>
         </div>
 
-        <!-- 3. PRACTICE INTERFACE VIEW (Image 2 & Image 3) -->
+        <!-- 3. PRACTICE VIEW -->
         <div id="practice-view" class="hidden">
-            <button class="back-btn" onclick="openCategory(currentCategory)"><i class="fas fa-arrow-left"></i> লেসন তালিকা</button>
+            <button class="back-btn" id="back-to-lessons"><i class="fas fa-arrow-left"></i> লেসন তালিকা</button>
             
-            <h3 id="lesson-header-title" style="margin-bottom: 5px;">Teach yourself German</h3>
-            <p style="color: #666; font-size: 13px; margin-bottom: 15px;">
-                নিচের প্লে বাটনে ক্লিক করে নেটিভ উচ্চারণ শুনুন এবং মাইক আইকন চেপে নিজে বলার প্র্যাকটিস করুন।
+            <h3 id="lesson-header-title" style="margin-bottom: 5px; font-size: 16px;">Teach yourself German</h3>
+            <p style="color: #666; font-size: 12px; margin-bottom: 15px;">
+                উচ্চারণ শুনতে প্লে টিপুন এবং নিজে বলতে মাইকে চাপুন।
             </p>
 
-            <!-- Interactive Flashcard (Image 2) -->
             <div class="practice-card">
-                <span class="card-counter" id="card-counter">1/10</span>
+                <span class="card-counter" id="card-counter">1/8</span>
                 <div class="word-display" id="card-de-word">Hallo</div>
                 <div class="translation-display" id="card-en-word">Hello / হ্যালো</div>
 
                 <div>
-                    <button class="play-main-btn" onclick="playAudio(currentWord().de)"><i class="fas fa-play"></i></button>
+                    <button class="play-main-btn" id="play-main-audio"><i class="fas fa-play"></i></button>
                 </div>
 
                 <div class="practice-controls">
-                    <button class="nav-btn" onclick="prevWord()"><i class="fas fa-step-backward"></i></button>
-                    <button class="mic-btn" id="mic-btn" onclick="startSpeechRecognition()"><i class="fas fa-microphone"></i></button>
-                    <button class="nav-btn" onclick="nextWord()"><i class="fas fa-step-forward"></i></button>
+                    <button class="nav-btn" id="prev-btn"><i class="fas fa-step-backward"></i></button>
+                    <button class="mic-btn" id="mic-btn"><i class="fas fa-microphone"></i></button>
+                    <button class="nav-btn" id="next-btn"><i class="fas fa-step-forward"></i></button>
                 </div>
 
-                <!-- Feedback Box for Pronunciation Test -->
                 <div class="feedback-box" id="feedback-box"></div>
             </div>
 
-            <!-- Words List Below Card (Image 3) -->
-            <h4 style="margin-bottom: 10px; color: #444;">এই লেসনের সকল শব্দার্থ:</h4>
-            <div class="word-list-table" id="words-table-container">
-                <!-- Dynamic Word Rows Will Be Injected Here -->
-            </div>
+            <h4 style="margin-bottom: 10px; color: #444; font-size: 15px;">শব্দার্থের তালিকা:</h4>
+            <div class="word-list-table" id="words-table-container"></div>
         </div>
 
     </div>
 
     <script>
-        // Sample Data Structure (সহজে পরবর্তীতে ৫০০-১০- শব্দ যুক্ত করতে পারবেন)
         const sampleWords = [
             { de: "Hallo", en: "Hello / হ্যালো" },
             { de: "Guten Morgen", en: "Good morning / শুভ সকাল" },
@@ -451,11 +406,33 @@
             { de: "Wo wohnst du?", en: "Where do you live? / তুমি কোথায় থাকো?" }
         ];
 
-        let currentCategory = '';
-        let currentLessonIndex = 0;
+        let currentCategory = 'Greetings';
+        let currentLessonIndex = 1;
         let currentWordIndex = 0;
 
-        // View Navigation Functions
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // Homepage Category Clicks
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const cat = this.getAttribute('data-cat');
+                    openCategory(cat);
+                });
+            });
+
+            // Navigation Buttons
+            document.getElementById('logo-btn').addEventListener('click', showHomepage);
+            document.getElementById('back-to-home').addEventListener('click', showHomepage);
+            document.getElementById('back-to-lessons').addEventListener('click', () => openCategory(currentCategory));
+            
+            document.getElementById('prev-btn').addEventListener('click', prevWord);
+            document.getElementById('next-btn').addEventListener('click', nextWord);
+            document.getElementById('play-main-audio').addEventListener('click', () => playAudio(currentWord().de));
+            document.getElementById('mic-btn').addEventListener('click', startSpeechRecognition);
+            document.getElementById('trans-btn').addEventListener('click', translateWord);
+
+        });
+
         function showHomepage() {
             document.getElementById('homepage-view').classList.remove('hidden');
             document.getElementById('lessons-view').classList.add('hidden');
@@ -469,25 +446,26 @@
             document.getElementById('practice-view').classList.add('hidden');
             document.getElementById('category-title').innerText = `${catName} - Lessons`;
 
-            // Generating Lesson List
             const container = document.getElementById('lesson-list-container');
             container.innerHTML = '';
-            for(let i = 1; i <= 10; i++) {
-                container.innerHTML += `
-                    <div class="lesson-item" onclick="openLesson(${i})">
-                        <div class="lesson-info">
-                            <h4>Learn German</h4>
-                            <h3>Lesson ${i}: ${getLessonName(i)}</h3>
-                        </div>
-                        <i class="fas fa-chevron-right"></i>
+            for(let i = 1; i <= 5; i++) {
+                const item = document.createElement('div');
+                item.className = 'lesson-item';
+                item.innerHTML = `
+                    <div class="lesson-info">
+                        <h4>Learn German</h4>
+                        <h3>Lesson ${i}: ${getLessonName(i)}</h3>
                     </div>
+                    <i class="fas fa-chevron-right" style="color:#aaa;"></i>
                 `;
+                item.onclick = () => openLesson(i);
+                container.appendChild(item);
             }
         }
 
         function getLessonName(index) {
-            const titles = ["Meeting someone", "Please and thank you", "Celebrations", "Daily life", "Feelings and emotions", "Days of the week", "Months of the year", "Numbers 1-10", "Numbers 11-20", "Common Phrases"];
-            return titles[index-1] || `Vocabulary Part ${index}`;
+            const titles = ["Meeting someone", "Please and thank you", "Celebrations", "Daily life", "Feelings and emotions"];
+            return titles[index-1] || `Lesson ${index}`;
         }
 
         function openLesson(lessonNum) {
@@ -495,14 +473,12 @@
             currentWordIndex = 0;
             document.getElementById('lessons-view').classList.add('hidden');
             document.getElementById('practice-view').classList.remove('hidden');
-            
             document.getElementById('lesson-header-title').innerText = `Lesson ${lessonNum}: ${getLessonName(lessonNum)}`;
 
             updatePracticeCard();
             renderWordTable();
         }
 
-        // Practice View Control
         function currentWord() {
             return sampleWords[currentWordIndex] || sampleWords[0];
         }
@@ -513,7 +489,6 @@
             document.getElementById('card-en-word').innerText = word.en;
             document.getElementById('card-counter').innerText = `${currentWordIndex + 1}/${sampleWords.length}`;
             
-            // Clear feedback
             const fb = document.getElementById('feedback-box');
             fb.style.display = 'none';
             fb.className = 'feedback-box';
@@ -537,39 +512,39 @@
             const container = document.getElementById('words-table-container');
             container.innerHTML = '';
             sampleWords.forEach((item) => {
-                container.innerHTML += `
-                    <div class="word-row">
-                        <div class="word-text">
-                            <div class="en-word">${item.en}</div>
-                            <div class="de-word">${item.de}</div>
-                        </div>
-                        <button class="mini-play-btn" onclick="playAudio('${item.de}')">
-                            <i class="fas fa-play"></i>
-                        </button>
+                const row = document.createElement('div');
+                row.className = 'word-row';
+                row.innerHTML = `
+                    <div class="word-text">
+                        <div class="en-word">${item.en}</div>
+                        <div class="de-word">${item.de}</div>
                     </div>
+                    <button class="mini-play-btn">
+                        <i class="fas fa-play"></i>
+                    </button>
                 `;
+                row.querySelector('.mini-play-btn').onclick = () => playAudio(item.de);
+                container.appendChild(row);
             });
         }
 
-        // Native German Speech Synthesis (Audio Player)
         function playAudio(text) {
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // Stop active speech
+                window.speechSynthesis.cancel();
                 const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'de-DE'; // German Accent
-                utterance.rate = 0.85; // Natural Speed
+                utterance.lang = 'de-DE';
+                utterance.rate = 0.85;
                 window.speechSynthesis.speak(utterance);
             } else {
-                alert("আপনার ব্রাউজারে স্পিচ সাপোর্ট নেই।");
+                alert("আপনার ব্রাউজারে স্পিচ ফিচার সাপোর্ট করে না।");
             }
         }
 
-        // Voice Practice & Speech Recognition (Microphone Test)
         function startSpeechRecognition() {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
             
             if (!SpeechRecognition) {
-                alert("আপনার ব্রাউজারটি স্পিচ-রেকগনিশন সাপোর্ট করে না। দয়া করে Google Chrome ব্যবহার করুন।");
+                alert("আপনার ব্রাউজারটি মাইক সাপোর্ট করে না। Google Chrome ব্যবহার করুন।");
                 return;
             }
 
@@ -583,7 +558,7 @@
             micBtn.classList.add('recording');
             feedbackBox.style.display = 'block';
             feedbackBox.className = 'feedback-box';
-            feedbackBox.innerText = "শুনছি... এখন মুখে বলুন!";
+            feedbackBox.innerText = "কোথা বলুন... শুনছি!";
 
             recognition.start();
 
@@ -596,4 +571,25 @@
                     feedbackBox.className = 'feedback-box correct';
                     feedbackBox.innerHTML = `<i class="fas fa-check-circle"></i> <b>দারুণ!</b> সঠিক উচ্চারণ হয়েছে। (${spokenText})`;
                 } else {
-                    feedbackBox.className = 'feedback-box 
+                    feedbackBox.className = 'feedback-box incorrect';
+                    feedbackBox.innerHTML = `
+                        <i class="fas fa-times-circle"></i> <b>ভুল হয়েছে!</b><br>
+                        আপনি বলেছেন: "<i>${spokenText}</i>"<br>
+                        <b>সাজেশন:</b> সঠিকভাবে '<b>${currentWord().de}</b>' বলুন।
+                    `;
+                }
+            };
+
+            recognition.onerror = () => {
+                micBtn.classList.remove('recording');
+                feedbackBox.className = 'feedback-box incorrect';
+                feedbackBox.innerText = "কথা স্পষ্টভাবে বোঝা যায়নি, আবার চেষ্টা করুন।";
+            };
+
+            recognition.onend = () => {
+                micBtn.classList.remove('recording');
+            };
+        }
+
+        function translateWord() {
+            const query = document.ge
